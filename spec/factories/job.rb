@@ -7,6 +7,7 @@ FactoryBot.define do
     state "CO"
     country "United States"
     active true
+    remote ["remote"]
     latitude 40.3977612
     longitude -105.0749801
     max_salary 50000
