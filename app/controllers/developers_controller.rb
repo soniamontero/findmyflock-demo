@@ -54,7 +54,7 @@ class DevelopersController < ApplicationController
 
   def is_profile_complete?
     if current_developer.first_name.nil? || current_developer.last_name.nil? || current_developer.skills_array.empty?
-      redirect_to edit_profile_developers_path, alert: "Please compleate your profile! Make sure to add some skills."
+      redirect_to edit_profile_developers_path, alert: "Please complete your profile! Make sure to add some skills."
     end
   end
 
