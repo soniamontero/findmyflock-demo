@@ -31,6 +31,13 @@ group :development, :test do
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
   gem 'rspec-rails', '~> 3.7'
   gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'factory_bot'
+  gem 'factory_bot_rails'
+  gem 'guard'
+  gem 'guard-rails'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
 end
 
 group :development do
