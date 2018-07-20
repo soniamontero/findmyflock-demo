@@ -20,7 +20,7 @@ class Job < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :check_location, -> (miles, lat, long) {
     if lat.present?
-      geocoded.near([lat, long], miles, units: :mi, :order => nil)
+      geocoded.near([lat, long], miles, units: :mi, order: nil)
     else
       all
     end
