@@ -15,9 +15,9 @@ class Job < ApplicationRecord
   before_validation :geocode
   validate :check_cordinates, on: [:create, :update]
 
-  before_validation :sanitaze_benefits_cultures
+  before_validation :sanitize_benefits_cultures
 
-  scope :active, -> { where(active: true) }
+  scope :active, -> { where(active: true, company: Company.active) }
   scope :check_location, -> (miles, lat, long) {
     if lat.present?
       geocoded.near([lat, long], miles, units: :mi, order: nil)
@@ -48,7 +48,7 @@ class Job < ApplicationRecord
     self.active = false
   end
 
-  def sanitaze_benefits_cultures
+  def sanitize_benefits_cultures
     benefits.reject!(&:empty?)
     cultures.reject!(&:empty?)
   end
