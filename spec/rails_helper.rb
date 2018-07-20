@@ -54,4 +54,19 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.include FactoryBot::Syntax::Methods
+  Geocoder.configure(lookup: :test)
+  Geocoder::Lookup::Test.set_default_stub(
+    [
+      {
+        'coordinates'  => [40.7143528, -74.0059731],
+        'address'      => 'New York, NY, USA',
+        'state'        => 'New York',
+        'state_code'   => 'NY',
+        'country'      => 'United States',
+        'country_code' => 'US'
+      }
+    ]
+  )
 end

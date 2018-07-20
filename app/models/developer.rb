@@ -58,10 +58,6 @@ class Developer < ApplicationRecord
     self.linkedin_url.empty? ? self.linkedin_url = nil : self.linkedin_url = linkedin
   end
 
-  # def first_login
-  #   self.first_login = true
-  # end
-
   def full_name
     first_name.capitalize + " " + last_name.capitalize if first_name && last_name
   end
@@ -74,23 +70,31 @@ class Developer < ApplicationRecord
   end
 
   def matched_job
-    if remote === ["remote"]
-      Job.active.remote_or_office_jobs(remote).match_skills_type(skills_array)
+    jobs = Job.active
+
+    if full_mobility
+      jobs = jobs.remote_or_office_jobs(remote).match_skills_type(skills_array)
     else
-      if full_mobility
-        Job.active.remote_or_office_jobs(remote).match_skills_type(skills_array)
-      else
-        jobs_near_me = Job.active.check_location(mobility, latitude, longitude).remote_or_office_jobs(remote)
-        jobs_remote = Job.active.remote_or_office_jobs(remote).match_skills_type(skills_array)
-        jobs = jobs_near_me.merge(jobs_remote)
-        if need_us_permit
-          jobs.can_sponsor
-        else
-          jobs
-        end
+      remote_jobs = []
+      if remote.include? "remote"
+        remote_jobs = jobs.all_remote.match_skills_type(skills_array)
+        remote_jobs = remote_jobs.match_skills_type(skills_array)
       end
+
+      local_jobs = []
+      if remote.include? "office"
+        local_jobs = jobs.local_office(mobility, latitude, longitude)
+        local_jobs = local_jobs.match_skills_type(skills_array)
+      end
+
+      jobs = remote_jobs + local_jobs
     end
 
+    if need_us_permit
+      jobs.can_sponsor
+    else
+      jobs
+    end
   end
 
 

@@ -19,8 +19,8 @@ class Job < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :check_location, -> (miles, lat, long) {
-    if !lat.nil?
-      geocoded.near([lat,long], miles, :units => :mi, :order => nil)
+    if lat.present?
+      geocoded.near([lat, long], miles, units: :mi, order: nil)
     else
       all
     end
@@ -34,6 +34,11 @@ class Job < ApplicationRecord
   scope :filter_by_employment_type, -> (value) { where("employment_type = ?", value) }
   scope :filter_by_city, -> (array) { where(city: array)}
   scope :order_by_vetted, -> { order(vetted: :desc) }
+
+  scope :local_office, -> (miles, lat, long) {
+    where("'office' = ANY (remote)").check_location(miles, lat, long)
+  }
+  scope :all_remote, -> { where("'remote' = ANY (remote)") }
 
   def location
     [city, zip_code, state, country].compact.join(', ')
