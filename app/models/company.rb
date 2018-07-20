@@ -6,6 +6,13 @@ class Company < ApplicationRecord
 
   validates :name, :url, presence: true, length: { maximum: 500 }
 
+  def self.active
+    vetted = self.where(vetted: true).pluck :id
+    active = self.left_outer_joins(:subscriber).where(subscribers: {status: :active}).pluck :id
+    almost_canceled = self.left_outer_joins(:subscriber).where(subscribers: {status: :canceled, subscription_expires_at: Date.today..10.years.from_now}).pluck :id
+    self.where(id: (vetted + active + almost_canceled).compact)
+  end
+
   def applications
     job_ids = jobs.pluck(:id)
     matches_ids = Match.where(job_id: job_ids).pluck(:id)
