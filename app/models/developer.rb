@@ -58,10 +58,6 @@ class Developer < ApplicationRecord
     self.linkedin_url.empty? ? self.linkedin_url = nil : self.linkedin_url = linkedin
   end
 
-  # def first_login
-  #   self.first_login = true
-  # end
-
   def full_name
     first_name.capitalize + " " + last_name.capitalize if first_name && last_name
   end
@@ -77,14 +73,15 @@ class Developer < ApplicationRecord
     jobs = Job.active
     if remote === ["remote"] || full_mobility
       jobs = jobs.all_remote
+      jobs = jobs.match_skills_type(skills_array)
     elsif remote === ["office"]
       jobs = jobs.local_office(mobility, latitude, longitude)
+      jobs = jobs.match_skills_type(skills_array)
     else
-      # binding.pry
-      jobs = jobs.all_remote.or(jobs.local_office(mobility, latitude, longitude))
+      jobs_near_me = jobs.local_office(mobility, latitude, longitude).match_skills_type(skills_array)
+      jobs_remote = jobs.all_remote.match_skills_type(skills_array)
+      jobs = jobs_near_me + jobs_remote
     end
-
-    jobs = jobs.match_skills_type(skills_array)
 
     if need_us_permit
       jobs.can_sponsor

@@ -25,7 +25,6 @@ class Job < ApplicationRecord
       all
     end
   }
-  scope :remote_or_office_jobs, -> (array) {where("remote <@ ARRAY[?]::text[] OR remote @> ARRAY[?]::text[]", array, array)}
   scope :can_sponsor, -> {where("can_sponsor = true")}
   scope :match_skills_type, -> (array) { where.not(skills_array: []).where("skills_array <@ ARRAY[?]::text[]", array) }
   scope :filter_by_salary, -> (value) {where("max_salary >= ?", value)}
@@ -39,7 +38,6 @@ class Job < ApplicationRecord
     where("'office' = ANY (remote)").check_location(miles, lat, long)
   }
   scope :all_remote, -> { where("'remote' = ANY (remote)") }
-  scope :local_and_remote, -> (miles, lat, long) { all_remote.or(local_office(miles, lat, long)) }
 
   def location
     [city, zip_code, state, country].compact.join(', ')
