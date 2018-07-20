@@ -1,52 +1,46 @@
 <div class="container my-5">
-  <div class="row justify-content-md-center">
-    <div class="col col-md-8">
+  <div class="row justify-content-lg-center">
+    <div class="col-12 col-lg-8">
       <div class="card">
         <div class="card-body">
           <h4 class="text-center mb-5">Manage my subscription</h4>
-          <% if !@company.subscriber.nil?  %>
-
-            <div class="d-flex justify-content-start text-left">
-              <div class="mr-5">
+          <% if @company.subscriber.present? %>
+            <div class="row">
+              <div class="col-6 col-md-3">
                 <h6>Current Plan:</h6>
-                <p><%= @company.subscriber.plan.name %></p>
+                <p><%= @company.plan_name %></p>
               </div>
-              <div>
+              <div class="col-6 col-md-3">
                 <h6>Status:</h6>
-                <h5><span class="badge badge-pill <%=  (!@company.subscriber.nil? && @company.subscriber.active?) ? "badge-success" : "badge-warning" %>"><%= @company.subscriber.status if !@company.subscriber.nil? %></span></h5>
+                <h5><span class="badge badge-pill <%= @company.subscriber.active? ? "badge-success" : "badge-warning" %>"><%= @company.subscriber.status %></span></h5>
               </div>
-            </div>
-
-            <div class="d-flex justify-content-start text-left mt-3">
-              <div class="mr-5">
+              <div class="col-6 col-md-3">
                 <h6>Subscribed On:</h6>
                 <p><%= @company.subscriber.created_at.to_time.strftime('%B %e %Y') %></p>
               </div>
-              <% if !@company.subscriber.subscription_expires_at.nil? %>
-                <div>
-                  <h6>Next Bill Expected On | Active until:</h6>
-                  <p><%= @company.subscriber.subscription_expires_at.to_time.strftime('%B %e %Y') %></p>
+              <% if @company.subscription_expires_at.present? %>
+                <div class="col-6 col-md-3">
+                  <h6><%= @company.canceled? ? 'Active Until' : 'Next Bill On' %>:</h6>
+                  <p><%= @company.subscription_expires_at.to_time.strftime('%B %e %Y') %></p>
                 </div>
               <% end %>
             </div>
 
-            <br>
-
             <% if @company.is_member? %>
-              <h6>Do you want to upgrade your plan?</h6>
-              <p class="text-muted">Please send us an email with the membership you would like to upgrade to and we will be happy to change your plan within 24 hours.</p>
-              <a href="mailto:info@findmyflock.com" class="btn btn-outline-primary">Contact us</a>
+              <div class="my-4">
+                <h6>Do you want to upgrade your plan?</h6>
+                <p class="text-muted">Please send us an email with the membership you would like to upgrade to and we will be happy to change your plan within 24 hours.</p>
+                <a href="mailto:info@findmyflock.com" class="btn btn-outline-primary">Contact us</a>
+              </div>
             <% end %>
 
-            <br>
-            <br>
-
-            <% if !@company.subscriber.canceled? %>
-              <h6>Do you want to cancel your subscription with FindMyFlock?</h6>
-              <p class="text-muted">You will continue to have access to the Find My Flock platform and resources until your monthly subscription expires.</p>
-              <%= link_to 'Cancel my subscription', subscriber_path(@company.subscriber), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-warning" %>
+            <% if @company.active? %>
+              <div class="my-4">
+                <h6>Do you want to cancel your subscription with FindMyFlock?</h6>
+                <p class="text-muted">You will continue to have access to the Find My Flock platform and resources until your monthly subscription expires.</p>
+                <%= link_to 'Cancel my subscription', subscriber_path(@company.subscriber), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-warning" %>
+              </div>
             <% end %>
-
           <% end %>
         </div>
       </div>

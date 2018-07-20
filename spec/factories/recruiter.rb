@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :recruiter do
     email { Faker::Internet.email }
-    password 'Password2'
+    password 'Password1'
     company
   end
 end
