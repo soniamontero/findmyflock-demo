@@ -16,7 +16,7 @@ jobs:
         environment:
           POSTGRES_DB: findmyflock_test
 
-    working_directory: ~/www
+    working_directory: ~/findmyflock/www
 
     steps:
       - checkout
