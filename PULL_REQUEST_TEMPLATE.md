@@ -12,6 +12,7 @@
 - [ ] Has wiki been updated to reflect any changes to data structures or specifications
 - [ ] This has been tested for responsiveness on (landscape/portrait, mobile, iphone X, tablet, desktop, retina, ie11, edge, firefox, chrome).
 - [ ] Does this PR have any migrations?
+- [ ] Appropriate tests have been written
 
 # Notice of secondary effects:
 *remove if not applicable*
