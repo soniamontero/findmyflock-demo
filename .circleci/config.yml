@@ -8,7 +8,10 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/ruby:2.4.3-node-browsers
-
+        environment:
+          RAILS_ENV: test
+          BUNDLE_PATH: vendor/bundle
+          PGUSER: root
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -36,15 +39,12 @@ jobs:
 
       - save_cache:
           paths:
-            - ./vendor/bundle
+            - vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Database setup
       - run:
           command: bundle exec rake db:create db:schema:load
-          environment:
-            RAILS_ENV: test
-            RACK_ENV: test
 
       # run tests!
       - run:
