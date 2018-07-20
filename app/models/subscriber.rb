@@ -4,7 +4,7 @@ class Subscriber < ActiveRecord::Base
 
   enum status: [ :trialing, :active, :past_due, :canceled, :unpaid ]
 
-  def save_and_make_payment(email, plan, card_token, billing_address, cupon_code)
+  def save_and_make_payment(email, plan, card_token, billing_address, coupon_code)
     self.plan = plan
     if valid?
       begin
@@ -20,10 +20,11 @@ class Subscriber < ActiveRecord::Base
         subscription = Stripe::Subscription.create({
           customer: customer.id,
           items: [{ plan: plan.stripe_id }],
-          coupon: cupon_code
+          coupon: coupon_code
         })
         self.stripe_subscription_id = subscription.id
         self.stripe_customer_id = customer.id
+        self.status = :active
         save
       rescue Stripe::CardError => e
         errors.add :credit_card, e.message
@@ -33,6 +34,4 @@ class Subscriber < ActiveRecord::Base
       false
     end
   end
-
-
 end
