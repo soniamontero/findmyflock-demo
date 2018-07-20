@@ -30,17 +30,21 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "Gemfile.lock" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - v1-dependencies-{{ checksum "package.json" }}
 
       - run:
           name: install dependencies
           command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle check || bundle install
+            yarn install
 
       - save_cache:
           paths:
             - vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - ./node_modules
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-{{ checksum "package.json" }}
 
       # Database setup
       - run:
