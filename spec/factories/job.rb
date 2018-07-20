@@ -23,7 +23,7 @@ FactoryBot.define do
       "Mountain Within 60 Minutes"]
     cultures ["Cubicles", "No cubicles", "ping pong", "Game Nights"]
     can_sponsor false
-    company
+    association :company, :active
 
     trait :remote do
       remote ["remote"]

@@ -17,7 +17,7 @@ class Job < ApplicationRecord
 
   before_validation :sanitize_benefits_cultures
 
-  scope :active, -> { where(active: true) }
+  scope :active, -> { where(active: true, company: Company.active) }
   scope :check_location, -> (miles, lat, long) {
     if lat.present?
       geocoded.near([lat, long], miles, units: :mi, order: nil)
