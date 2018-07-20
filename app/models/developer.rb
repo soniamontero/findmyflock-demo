@@ -71,19 +71,23 @@ class Developer < ApplicationRecord
 
   def matched_job
     jobs = Job.active
-    if remote === ["remote"]
-      jobs = jobs.all_remote.match_skills_type(skills_array)
-    elsif remote === ["office"] && full_mobility
+
+    if full_mobility
       jobs = jobs.remote_or_office_jobs(remote).match_skills_type(skills_array)
-    elsif full_mobility
-      jobs = jobs.match_skills_type(skills_array)
-    elsif remote === ["office"]
-      jobs_near_me = jobs.local_office(mobility, latitude, longitude)
-      jobs = jobs_near_me.match_skills_type(skills_array)
     else
-      jobs_near_me = jobs.local_office(mobility, latitude, longitude).match_skills_type(skills_array)
-      jobs_remote = jobs.all_remote.match_skills_type(skills_array)
-      jobs = jobs_near_me + jobs_remote
+      remote_jobs = []
+      if remote.include? "remote"
+        remote_jobs = jobs.all_remote.match_skills_type(skills_array)
+        remote_jobs = remote_jobs.match_skills_type(skills_array)
+      end
+
+      local_jobs = []
+      if remote.include? "office"
+        local_jobs = jobs.local_office(mobility, latitude, longitude)
+        local_jobs = local_jobs.match_skills_type(skills_array)
+      end
+
+      jobs = remote_jobs + local_jobs
     end
 
     if need_us_permit
