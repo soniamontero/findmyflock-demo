@@ -8,10 +8,10 @@ class SubscribersController < ApplicationController
   end
 
   def create
-		cupon_code = !params[:cupon_code].empty? ? get_id_cupon(params[:cupon_code]) : ""
+		coupon_code = !params[:coupon_code].empty? ? get_id_coupon(params[:coupon_code]) : ""
 		@subscriber = Subscriber.new(company: @company)
 
-		if cupon_code.nil?
+		if coupon_code.nil?
 			flash[:alert] = "Invalid coupon!"
 			return render :new
 		end
@@ -22,7 +22,7 @@ class SubscribersController < ApplicationController
 
     billing_address = { line1: params[:address_line1], city: params[:address_city], state: params[:address_country], country: params[:address_state], postal_code: params[:address_zip] }
 
-    if @subscriber.save_and_make_payment(current_recruiter.email, plan, stripe_token, billing_address, cupon_code)
+    if @subscriber.save_and_make_payment(current_recruiter.email, plan, stripe_token, billing_address, coupon_code)
        redirect_to dashboard_companies_path, notice: "Thanks for becoming a member of Find My Flock."
     else
       render :new
@@ -55,7 +55,7 @@ class SubscribersController < ApplicationController
     'LIConnections' => 'li-connections'
   }
 
-  def get_id_cupon(code)
+  def get_id_coupon(code)
     # Normalize user input
     code = code.gsub(/\s+/, '')
     code = code.upcase

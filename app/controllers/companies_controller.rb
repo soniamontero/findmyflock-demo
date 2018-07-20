@@ -12,7 +12,6 @@ class CompaniesController < ApplicationController
 
   def create
     @company = Company.new(company_params)
-    #Set company to recruiter after creation
     set_company_to_main_recruiter
 
     respond_to do |format|

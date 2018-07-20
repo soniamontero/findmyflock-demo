@@ -4,12 +4,13 @@ class JobsController < ApplicationController
   before_action :authorize_action, only: [:edit, :update, :skills, :benefits]
 
   def new
-    redirect_to new_subscriber_path if !current_recruiter.company.is_allowed_member
+    redirect_to new_subscriber_path unless current_recruiter.company.can_add_job?
     @job = Job.new
   end
 
   def create
     @job = Job.new(job_params)
+    @job.active = false unless current_recruiter.company.can_add_job?
     @job.company = current_recruiter.company
     @job.toggle_to_vetted
     step = params[:job][:navigate_to]
@@ -30,6 +31,9 @@ class JobsController < ApplicationController
     step = params[:job][:navigate_to]
 
     respond_to do |format|
+      if activating_job and not current_recruiter.company.can_add_job?
+        return redirect_to new_subscriber_path
+      end
       if @job.update(job_params)
         if step == "benefits"
           format.html { redirect_to benefits_job_path(@job) }
@@ -61,5 +65,9 @@ class JobsController < ApplicationController
 
   def job_params
     params.require(:job).permit(:title, :description, :city, :zip_code, :state, :country, :max_salary, :employment_type, :can_sponsor, :active, remote:[], benefits:[], cultures:[])
+  end
+
+  def activating_job
+    job_params[:active] and not @job.active
   end
 end
