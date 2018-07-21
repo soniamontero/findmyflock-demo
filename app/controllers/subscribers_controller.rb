@@ -30,11 +30,10 @@ class SubscribersController < ApplicationController
   end
 
   def destroy
-    @subscriber = Subscriber.find(params[:id])
+    @subscriber = Subscriber.find params[:id]
     if @subscriber.active?
-      sub = Stripe::Subscription.retrieve(@subscriber.stripe_subscription_id)
       begin
-        sub.delete
+        @subscriber.cancel!
         flash[:notice] = "Your subscription was canceled. You will still a member until the next billing period."
       rescue => e
         flash[:alert] = "Oops! An error has occurred. Please contant the support team at info@findmyflock.com."
@@ -43,11 +42,11 @@ class SubscribersController < ApplicationController
     end
   end
 
+  private
+
   def set_company
     @company = current_recruiter.company
   end
-
-	private
 
 	COUPONS = {
     'FMF1' => 'fmf-1',
@@ -61,6 +60,4 @@ class SubscribersController < ApplicationController
     code = code.upcase
     COUPONS[code]
   end
-
-
 end

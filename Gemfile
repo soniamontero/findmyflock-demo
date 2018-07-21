@@ -54,6 +54,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'launchy'
+  gem 'stripe-ruby-mock', '~> 2.5.4', :require => 'stripe_mock'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

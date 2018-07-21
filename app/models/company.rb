@@ -6,6 +6,9 @@ class Company < ApplicationRecord
 
   validates :name, :url, presence: true, length: { maximum: 500 }
 
+  delegate :active?, :canceled?, :subscription_expires_at, :plan_name,
+    to: :subscriber, allow_nil: true
+
   def self.active
     vetted = self.where(vetted: true).pluck :id
     active = self.left_outer_joins(:subscriber).where(subscribers: {status: :active}).pluck :id
@@ -24,11 +27,7 @@ class Company < ApplicationRecord
   end
 
   def is_active?
-    vetted? or (subscriber.present? and (
-      subscriber.active? || (
-        subscriber.canceled? && subscriber.subscription_expires_at >= Date.today
-      )
-    ))
+    vetted? or (active? or (canceled? and subscription_expires_at >= Date.today))
   end
 
   def max_active_jobs

@@ -9,15 +9,9 @@ feature "Developer dashboard" do
   let!(:inactive_company) { create :company }
   let!(:inactive_job) { create :job, :remote, company_id: inactive_company.id }
 
-  before do
-    visit new_developer_session_path
-    fill_in 'Email', with: developer.email
-    fill_in 'Password', with: developer.password
-    click_on 'Log in'
-  end
+  before {sign_in developer }
 
   scenario "does not see jobs for inactive companies" do
-    expect(inactive_company.is_active?).to be false
     expect(page).to have_content active_job.title
     expect(page).to_not have_content inactive_job.title
   end
