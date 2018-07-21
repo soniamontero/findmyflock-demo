@@ -1,8 +1,13 @@
 module FeatureHelpers
   def sign_in user=nil, password="Password1"
-    visit recruiter_session_path
-    fill_in 'recruiter_email', with: user.email
-    fill_in 'recruiter_password', with: password
+    if user.is_a? Developer
+      visit new_developer_session_path
+    else
+      visit recruiter_session_path
+    end
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: password
     within 'form' do
       click_on 'Log in'
     end

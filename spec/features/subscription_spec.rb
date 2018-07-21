@@ -29,6 +29,7 @@ feature 'Subscriptions' do
     expect(stripe_subscription.cancel_at_period_end).to be true
 
     expect(page).to have_content "Status:\ncanceled"
-    expect(page).to have_content "Active Until:\n#{Time.at(stripe_subscription.current_period_end).strftime('%B %e %Y')}"
+    canceled_time = Time.at(stripe_subscription.current_period_end)
+    expect(page).to have_content "Active Until:\n#{canceled_time.in_time_zone.strftime('%B %e %Y')}"
   end
 end
