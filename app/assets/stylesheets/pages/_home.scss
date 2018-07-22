@@ -10,7 +10,6 @@
 .section-02-sub {
   margin-left: 10vh;
   margin-right: 10vh;
-  padding-bottom: 10vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -62,8 +61,32 @@
   }
 }
 
-.section-6-background {
 
+.section-07-background {
+    background-color: #79b3bf;
+}
+
+.section-07 {
+  margin: 10px auto;
+  padding: 28px;
+}
+
+.vetted-jobs-arguments {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.vetted-jobs-argument {
+  max-width: 350px;
+  padding: 20px;
+  text-align: justify;
+  color: gray;
+  background-color: white;
+  margin: 15px;
+  border-radius: 5px;
+  box-shadow: 2px 3px 45px -12px #001215;
 }
 
 .benefit-title {
