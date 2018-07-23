@@ -16,7 +16,7 @@
         <% if (!@applications_sent.nil? && @applications_sent >= 5) %>
 
           <p class="alert pt-3 pb-3" role="alert" style="color: gray;">
-            <i class="fas fa-exclamation-triangle fa-2x fa-pull-left fa-border"></i> You have reached the maximum number of applications per day <br/ >(5 per day).
+            <i class="fas fa-exclamation-triangle fa-2x fa-pull-left fa-border"></i> Sorry! You can only apply to 5 jobs per day. Next time try using our excellent filters to find which ones are the BEST fit for you.
           </p>
         <% else %>
         <%= simple_form_for([@job, @application]) do |f| %>
@@ -46,8 +46,9 @@
 
           <div class="applied-message">
             <h5 class="h6 centered">Congratulations!</h5>
-            <p>Your application has beeing sent and will be reviewed by the recruiters at <%= @job.company.name %>.</p>
-            <p>At this time, you can check your application status on your dashboard under the “Applications” tab.</p>
+            <p>Your application has been sent and will be reviewed by the recruiters at <%= @job.company.name %>.</p>
+            <p>You can check your application status on your dashboard under the “Applications” tab. We will send you an email when your app is opened, and if the recruiter wants to chat or decides they don't.</p>
+            <p>Thanks for choosing to use a site that reinvests in the tech community! Tell your friends!</p>
           </div>
 
        <% end %>
