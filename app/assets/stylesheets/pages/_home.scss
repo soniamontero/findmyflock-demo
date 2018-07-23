@@ -187,6 +187,10 @@
   opacity: .5;
 }
 
+#down-blue-arrow:hover {
+  cursor: grab;
+}
+
 #down-blue-arrow span {
   position: absolute;
   top: 0;
