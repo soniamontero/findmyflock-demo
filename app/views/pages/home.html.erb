@@ -28,7 +28,7 @@
 
 
 
-<div class="section-02">
+<div class="section-02 pb-5">
 
   <h3 class="centered blue-text pb-5">The easiest way to find your dream job</h3>
 
@@ -78,6 +78,38 @@
   </div>
 </div>
 </div>
+
+<div class="section-07-background">
+  <div class="banner" style="background-image: url('<%= image_path 'section7-background.png', crop: :fill; %>'); background-size: cover ; background-position: center center;">
+    <div class="section-07 pb-5">
+      <h3 class="centered blue-text pt-3 pb-4" style="color: white;">Our Vetted Jobs <%= image_tag "checked.png", class: "icon-resized" %></h3>
+      <p class="centered mx-auto" style="max-width: 700px; color: white;">Our Vetted Jobs offer a unique opportunity to gain insight into what it’s like to work at a company before you even step foot into an interview. You can apply with the confidence that a company meets a high standard for benefits, salary and company culture. </p>
+
+      <h5 class="centered pt-4 pb-2" style="color: white;">What you’ll get with a Vetted Job:</h5>
+      <div class="vetted-jobs-arguments">
+        <div class="vetted-jobs-argument">
+          <h5 class="centered pb-2 blue-text">STANDARDS</h5>
+          <p>Our Vetted jobs have been carefully reviewed by the FMF team to ensure they meet the following standards:
+            <li>A diversity and inclusion mindset amongst company leaders</li>
+            <li>A supportive team culture</li>
+            <li>Members of the current team would recommend this job to a friend.</li>
+          </p>
+
+        </div>
+
+        <div class="vetted-jobs-argument">
+          <h5 class="centered pb-2 blue-text">SERVICES</h5>
+          <p>Additional perks of FMF’s Vetted Jobs include:
+            <li>One-on-one interview coaching when you apply for a Vetted Job and are chosen for an interview.</li>
+            <li>Listings that include descriptions about what it’s like to work with this team and quotes from members of the team.</li>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <div class="section-3-background">
   <div class="section-03">
@@ -153,10 +185,178 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
+
+<!-- Beginning of Section 5 - Companies -->
+
+<div class="section-5-background">
+  <h3 class="centered blue-text">Get Hired at Companies Like…</h3>
+  <div class="section-5">
+
+    <div class="row centered justify-content-center" style="display:flex; align-items: center;">
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo" id="resized-khanacademy">
+        <%=image_tag("khan_academy_jobs.png")%>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo" id="resized-khanacademy">
+        <%=image_tag("amazon-jobs.png")%>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
+        <%=image_tag("digital_ocean_jobs.png")%>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
+        <%=image_tag("gusto_jobs.jpg")%>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
+        <%=image_tag("healthgrades_jobs.png")%>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
+        <%=image_tag("rover_jobs.png")%>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo" id="resized-automattic">
+        <%=image_tag("automattic_jobs.png")%>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
+        <%=image_tag("sendgrid_jobs.png")%>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DESIGN 1: Beginning of Section 6 - Benefits and values of the company -->
+
+<div class="section-6-background">
+  <div class="banner" style="background-image: linear-gradient(-225deg, rgba(48, 57, 63, 0.8) 0%, rgba(48, 57, 63, 0.8) 80%), url('<%= image_path 'background-section6.jpg', crop: :fill; %>'); background-size: cover ; background-position: center center; padding-bottom: 12vh; padding-top: 12vh;">
+
+    <div class="section-6">
+      <h4 class="centered" style="color: white;">Benefits and company culture</h4>
+      <h5 class="centered" style="color: white; font-weight: lighter;">Our search paramaters include:</h5>
+    </br>
+  </br>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner" style="color: white;">
+
+      <div class="carousel-item active">
+        <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
+          <div class="header-text">
+            <div class="col-md-12 text-center">
+              <div class="small-icon-resized d-inline-flex">
+                <%=image_tag("heart.png") %>
+                <h5 style="margin-top: 4px">Health</h5>
+              </div>
+              <br>
+              <div class="small-text benefits-list" style="list-style-type: none;">
+                <li>100% Covered Health Insurance</li>
+                <li>80% Covered Health Insurance</li>
+                <li>Vision Insurance</li>
+                <li>Dental Insurance</li>
+                <li>Trans-inclusive Healthcare</li>
+              </div>
+              <br>
+            </div>
+          </div><!-- /header-text -->
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
+          <div class="header-text">
+            <div class="col-md-12 text-center">
+              <div class="small-icon-resized d-inline-flex">
+                <%=image_tag("family.png") %>
+                <h5 style="margin-top: 4px">Family & Retirement</h5>
+              </div>
+              <br>
+              <div class="small-text benefits-list" style="list-style-type: none;">
+                <li>401(k) Matching</li>
+                <li>401(k)</li>
+                <li>Life Insurance</li>
+                <li>90+ Days Parental Leave</li>
+                <li>60+ Days Parental Leave</li>
+              </div>
+              <br>
+            </div>
+          </div><!-- /header-text -->
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
+          <div class="header-text">
+            <div class="col-md-12 text-center">
+              <div class="small-icon-resized d-inline-flex">
+                <%=image_tag("vacation.png") %>
+                <h5 style="margin-top: 4px">Vacation</h5>
+              </div>
+              <br>
+              <div class="small-text benefits-list" style="list-style-type: none;">
+                <li>Unlimited Vacation</li>
+                <li>Remote</li>
+                <li>Flexible Hours</li>
+                <li>Beach Within 60 Minutes</li>
+                <li>Mountain Within 60 Minutes</li>
+              </div>
+              <br>
+            </div>
+          </div><!-- /header-text -->
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
+          <div class="header-text">
+            <div class="col-md-12 text-center">
+              <div class="small-icon-resized d-inline-flex">
+                <%=image_tag("office.png") %>
+                <h5 style="margin-top: 4px">Other</h5>
+              </div>
+              <br>
+              <div class="small-text benefits-list" style="list-style-type: none;">
+                <li>Office Dogs</li>
+                <li>Lunch provided</li>
+                <li>Professional Development Budget</li>
+                <li>Environmental Mission</li>
+                <li>Social Mission</li>
+              </div>
+              <br>
+            </div>
+          </div><!-- /header-text -->
+        </div>
+      </div>
+
+
+
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Section 4: Testimonials -->
 
   <div class="section-04">
 
@@ -242,263 +442,3 @@
 
   </div>
 </div>
-
-<!-- DESIGN 1: Beginning of Section 6 - Benefits and values of the company -->
-
-<div class="section-6-background">
-  <div class="banner" style="background-image: linear-gradient(-225deg, rgba(48, 57, 63, 0.8) 0%, rgba(48, 57, 63, 0.8) 80%), url('<%= image_path 'background-section6.jpg', crop: :fill; %>'); background-size: cover ; background-position: center center; padding-bottom: 12vh; padding-top: 12vh;">
-
-    <div class="section-6">
-      <h4 class="centered" style="color: white;">Benefits and company culture</h4>
-      <h5 class="centered" style="color: white; font-weight: lighter;">Our search paramaters include:</h5>
-    </br>
-    </br>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-      </ol>
-      <div class="carousel-inner" style="color: white;">
-
-        <div class="carousel-item active">
-          <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
-            <div class="header-text">
-              <div class="col-md-12 text-center">
-                <div class="small-icon-resized d-inline-flex">
-                  <%=image_tag("heart.png") %>
-                  <h5 style="margin-top: 4px">Health</h5>
-                </div>
-                <br>
-                <div class="small-text benefits-list" style="list-style-type: none;">
-                  <li>100% Covered Health Insurance</li>
-                  <li>80% Covered Health Insurance</li>
-                  <li>Vision Insurance</li>
-                  <li>Dental Insurance</li>
-                  <li>Trans-inclusive Healthcare</li>
-                </div>
-                <br>
-              </div>
-            </div><!-- /header-text -->
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
-            <div class="header-text">
-              <div class="col-md-12 text-center">
-                <div class="small-icon-resized d-inline-flex">
-                  <%=image_tag("family.png") %>
-                  <h5 style="margin-top: 4px">Family & Retirement</h5>
-                </div>
-                <br>
-                <div class="small-text benefits-list" style="list-style-type: none;">
-                  <li>401(k) Matching</li>
-                  <li>401(k)</li>
-                  <li>Life Insurance</li>
-                  <li>90+ Days Parental Leave</li>
-                  <li>60+ Days Parental Leave</li>
-                </div>
-                <br>
-              </div>
-            </div><!-- /header-text -->
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
-            <div class="header-text">
-              <div class="col-md-12 text-center">
-                <div class="small-icon-resized d-inline-flex">
-                  <%=image_tag("vacation.png") %>
-                  <h5 style="margin-top: 4px">Vacation</h5>
-                </div>
-                <br>
-                <div class="small-text benefits-list" style="list-style-type: none;">
-                  <li>Unlimited Vacation</li>
-                  <li>Remote</li>
-                  <li>Flexible Hours</li>
-                  <li>Beach Within 60 Minutes</li>
-                  <li>Mountain Within 60 Minutes</li>
-                </div>
-                <br>
-              </div>
-            </div><!-- /header-text -->
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div class="d-flex w-100 justify-content-center" style="min-height: 270px" alt="First slide">
-            <div class="header-text">
-              <div class="col-md-12 text-center">
-                <div class="small-icon-resized d-inline-flex">
-                  <%=image_tag("office.png") %>
-                  <h5 style="margin-top: 4px">Other</h5>
-                </div>
-                <br>
-                <div class="small-text benefits-list" style="list-style-type: none;">
-                  <li>Office Dogs</li>
-                  <li>Lunch provided</li>
-                  <li>Professional Development Budget</li>
-                  <li>Environmental Mission</li>
-                  <li>Social Mission</li>
-                </div>
-                <br>
-              </div>
-            </div><!-- /header-text -->
-          </div>
-        </div>
-
-
-
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-  </div>
-<!--                 <div class="benefits-section">
-                  <div class="row mx-auto">
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-
-                      <div class="small-icon-resized benefit-title">
-                        <div class="mr-3"><%=image_tag("health.png") %></div>
-                        <div><h6>Health</h6></div>
-                      </div>
-                      <div class="small-text benefits-list" style="list-style-type: none;">
-                        <li>100% Covered Health Insurance</li>
-                        <li>Vision Insurance</li>
-                        <li>Dental Insurance</li>
-                        <li>Trans-inclusive Healthcare</li>
-                      </div>
-
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-
-                      <div class="small-icon-resized benefit-title">
-                        <div class="mr-3"><%=image_tag("retirement.png")%></div>
-                        <div><h6>Retirement</h6></div>
-                      </div>
-                      <div class="small-text" style="list-style-type: none;">
-                        <li>401(k) Matching</li>
-                        <li>401(k)</li>
-                      </div>
-
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-
-                      <div class="small-icon-resized benefit-title">
-                        <div class="mr-3"><%=image_tag("vacation.png")%></div>
-                        <div><h6>Vacation</h6></div>
-
-                      </div>
-                      <div class="small-text" style="list-style-type: none;">
-                        <li>Unlimited Vacation</li>
-                        <li>Remote</li>
-                        <li>Flexible Hours</li>
-                        <li>Beach Within 60 Minutes</li>
-                        <li>Mountain Within 60 Minutes</li>
-                      </div>
-                    </div>
-
-
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-
-                      <div class="small-icon-resized benefit-title">
-                        <div class="mr-3"><%=image_tag("family.png")%></div>
-
-                        <div><h6>Family</h6></div>
-                      </div>
-                      <div class="small-text" style="list-style-type: none;">
-                        <li>Life Insurance</li>
-                        <li>90+ Days Parental Leave</li>
-                        <li>60+ Days Parental Leave</li>
-                      </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-
-                      <div class="small-icon-resized benefit-title">
-                        <div class="mr-3"><%=image_tag("office.png")%></div>
-                        <div><h6>Office</h6></div>
-                      </div>
-                      <div class="small-text" style="list-style-type: none;">
-                        <li>Office Dogs</li>
-                        <li>Lunch provided</li>
-                      </div>
-
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-
-                      <div class="small-icon-resized benefit-title">
-                        <div class="mr-3"><%=image_tag("eye.png")%></div>
-
-                        <div><h6>Other</h6></div>
-                      </div>
-                      <div class="small-text" style="list-style-type: none;">
-                        <li>Professional Development Budget</li>
-                        <li>Equity</li>
-                        <li>Environmental Mission</li>
-                        <li>Social Mission</li>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-              </div>
-
-            </div>
-
-            <!-- Beginning of Section 5 - Companies -->
-
-            <div class="section-5-background">
-              <h4 class="centered blue-text">Recruiting Companies</h4>
-              <div class="section-5">
-
-                <div class="row centered justify-content-center" style="display:flex; align-items: center;">
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo" id="resized-khanacademy">
-                    <%=image_tag("khan_academy_jobs.png")%>
-                  </div>
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
-                    <%=image_tag("digital_ocean_jobs.png")%>
-                  </div>
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
-                    <%=image_tag("gusto_jobs.jpg")%>
-                  </div>
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
-                    <%=image_tag("healthgrades_jobs.png")%>
-                  </div>
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
-                    <%=image_tag("rover_jobs.png")%>
-                  </div>
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo" id="resized-automattic">
-                    <%=image_tag("automattic_jobs.png")%>
-                  </div>
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
-                    <%=image_tag("sendgrid_jobs.png")%>
-                  </div>
-
-
-                  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 resized-logo">
-                    <%=image_tag("zayo_jobs.png")%>
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
