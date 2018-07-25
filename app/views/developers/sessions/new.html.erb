@@ -4,7 +4,8 @@
       <div class="text-center">
         <%= render "developers/shared/tab_nav" %>
         <div class="login-form">
-          <h4 class="centered mt-5 mb-5">Log in to your account</h4>
+          <h4 class="centered mt-5 mb-4">Log in to your <strong>developer</strong> account</h4>
+          <p class="mb-4">Are you a recruiter? <%= link_to "Log in here", new_recruiter_session_path %></p>
 
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.input :email, required: false, autofocus: true, placeholder: 'Email', label: false %>
