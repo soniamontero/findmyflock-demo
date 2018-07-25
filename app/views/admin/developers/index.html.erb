@@ -14,7 +14,7 @@
   </thead>
 
   <tbody>
-    <% @developers.sort_by(&:created_at).each do |developer| %>
+    <% @developers.sort_by(&:created_at).reverse.each do |developer| %>
       <tr>
         <td><%= developer.created_at %></td>
         <td><%= link_to developer.full_name, admin_developer_path(developer) %></td>
