@@ -36,7 +36,7 @@ jobs:
           name: install dependencies
           command: |
             bundle check || bundle install
-            chromedriver-update 2.40
+            chromedriver-update 2.36
 
       - save_cache:
           paths:
