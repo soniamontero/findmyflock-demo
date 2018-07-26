@@ -34,7 +34,9 @@ jobs:
 
       - run:
           name: install dependencies
-          command: bundle check || bundle install --without development
+          command: |
+            bundle check || bundle install
+            chromedriver-update 2.4
 
       - save_cache:
           paths:
