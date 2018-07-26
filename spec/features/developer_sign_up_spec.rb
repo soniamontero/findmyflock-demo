@@ -16,7 +16,9 @@ feature 'Developer sign up' do
 
   context 'creates a profile' do
     let!(:new_developer) { create :developer}
-    let!(:developer_with_skills) { create :developer, sign_in_count: 2, skills_array: ["Rails/1"] }
+    let!(:developer) { create :developer, sign_in_count: 2 }
+    let!(:rails_competence) { create :competence, value: "Rails" }
+    let!(:competencies) { create_list :competence, 5 }
 
     scenario 'cannot continue without office or remote checked' do
       sign_in new_developer
@@ -42,17 +44,27 @@ feature 'Developer sign up' do
       expect(current_path).to eq add_skills_developers_path
     end
 
-    scenario 'with all required info redirects to dashboard' do
-      sign_in developer_with_skills
-      expect(page).to have_content "Edit your dev profile"
+    scenario 'with all required info redirects to dashboard', js: true do
+      sign_in developer
+      expect(current_path).to eq edit_profile_developers_path
       fill_in 'First name', with: 'Susie'
       fill_in 'Last name', with: 'Jones'
-      check 'developer_remote_remote'
+      find('[for=developer_remote_remote]', visible: false).click
       click_on 'Continue'
       expect(current_path).to eq add_skills_developers_path
-      # the skills form is a React component and will be tested separately
+
+      fill_in 'Select a skill...', with: "Rails"
+      find('.dropdown-item', match: :first).click
+      # unable to select different levels within the test
+      click_on "Add to your skills"
+
+      fill_in 'Select a skill...', with: competencies.first.value
+      find('.dropdown-item', match: :first).click
+      click_on "Add to your skills"
+
       click_on "Continue to your dashboard"
-      expect(page).to have_content "Matched Jobs"
+      expect(page).to have_content /Matched Jobs/i
+      expect(developer.reload.skills_array).to match_array ["Rails/1", "#{competencies.first.value}/1"]
     end
   end
 end

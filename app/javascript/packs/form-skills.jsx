@@ -2,6 +2,24 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import {Typeahead} from 'react-bootstrap-typeahead'
 
+
+const RangeLevel = ({level}) => {
+  switch (`${level}`) {
+  case "1":
+    return <div><h5>Familiarity</h5><p>Needs mentorship</p><p>Generally 0-1 years of professional experience</p></div>;
+  case "2":
+    return <div><h5>Gaining Competency</h5><p>Occasionally needs mentorship</p><p>Generally 1-3 years of professional experience</p></div>;
+  case "3":
+    return <div><h5>Individual Competency</h5><p>No longer needs daily mentorship</p><p>Generally 3-5 years of professional experience</p></div>;
+  case "4":
+    return <div><h5>Strong Competency</h5><p>Could mentor others</p><p>5+ years of professional experience</p></div>;
+  case "5":
+    return <div><h5>Leadership</h5><p>Has lead or managed a team in this subject</p><p>Expert competency</p></div>;
+  default:
+    return null;
+  }
+}
+
 class FormSkill extends Component {
 
   constructor(props) {
@@ -13,13 +31,6 @@ class FormSkill extends Component {
       selectedValue: [],
       valuesLevels: ["1", "2", "3", "4", "5"],
       error: "",
-      rangeLevels: {
-        "1": "<h5>Familiarity</h5><p>Needs mentorship</p><p>Generally 0-1 years of professional experience</p>",
-        "2": "<h5>Gaining Competency</h5><p>Occasionally needs mentorship</p><p>Generally 1-3 years of professional experience</p>",
-        "3": "<h5>Individual Competency</h5><p>No longer needs daily mentorship</p><p>Generally 3-5 years of professional experience</p>",
-        "4": "<h5>Strong Competency</h5><p>Could mentor others</p><p>5+ years of professional experience</p>",
-        "5": "<h5>Leadership</h5><p>Has lead or managed a team in this subject</p><p>Expert competency</p>"
-      }
     }
   }
 
@@ -56,7 +67,6 @@ class FormSkill extends Component {
 
   }
 
-
   postSkill = (skill) => {
     fetch(`/api/${this.props.resource}/${this.props.id}/skills`,{
       method: 'POST',
@@ -70,13 +80,11 @@ class FormSkill extends Component {
     .catch(error => console.log(error));
   }
 
-
   newListCompetences = (value) => {
     return this.state.competences.filter(function( obj ) {
         return obj.value !== value;
     })
   }
-
 
   onSelectSkill = (val) => {
     if(!val.length) return;
@@ -104,12 +112,11 @@ class FormSkill extends Component {
   }
 
   onChangeLevel = (e) => {
-    console.log("triggered!", e.target.value)
     this.setState({skillLevel: e.target.value});
   }
 
   render() {
-    const { error, skills, competences, skillLevel, selectedSkill, selectedValue, valuesLevels, rangeLevels} = this.state;
+    const { error, skills, competences, skillLevel, selectedSkill, selectedValue, valuesLevels} = this.state;
 
     const listOfSkills = skills.map((el, i) => (
       <div className="skill-form-list d-flex justify-content-between" key={i}>
@@ -151,12 +158,12 @@ class FormSkill extends Component {
         {selectedValue.length > 0 &&
         <div>
           <div className="form-group p-3 my-2 bg-white rounded text-center">
-            <p className="mb-2">Please select your {selectedValue[0].value} level:</p>
-            <input className="form-control-range" type="range" min="1" max="5" value={skillLevel} onInput={this.onChangeLevel} onChange={this.onChangeLevel} />
+            <p className="mb-2">Please select your {selectedValue[0].value} level ({skillLevel}):</p>
+            <input id="skill-level" className="form-control-range" type="range" min="1" max="5" value={skillLevel} onInput={this.onChangeLevel} onChange={this.onChangeLevel} />
             <div className="d-flex justify-content-between">
               {rangeValues}
             </div>
-            <div className="my-2" dangerouslySetInnerHTML={{ __html: rangeLevels[skillLevel] }} />
+            <div className="my-2"><RangeLevel level={skillLevel}/></div>
             <button className="btn btn btn-outline-primary" onClick={(e) => this.add(e)}>Add to your skills</button>
           </div>
         </div>
