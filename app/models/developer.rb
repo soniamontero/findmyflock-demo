@@ -65,7 +65,7 @@ class Developer < ApplicationRecord
 
   def password_complexity
     if !password.nil? && password !~ /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/
-      errors.add :password, 'Password must include at least one lowercase letter, one uppercase letter, and one digit'
+      errors.add :password, 'must include at least one lowercase letter, one uppercase letter, and one digit'
     end
   end
 
