@@ -72,4 +72,4 @@ jobs:
           command: |
             ./cc-test-reporter before-build
             bundle exec rspec
-            ./cc-test-reporter after-build --exit-code $?
+            ./cc-test-reporter after-build
