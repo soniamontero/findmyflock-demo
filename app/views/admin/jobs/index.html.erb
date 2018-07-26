@@ -15,7 +15,7 @@
   </thead>
 
   <tbody>
-    <% @jobs.each do |job| %>
+    <% @jobs.sort_by(&:created_at).reverse.each do |job| %>
       <tr class="<%= "table-success" if job.vetted? %>">
         <td><%= link_to job.title, admin_job_path(job) %></td>
         <td><%= job.company.name %></td>
