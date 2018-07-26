@@ -2,22 +2,18 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import {Typeahead} from 'react-bootstrap-typeahead'
 
+const LEVEL_DESCRIPTIONS = {
+  "1": {title: "Familiarity", subtitle: "Needs mentorship", description: "Generally 0-1 years of professional experience"},
+  "2": {title: "Gaining Competency", subtitle: "Occasionally needs mentorship", description: "Generally 1-3 years of professional experience"},
+  "3": {title: "Individual Competency", subtitle: "No longer needs daily mentorship", description: "Generally 3-5 years of professional experience"},
+  "4": {title: "Strong Competency", subtitle: "Could mentor others", description: "5+ years of professional experience"},
+  "5": {title: "Leadership", subtitle: "Has lead or managed a team in this subject", description: "Expert competency"},
+}
 
 const RangeLevel = ({level}) => {
-  switch (`${level}`) {
-  case "1":
-    return <div><h5>Familiarity</h5><p>Needs mentorship</p><p>Generally 0-1 years of professional experience</p></div>;
-  case "2":
-    return <div><h5>Gaining Competency</h5><p>Occasionally needs mentorship</p><p>Generally 1-3 years of professional experience</p></div>;
-  case "3":
-    return <div><h5>Individual Competency</h5><p>No longer needs daily mentorship</p><p>Generally 3-5 years of professional experience</p></div>;
-  case "4":
-    return <div><h5>Strong Competency</h5><p>Could mentor others</p><p>5+ years of professional experience</p></div>;
-  case "5":
-    return <div><h5>Leadership</h5><p>Has lead or managed a team in this subject</p><p>Expert competency</p></div>;
-  default:
-    return null;
-  }
+  const {title, subtitle, description} = LEVEL_DESCRIPTIONS[`${level}`] || {};
+  if (!title) return null;
+  return <div><h5>{title}</h5><p>{subtitle}</p><p>{description}</p></div>;
 }
 
 class FormSkill extends Component {
