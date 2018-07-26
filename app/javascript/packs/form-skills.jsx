@@ -158,7 +158,7 @@ class FormSkill extends Component {
         {selectedValue.length > 0 &&
         <div>
           <div className="form-group p-3 my-2 bg-white rounded text-center">
-            <p className="mb-2">Please select your {selectedValue[0].value} level ({skillLevel}):</p>
+            <p className="mb-2">Please select your {selectedValue[0].value} level:</p>
             <input id="skill-level" className="form-control-range" type="range" min="1" max="5" value={skillLevel} onInput={this.onChangeLevel} onChange={this.onChangeLevel} />
             <div className="d-flex justify-content-between">
               {rangeValues}
