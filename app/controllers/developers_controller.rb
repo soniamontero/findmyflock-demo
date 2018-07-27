@@ -56,7 +56,7 @@ class DevelopersController < ApplicationController
     if current_developer.first_name.nil? || current_developer.last_name.nil?
       redirect_to edit_profile_developers_path, alert: "Please complete your profile!"
     elsif current_developer.skills_array.empty?
-      redirect_to add_skills_developers_path, alert: "Please complete your profile! Make sure to add some skills."
+      redirect_to add_skills_developers_path, alert: "Please complete your profile! Make sure to add some skills because the jobs we show you are based off of what skills you mention. We suggest adding as many as you can think of!"
     end
   end
 
