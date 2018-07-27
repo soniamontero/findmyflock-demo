@@ -22,7 +22,7 @@ class Subscriber < ActiveRecord::Base
         subscription = Stripe::Subscription.create(
           customer: customer.id,
           items: [{ plan: plan.stripe_id }],
-          coupon: coupon_code
+          coupon: coupon_code.present? ? coupon_code : nil
         )
         self.stripe_subscription_id = subscription.id
         self.stripe_customer_id = customer.id

@@ -1,13 +1,26 @@
 class ApplicationController < ActionController::Base
+  before_action :store_user_location!, if: :storable_location?
 
   protected
 
-  def after_sign_in_path_for(resource)
+  def storable_location?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr? 
+  end
+
+  def store_user_location!
+    store_location_for(:user, request.fullpath)
+  end
+
+  def after_sign_in_path_for resource_or_scope
     if resource.class == Developer and disallowed_ip_location
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    if resource.class == Recruiter && resource.company.nil?
+    stored_location = stored_location_for resource_or_scope
+
+    if stored_location.present?
+      stored_location
+    elsif resource.class == Recruiter && resource.company.nil?
       new_company_path
     elsif resource.class == Recruiter
       dashboard_companies_path
@@ -16,9 +29,9 @@ class ApplicationController < ActionController::Base
     elsif resource.class == Developer
       dashboard_developers_path
     elsif resource.class == Admin
-      request.env['omniauth.origin'] || stored_location_for(resource) || admin_dashboard_index_path
+      request.env['omniauth.origin'] || stored_location || admin_dashboard_index_path
     else
-      request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+      request.env['omniauth.origin'] || stored_location || root_path
     end
   end
 

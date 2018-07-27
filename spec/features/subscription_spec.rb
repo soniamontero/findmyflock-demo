@@ -2,34 +2,86 @@ require 'rails_helper'
 
 feature 'Subscriptions' do
   let(:stripe_helper) { StripeMock.create_test_helper }
-  
-  let(:company) { create :company, :active }
-  let(:recruiter) { create :recruiter, company: company }
+  let!(:plan) { create :plan, :jobs_1 }
 
   before do
     StripeMock.start
-    plan = stripe_helper.create_plan id: company.subscriber.plan.stripe_id
-    card = stripe_helper.generate_card_token
-    customer = Stripe::Customer.create source: card
-    @subscription = Stripe::Subscription.create customer: customer.id, items: [{ plan: plan.id }]
-    company.subscriber.update stripe_subscription_id: @subscription.id
-    
-    sign_in recruiter
+    stripe_helper.create_plan id: plan.stripe_id
   end
 
   after { StripeMock.stop }
 
-  scenario 'recruiter cancels a subscription' do
-    visit subscribers_path
-    expect(page).to have_content "Manage my subscription"
+  scenario 'sign up link is reachable from home page' do
+    visit root_path
+    click_on 'Employers'
+    expect(page).to have_link 'Sign up', href: new_recruiter_registration_path
+  end
 
-    click_on "Cancel my subscription"
+  scenario 'a recruiter signs up' do
+    new_recruiter = build :recruiter
 
-    stripe_subscription = Stripe::Subscription.retrieve @subscription.id
-    expect(stripe_subscription.cancel_at_period_end).to be true
+    visit new_recruiter_registration_path
+    expect(page).to have_content "Create your account"
 
-    expect(page).to have_content "Status:\ncanceled"
-    canceled_time = Time.at(stripe_subscription.current_period_end)
-    expect(page).to have_content "Active Until:\n#{canceled_time.in_time_zone.strftime('%B %e %Y')}"
+    fill_in 'Email', with: new_recruiter.email
+    fill_in 'Password', with: new_recruiter.password
+    fill_in 'Password confirmation', with: new_recruiter.password
+    click_on 'Sign up'
+
+    open_email new_recruiter.email
+
+    fill_in 'Name', with: new_recruiter.company.name
+    fill_in 'Industry', with: new_recruiter.company.industry
+    fill_in 'Url', with: new_recruiter.company.url
+    click_on 'Confirm'
+
+    card = stripe_helper.generate_card_token
+    find('label', text: '1 Job').click
+    find('#stripeToken', visible: false).set card
+    click_on 'Submit Payment'
+
+    expect(page).to have_link "Add a new job"
+
+    expect(current_email).to have_content 'Welcome to the Find My Flock community'
+    current_email.click_link 'CLICK HERE'
+    recruiter = Recruiter.find_by email: new_recruiter.email
+    expect(recruiter.company.name).to eq new_recruiter.company.name
+    expect(recruiter.confirmed_at).to be_present
+    expect(recruiter.company.is_active?).to be true
+
+    open_email(new_recruiter.email)
+    expect(current_email).to have_content "Congratulations on adding #{new_recruiter.company.name}"
+    current_email.click_link 'CLICK HERE'
+    sign_in recruiter
+    expect(page).to have_content 'Create your job'
+  end
+
+  context 'when a recruiter has a subscription' do
+    let(:company) { create :company, :active }
+    let(:recruiter) { create :recruiter, company: company }
+
+    before do
+      plan = stripe_helper.create_plan id: company.subscriber.plan.stripe_id
+      card = stripe_helper.generate_card_token
+      customer = Stripe::Customer.create source: card
+      @subscription = Stripe::Subscription.create customer: customer.id, items: [{ plan: plan.id }]
+      company.subscriber.update stripe_subscription_id: @subscription.id
+      
+      sign_in recruiter
+    end
+
+    scenario 'recruiter cancels a subscription' do
+      visit subscribers_path
+      expect(page).to have_content "Manage my subscription"
+
+      click_on "Cancel my subscription"
+
+      stripe_subscription = Stripe::Subscription.retrieve @subscription.id
+      expect(stripe_subscription.cancel_at_period_end).to be true
+
+      expect(page).to have_content "Status:\ncanceled"
+      canceled_time = Time.at(stripe_subscription.current_period_end)
+      expect(page).to have_content "Active Until:\n#{canceled_time.in_time_zone.strftime('%B %e %Y')}"
+    end
   end
 end

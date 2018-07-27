@@ -44,6 +44,7 @@
         <div class="card-body">
           <h4 class="text-center my-3 mb-5">Payment method</h4>
           <%= form_for @subscriber, html: { id: "payment-form" } do |f| %>
+            <input type="hidden" id="stripeToken" name="stripeToken" value=""/>
 
             <div class="row mb-3">
               <% Plan.all.each do |plan| %>
@@ -199,12 +200,8 @@ form.addEventListener('submit', function(event) {
 });
 
 function stripeTokenHandler(token) {
-  var form = document.getElementById('payment-form');
-  var hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput = document.getElementById('stripeToken');
   hiddenInput.setAttribute('value', token.id);
-  form.appendChild(hiddenInput);
   form.submit();
 }
 
