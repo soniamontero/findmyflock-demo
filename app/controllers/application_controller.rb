@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
 
-
-protected
+  protected
 
   def after_sign_in_path_for(resource)
     if resource.class == Developer and disallowed_ip_location
@@ -39,5 +38,9 @@ protected
 
   def allowed_countries
     ENV['ALLOWED_COUNTRIES'].split(',') rescue ['US', 'ID']
+  end
+
+  def default_url_options
+    { host: ENV['HOST'] || 'localhost:3000' }
   end
 end
