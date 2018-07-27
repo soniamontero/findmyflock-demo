@@ -20,12 +20,8 @@ class ApplicationController < ActionController::Base
 
     if stored_location.present?
       stored_location
-    elsif resource.class == Recruiter && resource.company.nil?
-      new_company_path
     elsif resource.class == Recruiter
       dashboard_companies_path
-    elsif resource.class == Developer && resource.skills_array.empty?
-      edit_profile_developers_path
     elsif resource.class == Developer
       dashboard_developers_path
     elsif resource.class == Admin

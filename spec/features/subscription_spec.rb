@@ -21,14 +21,13 @@ feature 'Subscriptions' do
     new_recruiter = build :recruiter
 
     visit new_recruiter_registration_path
-    expect(page).to have_content "Create your account"
 
     fill_in 'Email', with: new_recruiter.email
     fill_in 'Password', with: new_recruiter.password
     fill_in 'Password confirmation', with: new_recruiter.password
     click_on 'Sign up'
 
-    open_email new_recruiter.email
+    open_email new_recruiter.email # open the email confirmation email for later
 
     fill_in 'Name', with: new_recruiter.company.name
     fill_in 'Industry', with: new_recruiter.company.industry
@@ -42,6 +41,7 @@ feature 'Subscriptions' do
 
     expect(page).to have_link "Add a new job"
 
+    # Circle back around and confirm the email address
     expect(current_email).to have_content 'Welcome to the Find My Flock community'
     current_email.click_link 'CLICK HERE'
     recruiter = Recruiter.find_by email: new_recruiter.email
@@ -49,11 +49,41 @@ feature 'Subscriptions' do
     expect(recruiter.confirmed_at).to be_present
     expect(recruiter.company.is_active?).to be true
 
-    open_email(new_recruiter.email)
+    open_email new_recruiter.email
     expect(current_email).to have_content "Congratulations on adding #{new_recruiter.company.name}"
     current_email.click_link 'CLICK HERE'
     sign_in recruiter
     expect(page).to have_content 'Create your job'
+  end
+
+  scenario 'a recruiter with incomplete signup gets redirected to new company' do
+    new_recruiter = build :recruiter
+
+    visit new_recruiter_registration_path
+
+    fill_in 'Email', with: new_recruiter.email
+    fill_in 'Password', with: new_recruiter.password
+    fill_in 'Password confirmation', with: new_recruiter.password
+    click_on 'Sign up'
+
+    visit dashboard_companies_path
+    expect(page).to have_content "Create your company"
+  end
+
+  scenario 'a recruiter with incomplete signup gets redirected to subscribe' do
+    new_recruiter = build :recruiter
+    visit new_recruiter_registration_path
+    fill_in 'Email', with: new_recruiter.email
+    fill_in 'Password', with: new_recruiter.password
+    fill_in 'Password confirmation', with: new_recruiter.password
+    click_on 'Sign up'
+    fill_in 'Name', with: new_recruiter.company.name
+    fill_in 'Industry', with: new_recruiter.company.industry
+    fill_in 'Url', with: new_recruiter.company.url
+    click_on 'Confirm'
+
+    visit new_job_path
+    expect(page).to have_content "Payment method"
   end
 
   context 'when a recruiter has a subscription' do
