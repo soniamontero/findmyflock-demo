@@ -64,6 +64,6 @@ feature 'Jobs' do
 
     expect(page).to have_content new_job.title.upcase
     expect(page).to have_content "Rails 1"
-    expect(new_job.reload.skills_array).to eq ["Rails/1", "#{competencies.first.value}/1"]
+    expect(new_job.reload.skills_array).to match_array ["Rails/1", "#{competencies.first.value}/1"]
   end
 end
