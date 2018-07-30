@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def storable_location?
-    request.get? && is_navigational_format? && !devise_controller? && !request.xhr? 
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
   end
 
   def store_user_location!
@@ -20,14 +20,8 @@ class ApplicationController < ActionController::Base
 
     if stored_location.present?
       stored_location
-    elsif resource.class == Recruiter
-      dashboard_companies_path
-    elsif resource.class == Developer
-      dashboard_developers_path
-    elsif resource.class == Admin
-      request.env['omniauth.origin'] || stored_location || admin_dashboard_index_path
     else
-      request.env['omniauth.origin'] || stored_location || root_path
+      request.env['omniauth.origin'] || stored_location || signed_in_root_path(resource_or_scope) || root_path
     end
   end
 
