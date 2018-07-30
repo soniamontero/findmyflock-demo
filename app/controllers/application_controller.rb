@@ -16,13 +16,10 @@ class ApplicationController < ActionController::Base
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    stored_location = stored_location_for resource_or_scope
-
-    if stored_location.present?
-      stored_location
-    else
-      request.env['omniauth.origin'] || stored_location || signed_in_root_path(resource_or_scope) || root_path
-    end
+    request.env['omniauth.origin'] ||
+      stored_location_for(resource_or_scope) ||
+      signed_in_root_path(resource_or_scope) ||
+      root_path
   end
 
   def disallowed_ip_location
