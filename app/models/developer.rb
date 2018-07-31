@@ -69,14 +69,18 @@ class Developer < ApplicationRecord
     end
   end
 
+  def office_and_remote?
+    remote.size == 2
+  end
+
   def matched_job
     jobs = Job.active
 
-    if (remote.size == 2) && !full_mobility
+    if office_and_remote? && !full_mobility
       jobs = jobs.remote_and_local_jobs(mobility, latitude, longitude)
     else
       jobs = jobs.remote_or_office_jobs(remote)
-      if (remote.include? "office") && !full_mobility
+      if remote.include?("office") && !full_mobility
         jobs = jobs.check_location(mobility, latitude, longitude)
       end
     end
