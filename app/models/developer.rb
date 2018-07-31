@@ -15,7 +15,7 @@ class Developer < ApplicationRecord
   validates :first_name, :last_name, presence: true, length: { maximum: 50 }, on: :update
   validates :city, :country, :state, presence: true, if: :wants_office, on: :update
   validates :remote, inclusion: { in: [['remote'], ['office'], %w[remote office]] }, on: :update
-  before_update :check_cordinates, if: :city_changed?
+  before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
 
   DEFAULT_AVATAR = "avatar.jpg"
@@ -37,7 +37,7 @@ class Developer < ApplicationRecord
     self.mobility = nil if full_mobility
   end
 
-  def check_cordinates
+  def check_coordinates
     errors.add(:city, "There is a problem with your location. Please try again") if !latitude
   end
 

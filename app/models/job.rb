@@ -12,8 +12,8 @@ class Job < ApplicationRecord
   validates :employment_type, presence: true, length: { maximum: 100 }
   validates :benefits, length: { minimum: 1 }, on: :update
   geocoded_by :location
-  before_validation :geocode
-  validate :check_cordinates, on: [:create, :update]
+  before_validation :geocode, if: -> { latitude.nil? }
+  validate :check_coordinates, on: [:create, :update]
 
   before_validation :sanitize_benefits_cultures
 
@@ -51,7 +51,7 @@ class Job < ApplicationRecord
     cultures.reject!(&:empty?)
   end
 
-  def check_cordinates
+  def check_coordinates
     errors.add(:city, "There is a problem with your location. Please try again") if latitude.nil?
   end
 
