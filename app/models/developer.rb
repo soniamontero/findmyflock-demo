@@ -15,7 +15,7 @@ class Developer < ApplicationRecord
   validates :first_name, :last_name, presence: true, length: { maximum: 50 }, on: :update
   validates :city, :country, :state, presence: true, if: :wants_office, on: :update
   validates :remote, inclusion: { in: [['remote'], ['office'], %w[remote office]] }, on: :update
-  before_update :check_cordinates, if: :city_changed?
+  before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
 
   DEFAULT_AVATAR = "avatar.jpg"
@@ -37,7 +37,7 @@ class Developer < ApplicationRecord
     self.mobility = nil if full_mobility
   end
 
-  def check_cordinates
+  def check_coordinates
     errors.add(:city, "There is a problem with your location. Please try again") if !latitude
   end
 
@@ -69,29 +69,25 @@ class Developer < ApplicationRecord
     end
   end
 
+  def office_and_remote?
+    remote.size == 2
+  end
+
   def matched_job
     jobs = Job.active
 
-    if need_us_permit
-      jobs = jobs.can_sponsor
-    end
-
-    if full_mobility
-      jobs = jobs.remote_or_office_jobs(remote).match_skills_type(skills_array)
+    if office_and_remote? && !full_mobility
+      jobs = jobs.remote_and_local_jobs(mobility, latitude, longitude)
     else
-      remote_jobs = []
-      if remote.include? "remote"
-        remote_jobs = jobs.all_remote.match_skills_type(skills_array)
+      jobs = jobs.remote_or_office_jobs(remote)
+      if remote.include?("office") && !full_mobility
+        jobs = jobs.check_location(mobility, latitude, longitude)
       end
-
-      local_jobs = []
-      if remote.include? "office"
-        local_jobs = jobs.local_office(mobility, latitude, longitude)
-                         .match_skills_type(skills_array)
-      end
-
-      remote_jobs + local_jobs
     end
+
+    jobs = need_us_permit ? jobs.can_sponsor : jobs
+
+    jobs.match_skills_type(skills_array)
   end
 
 
