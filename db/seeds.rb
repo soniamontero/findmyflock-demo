@@ -1,3 +1,5 @@
+require 'factory_bot_rails'
+
 SKILLS = [
   'AR', 'VR', 'Cybersecurity', 'Management', 'Kubernetes', 'Docker', 'Architecture', 'Mentorship',
   'AWS', 'Java', 'Python', 'C', 'Ruby', 'Javascript', 'JQuery', 'AngularJS', 'Node.js', 'React',
@@ -1045,6 +1047,8 @@ when "development"
   ]
 
   Company.all.each do |company|
+    FactoryBot.create :subscriber, company: company
+
     15.times do
       cultures = []
       benefits = []
