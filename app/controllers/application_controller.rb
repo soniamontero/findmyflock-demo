@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for resource_or_scope
-    if resource.class == Developer and disallowed_ip_location
-      raise ActionController::RoutingError.new('Not Found')
-    end
+    # if resource.class == Developer and disallowed_ip_location
+    #   raise ActionController::RoutingError.new('Not Found')
+    # end
 
     request.env['omniauth.origin'] ||
       stored_location_for(resource_or_scope) ||
