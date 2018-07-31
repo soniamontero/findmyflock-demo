@@ -20,7 +20,7 @@ feature "Developer dashboard" do
   scenario "can filter by benefits", js: true do
     click_on "Benefits"
     check "Office Dogs"
-    expect(page).to_not have_content no_benefits_job.title
-    expect(page).to have_content active_job.title
+    expect(page).to_not have_content no_benefits_job.title.upcase
+    expect(page).to have_content active_job.title.upcase
   end
 end

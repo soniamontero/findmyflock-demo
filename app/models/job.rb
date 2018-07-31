@@ -20,13 +20,14 @@ class Job < ApplicationRecord
   scope :active, -> { where(active: true, company: Company.active) }
   scope :check_location, -> (miles, lat, long) {
     if lat.present?
-      geocoded.near([lat, long], miles, units: :mi, order: nil)
+      geocoded.near([lat, long], miles, units: :mi).unscope(:order)
     else
       all
     end
   }
-  scope :remote_or_office_jobs, -> (array) {where("remote <@ ARRAY[?]::text[] OR remote @> ARRAY[?]::text[]", array, array)}
-  scope :can_sponsor, -> {where("can_sponsor = true")}
+  scope :remote_and_local_jobs, -> (miles, lat, long) { where(id: (Job.all_remote.pluck(:id) + Job.check_location(miles, lat, long).pluck(:id)).uniq) }
+  scope :remote_or_office_jobs, -> (array) { where("remote <@ ARRAY[?]::text[] OR remote @> ARRAY[?]::text[]", array, array) }
+  scope :can_sponsor, -> { where(can_sponsor: true) }
   scope :match_skills_type, -> (array) { where.not(skills_array: []).where("skills_array <@ ARRAY[?]::text[]", array) }
   scope :filter_by_salary, -> (value) {where("max_salary >= ?", value)}
   scope :filter_by_benefits, -> (array) { where("benefits @> ARRAY[?]::text[]", array) }
