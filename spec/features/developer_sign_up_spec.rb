@@ -4,7 +4,7 @@ feature 'Developer sign up' do
   scenario 'a new developer can sign up' do
     visit root_path
     click_on 'Join'
-    expect(page).to have_content 'Create your account'
+    expect(page).to have_content 'Create your developer account'
     fill_in 'Email', with: 'mary@exmaple.com'
     fill_in 'Password', with: 'Password1'
     fill_in 'Password confirmation', with: 'Password1'
