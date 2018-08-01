@@ -25,6 +25,7 @@ gem 'turbolinks'
 gem 'sendgrid-ruby'
 gem 'tinymce-rails'
 gem 'stripe'
+gem 'rollbar'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get 'dashboard'
     end
   end
+  match 'companies/dashboard' => 'companies#dashboard', as: 'recruiter_root', via: :get
 
   resources :subscribers
   post '/stripe/webhooks', to: "stripe#webhooks"
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
       get 'dashboard'
     end
   end
+  match 'developers/dashboard' => 'developers#dashboard', as: 'developer_root', via: :get
 
   resources :jobs do
     resources :applications, only: [:new, :create, :show] do

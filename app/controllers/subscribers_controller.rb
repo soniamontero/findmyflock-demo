@@ -8,7 +8,7 @@ class SubscribersController < ApplicationController
   end
 
   def create
-		coupon_code = !params[:coupon_code].empty? ? get_id_coupon(params[:coupon_code]) : ""
+		coupon_code = params[:coupon_code].present? ? get_id_coupon(params[:coupon_code]) : ""
 		@subscriber = Subscriber.new(company: @company)
 
 		if coupon_code.nil?
