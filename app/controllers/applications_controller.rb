@@ -26,7 +26,7 @@ class ApplicationsController < ApplicationController
     @company = @match.job.company
     @mail_addresses = @company.recruiters_mail.join(",")
 
-    attach_resumes(params[:application][:developer][:resumes],  @developer) if !params[:application][:developer].nil?
+    attach_resumes(params[:application][:developer][:resumes], @developer) if params[:application][:developer].present?
 
     if !@developer.resumes.attached?
       redirect_to new_job_application_path(@job), alert: "You need to upload a resume in order to apply."  and return
