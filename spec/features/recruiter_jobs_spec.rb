@@ -12,7 +12,7 @@ feature 'Jobs' do
     job_attrs.benefits.map { |benefit| create :benefit, value: benefit }
     create_list :culture, 5
     job_attrs.cultures.map { |culture| create :culture, value: culture }
-    
+
     sign_in recruiter
   end
 
@@ -33,7 +33,7 @@ feature 'Jobs' do
     job_attrs.benefits.map { |benefit| check benefit }
     job_attrs.cultures.map { |culture| check culture }
     # click_on 'Continue'
-    click_on 'Publish' # remove when button labels are switched
+    click_on 'Continue' # remove when button labels are switched
 
     expect(page).to have_content "Please choose up to 2 skills"
     new_job = Job.find_by title: job_attrs.title
@@ -60,7 +60,7 @@ feature 'Jobs' do
     click_on "Add to your skills"
 
     # click_on 'Publish'
-    click_on 'Continue' # remove when button labels are switched
+    click_on 'Publish' # remove when button labels are switched
 
     expect(page).to have_content new_job.title.upcase
     expect(page).to have_content "Rails 1"
