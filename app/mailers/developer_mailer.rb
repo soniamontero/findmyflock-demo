@@ -1,7 +1,7 @@
 class DeveloperMailer < ApplicationMailer
   default :from => 'info@findmyflock.com'
 
-  # send a signup email to the user, pass in the user object that   contains the user's email address
+  # send a signup email to the user, pass in the user object that contains the user's email address
 
   def new_match_advise(developer, jobs)
     @developer = developer
