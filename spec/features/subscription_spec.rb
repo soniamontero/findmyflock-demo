@@ -96,7 +96,7 @@ feature 'Subscriptions' do
       customer = Stripe::Customer.create source: card
       @subscription = Stripe::Subscription.create customer: customer.id, items: [{ plan: plan.id }]
       company.subscriber.update stripe_subscription_id: @subscription.id
-      
+
       sign_in recruiter
     end
 
@@ -111,7 +111,7 @@ feature 'Subscriptions' do
 
       expect(page).to have_content "Status:\ncanceled"
       canceled_time = Time.at(stripe_subscription.current_period_end)
-      expect(page).to have_content "Active Until:\n#{canceled_time.in_time_zone.strftime('%B %e %Y')}"
+      expect(page).to have_content "Active Until:\n#{canceled_time.in_time_zone.strftime('%B %-d %Y')}"
     end
   end
 end
