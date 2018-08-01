@@ -6,6 +6,7 @@ feature "Developer applications" do
   let(:company) { create :company, vetted: true }
   let!(:recruiter) { create :recruiter, company: company }
   let!(:active_job) { create :job, :remote, company: company }
+  let!(:non_matching_job) { create :job, :office, company: company }
 
   before do
     sign_in developer
@@ -28,6 +29,22 @@ feature "Developer applications" do
     within('#nav-profile .matched-job', text: active_job.title) do
       expect(page).to have_content "Current state\nPending"
     end
+  end
+
+  scenario "can't apply for non-matching job" do
+    expect(page).to_not have_content non_matching_job.title
+
+    visit new_job_application_path non_matching_job
+    expect(page).to_not have_content 'Apply to this job'
+  end
+
+  scenario "can't apply without a resume" do
+    developer.resumes.purge
+    within('.matched-job', text: active_job.title) { click_on 'Details' }
+    click_on 'Send application'
+
+    expect(page).to_not have_content 'Congratulations!'
+      expect(emails_sent_to(recruiter.email)).to be_empty
   end
 
   context 'with a pending application' do
