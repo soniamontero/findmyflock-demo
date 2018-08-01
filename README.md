@@ -1,3 +1,6 @@
+[![Test Coverage](https://api.codeclimate.com/v1/badges/dd729657fc0cfa274775/test_coverage)](https://codeclimate.com/repos/5b58d33d81fbe302860021d1/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/dd729657fc0cfa274775/maintainability)](https://codeclimate.com/repos/5b58d33d81fbe302860021d1/maintainability)
+
 # Find My Flock
 
 Culture-centric tech job search.

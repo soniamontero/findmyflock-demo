@@ -21,7 +21,7 @@
               <% if @company.subscription_expires_at.present? %>
                 <div class="col-6 col-md-3">
                   <h6><%= @company.canceled? ? 'Active Until' : 'Next Bill On' %>:</h6>
-                  <p><%= @company.subscription_expires_at.to_time.strftime('%B %e %Y') %></p>
+                  <p><%= @company.subscription_expires_at.to_time.strftime('%B %-d %Y') %></p>
                 </div>
               <% end %>
             </div>

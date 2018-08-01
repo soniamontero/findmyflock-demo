@@ -5,6 +5,13 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/rails'
+
+Capybara.javascript_driver = :selenium_chrome_headless
+
+Capybara.configure do |config|
+  config.default_max_wait_time = 10 # seconds
+end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -60,7 +67,8 @@ RSpec.configure do |config|
   Geocoder::Lookup::Test.set_default_stub(
     [
       {
-        'coordinates'  => [40.7143528, -74.0059731],
+        'latitude'     => 40.7143528,
+        'longitude'    => -74.0059731,
         'address'      => 'New York, NY, USA',
         'state'        => 'New York',
         'state_code'   => 'NY',

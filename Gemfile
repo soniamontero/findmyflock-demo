@@ -25,6 +25,7 @@ gem 'turbolinks'
 gem 'sendgrid-ruby'
 gem 'tinymce-rails'
 gem 'stripe'
+gem 'rollbar'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -55,6 +56,8 @@ group :test do
   gem 'chromedriver-helper'
   gem 'launchy'
   gem 'stripe-ruby-mock', '~> 2.5.4', :require => 'stripe_mock'
+  gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
