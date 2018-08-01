@@ -63,7 +63,7 @@ feature 'Developer sign up' do
       click_on "Add to your skills"
 
       click_on "Continue to your dashboard"
-      expect(page).to have_content /Matched Jobs/i
+      expect(page).to have_content(/Matched Jobs/i)
       expect(developer.reload.skills_array).to match_array ["Rails/1", "#{competencies.first.value}/1"]
     end
   end

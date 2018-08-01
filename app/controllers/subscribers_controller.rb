@@ -35,7 +35,7 @@ class SubscribersController < ApplicationController
       begin
         @subscriber.cancel!
         flash[:notice] = "Your subscription was canceled. You will still a member until the next billing period."
-      rescue => e
+      rescue
         flash[:alert] = "Oops! An error has occurred. Please contant the support team at info@findmyflock.com."
       end
       redirect_to subscribers_path

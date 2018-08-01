@@ -42,12 +42,12 @@ class Developer < ApplicationRecord
   end
 
   def email_downcase
-    email = email.strip.downcase if email
+    email.strip.downcase if email
   end
 
   def capitalize_name
-    first_name = first_name.capitalize if first_name
-    last_name = last_name.capitalize if last_name
+    first_name.capitalize if first_name
+    last_name.capitalize if last_name
   end
 
 
@@ -99,7 +99,6 @@ class Developer < ApplicationRecord
 
 
   def self.check_for_new_matches
-    string = ''
     all.each do |developer|
       jobs_array = []
       new_matches = 0
