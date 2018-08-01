@@ -71,7 +71,6 @@ feature "Developer applications" do
       click_on 'Dashboard'
       within('.matched-job', text: developer.full_name) { click_on "View" }
 
-      open_email developer.email
       expect(emails_sent_to(developer.email)).to be_empty
     end
   end
