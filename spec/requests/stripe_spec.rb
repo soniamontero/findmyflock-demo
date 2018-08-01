@@ -72,4 +72,3 @@ describe "Stripe Webhooks" do
     expect(subscriber.subscription_expires_at).to eq event_end_time
   end
 end
- 
