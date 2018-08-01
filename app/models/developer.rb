@@ -100,8 +100,8 @@ class Developer < ApplicationRecord
 
   def self.check_for_new_matches
     string = ''
-    jobs_array = []
     all.each do |developer|
+      jobs_array = []
       new_matches = 0
       developer.matched_job.each do |job|
         match = Match.new(developer_id: developer.id, job_id: job.id)
@@ -115,5 +115,4 @@ class Developer < ApplicationRecord
       end
     end
   end
-
 end

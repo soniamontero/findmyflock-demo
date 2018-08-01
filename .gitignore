@@ -15,6 +15,7 @@
 
 # Ignore uploaded files in development
 /storage/*
+coverage
 
 /node_modules
 /yarn-error.log
@@ -37,4 +38,3 @@ latest.dump
 
 # Ignore OS crap
 .DS_Store
-coverage
