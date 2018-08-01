@@ -13,7 +13,7 @@ feature 'Subscriptions' do
 
   scenario 'sign up link is reachable from home page' do
     visit root_path
-    click_on 'Employers'
+    click_on 'Companies'
     expect(page).to have_link 'Sign up', href: new_recruiter_registration_path
   end
 
