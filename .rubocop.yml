@@ -1,0 +1,11 @@
+AllCops:
+  Exclude:
+    - '**/Guardfile'
+    - '**/Rakefile'
+    - '**/Gemfile'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'spec/factories/*'
+    - 'spec/rails_helper.rb'
+    - 'node_modules/**/*'
+    - 'bin/**/*'
