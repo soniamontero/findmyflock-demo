@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
-  before_action :authenticate_developer!, only:[:new, :create]
-  before_action :authenticate_recruiter!, only:[:show, :contact, :reject]
+  before_action :authenticate_developer!, only: [:new, :create]
+  before_action :authenticate_recruiter!, only: [:show, :contact, :reject]
   before_action :set_application, only: [:show, :contact, :reject]
   before_action :set_job, only: [:new, :create, :reject]
   before_action :set_match, only: [:new, :create]
@@ -23,10 +23,10 @@ class ApplicationsController < ApplicationController
     @application.match = @match
     @developer = @match.developer
     @company = @match.job.company
-    @mail_addresses = @company.recruiters_mail.join(",")
+    @mail_addresses = @company.recruiters_mail.join(',')
 
     if !@developer.resumes.attached?
-      return redirect_to new_job_application_path(@job), alert: "You need to upload a resume in order to apply."
+      return redirect_to new_job_application_path(@job), alert: 'You need to upload a resume in order to apply.'
     end
 
     respond_to do |format|
@@ -34,7 +34,7 @@ class ApplicationsController < ApplicationController
         format.html { redirect_to new_job_application_path(@match.job) }
         CompanyMailer.new_application_advise(@mail_addresses, @match, @developer).deliver
       else
-        format.html { render :new, alert: "Something went wrong please try again." }
+        format.html { render :new, alert: 'Something went wrong please try again.' }
       end
     end
   end
