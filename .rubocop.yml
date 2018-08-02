@@ -13,3 +13,6 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
