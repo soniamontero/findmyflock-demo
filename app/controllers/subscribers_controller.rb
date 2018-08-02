@@ -8,9 +8,11 @@ class SubscribersController < ApplicationController
   end
 
   def create
+    coupon_code = params[:coupon_code].present? ? get_id_coupon(params[:coupon_code]) : ""
+
     @subscriber = Subscriber.new(company: @company)
 
-    if params[:coupon_code].nil?
+    if coupon_code.nil?
       flash[:alert] = 'Invalid coupon!'
       return render :new
     end
@@ -58,16 +60,5 @@ class SubscribersController < ApplicationController
     code = code.gsub(/\s+/, '')
     code = code.upcase
     COUPONS[code]
-  end
-
-  def coupon_code
-    @coupon_code ||=
-      if params[:coupon_code].present?
-        get_id_coupon(params[:coupon_code])
-      else
-        ''
-      end
-
-      # throw error for invalid coupon
   end
 end
