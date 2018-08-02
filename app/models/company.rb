@@ -23,7 +23,7 @@ class Company < ApplicationRecord
   end
 
   def recruiters_mail
-    self.recruiters.pluck(:email).flatten.uniq
+    recruiters.pluck(:email).flatten.uniq
   end
 
   def is_active?

@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
-  before_action :authenticate_developer!, only:[:new, :create]
-  before_action :authenticate_recruiter!, only:[:show, :contact]
+  before_action :authenticate_developer!, only: [:new, :create]
+  before_action :authenticate_recruiter!, only: [:show, :contact, :reject]
   before_action :set_application, only: [:show, :contact, :reject]
   before_action :set_job, only: [:new, :create, :reject]
   before_action :set_match, only: [:new, :create]
@@ -13,8 +13,7 @@ class ApplicationsController < ApplicationController
   def new
     @application = Application.new
     @developer = current_developer
-    set_match
-    @is_posted = application_is_posted?(@match)
+    @is_posted = application_is_posted? @match
     @applications_sent = applications_sent_today
     @recruiter = @job.vetted ? 'Find My Flock' : @job.company.name
   end
@@ -24,12 +23,11 @@ class ApplicationsController < ApplicationController
     @application.match = @match
     @developer = @match.developer
     @company = @match.job.company
-    @mail_addresses = @company.recruiters_mail.join(",")
-
-    attach_resumes(params[:application][:developer][:resumes],  @developer) if !params[:application][:developer].nil?
+    @mail_addresses = @company.recruiters_mail.join(',')
 
     if !@developer.resumes.attached?
-      redirect_to new_job_application_path(@job), alert: "You need to upload a resume in order to apply."  and return
+      upload_resume = 'You need to upload a resume in order to apply.'
+      return redirect_to new_job_application_path(@job), alert: upload_resume
     end
 
     respond_to do |format|
@@ -37,7 +35,9 @@ class ApplicationsController < ApplicationController
         format.html { redirect_to new_job_application_path(@match.job) }
         CompanyMailer.new_application_advise(@mail_addresses, @match, @developer).deliver
       else
-        format.html { render :new, alert: "Something went wrong please try again." }
+        format.html do
+          render :new, alert: 'Something went wrong please try again.'
+        end
       end
     end
   end
@@ -70,12 +70,6 @@ class ApplicationsController < ApplicationController
     count
   end
 
-  def attach_resumes(resumes, developer)
-    if resumes.any?
-      developer.resumes.attach(resumes)
-    end
-  end
-
   def set_job
     @job = Job.find(params[:job_id])
   end
@@ -91,9 +85,9 @@ class ApplicationsController < ApplicationController
   end
 
   def set_match
-    @match = Match.where(developer:current_developer, job:@job).first_or_create
-    if current_developer.matched_job.include?(@job)
-      @match
+    if current_developer.matched_job.include? @job
+      @match = Match.where(developer: current_developer, job: @job)
+                    .first_or_create
     else
       redirect_to dashboard_developers_path, notice: "Sorry you can't apply to this job!"
     end

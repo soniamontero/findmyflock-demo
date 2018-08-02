@@ -17,6 +17,14 @@ FactoryBot.define do
       country "United States"
       latitude 42.8776271
       longitude -78.876830
+
+      after :build do |developer|
+        developer.resumes.attach(
+          io: File.open(Rails.root.join('spec', 'fixtures', 'asset_test_file.pdf')),
+          filename: 'resume.pdf',
+          content_type: 'application/pdf'
+        )
+      end
     end
 
     trait :remote do
