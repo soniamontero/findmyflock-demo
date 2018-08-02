@@ -26,7 +26,8 @@ class ApplicationsController < ApplicationController
     @mail_addresses = @company.recruiters_mail.join(',')
 
     if !@developer.resumes.attached?
-      return redirect_to new_job_application_path(@job), alert: 'You need to upload a resume in order to apply.'
+      upload_resume = 'You need to upload a resume in order to apply.'
+      return redirect_to new_job_application_path(@job), alert: upload_resume
     end
 
     respond_to do |format|
@@ -34,7 +35,9 @@ class ApplicationsController < ApplicationController
         format.html { redirect_to new_job_application_path(@match.job) }
         CompanyMailer.new_application_advise(@mail_addresses, @match, @developer).deliver
       else
-        format.html { render :new, alert: 'Something went wrong please try again.' }
+        format.html do
+          render :new, alert: 'Something went wrong please try again.'
+        end
       end
     end
   end
@@ -83,7 +86,8 @@ class ApplicationsController < ApplicationController
 
   def set_match
     if current_developer.matched_job.include? @job
-      @match = Match.where(developer: current_developer, job: @job).first_or_create
+      @match = Match.where(developer: current_developer, job: @job)
+                    .first_or_create
     else
       redirect_to dashboard_developers_path, notice: "Sorry you can't apply to this job!"
     end
