@@ -13,7 +13,7 @@ feature 'Subscriptions' do
       duration: 'repeating',
       duration_in_months: 3,
       id: "fmf-1"
-      )
+    )
 
   end
 
