@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 feature 'Developer sign up' do
+  let(:developer_country) { 'US' }
+  before do
+    stub_request(:get, /ipinfo.io/).
+      with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+      to_return(status: 200, body: developer_country, headers: {})
+  end
+
   scenario 'a new developer can sign up' do
     visit root_path
     click_on 'Join'
@@ -65,6 +72,22 @@ feature 'Developer sign up' do
       click_on "Continue to your dashboard"
       expect(page).to have_content(/Matched Jobs/i)
       expect(developer.reload.skills_array).to match_array ["Rails/1", "#{competencies.first.value}/1"]
+    end
+
+    scenario 'US developer does not see tips' do
+      sign_in developer
+      visit add_skills_developers_path
+      expect(page).to_not have_content 'Important Tips'
+    end
+
+    context 'a non-US developer' do
+      let(:developer_country) { 'ID' }
+
+      scenario 'sees tips' do
+        sign_in developer
+        visit add_skills_developers_path
+        expect(page).to have_content 'Important Tips'
+      end
     end
   end
 end
