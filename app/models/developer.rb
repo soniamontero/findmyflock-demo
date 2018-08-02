@@ -47,8 +47,8 @@ class Developer < ApplicationRecord
   def set_url
     linkedin = "https://linkedin.com/in/#{linkedin_url}"
     github = "https://github.com/#{github_url}"
-    github_url = github_url.empty? ? nil : github
-    linkedin_url = linkedin_url.empty? ? nil : linkedin
+    self.github_url = self.github_url.empty? ? nil : github
+    self.linkedin_url = self.linkedin_url.empty? ? nil : linkedin
   end
 
   def full_name
