@@ -8,8 +8,6 @@ class SubscribersController < ApplicationController
   end
 
   def create
-    coupon_code = params[:coupon_code].present? ? get_id_coupon(params[:coupon_code]) : ""
-
     @subscriber = Subscriber.new(company: @company)
 
     if coupon_code.nil?
@@ -44,6 +42,14 @@ class SubscribersController < ApplicationController
   end
 
   private
+
+  def coupon_code
+    if params[:coupon_code].present?
+      get_id_coupon(params[:coupon_code])
+    else
+      ''
+    end
+  end
 
   def set_company
     @company = current_recruiter.company
