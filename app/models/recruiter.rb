@@ -11,9 +11,10 @@ class Recruiter < ApplicationRecord
   end
 
   def password_complexity
-    if password.present? && password !~ /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/
-      errors.add :password, 'Password must include at least one lowercase letter, one uppercase letter, and one digit'
-    end
+    complex_password = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/
+    return unless password.present? && password !~ complex_password
+    errors.add :password, 'Password must include at least one lowercase letter,
+                           one uppercase letter, and one digit'
   end
 
   def skip_confirmation

@@ -17,11 +17,13 @@ class Developer < ApplicationRecord
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
 
-  DEFAULT_AVATAR = 'avatar.jpg'
+  DEFAULT_AVATAR = 'avatar.jpg'.freeze
 
   def avatar_thumbnail
     return DEFAULT_AVATAR unless avatar.attachment.present?
-    avatar.variant combine_options: { resize: '300x300^', gravity: 'center', extent: '300x300' }
+    avatar.variant combine_options: {
+      resize: '300x300^', gravity: 'center', extent: '300x300'
+    }
   end
 
   def developer_location
@@ -37,7 +39,8 @@ class Developer < ApplicationRecord
   end
 
   def check_coordinates
-    errors.add(:city, 'There is a problem with your location. Please try again') unless latitude
+    return unless latitude
+    errors.add(:city, 'There is a problem with your location. Please try again')
   end
 
   def email_downcase
@@ -52,7 +55,7 @@ class Developer < ApplicationRecord
   end
 
   def full_name
-    first_name.capitalize + ' ' + last_name.capitalize if first_name && last_name
+    first_name + ' ' + last_name if first_name && last_name
   end
 
   def password_complexity

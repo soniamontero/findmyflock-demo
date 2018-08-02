@@ -8,13 +8,12 @@ class SubscribersController < ApplicationController
   end
 
   def create
-    coupon_code = params[:coupon_code].present? ? get_id_coupon(params[:coupon_code]) : ""
-    @subscriber = Subscriber.new(company: @company)
-
-    if coupon_code.nil?
-      flash[:alert] = "Invalid coupon!"
+    if params[:coupon_code].blank?
+      flash[:alert] = 'Invalid coupon!'
       return render :new
     end
+
+    @subscriber = Subscriber.new(company: @company)
 
     plan = Plan.find_by(stripe_id: params[:plan])
 
@@ -52,12 +51,21 @@ class SubscribersController < ApplicationController
     'FMF1' => 'fmf-1',
     'FMF2' => 'fmf-2',
     'LIConnections' => 'li-connections'
-  }
+  }.freeze
 
   def get_id_coupon(code)
     # Normalize user input
     code = code.gsub(/\s+/, '')
     code = code.upcase
     COUPONS[code]
+  end
+
+  def coupon_code
+    @coupon_code ||=
+      if params[:coupon_code].present?
+        get_id_coupon(params[:coupon_code])
+      else
+        ''
+      end
   end
 end
