@@ -8,12 +8,12 @@ class SubscribersController < ApplicationController
   end
 
   def create
-    if params[:coupon_code].blank?
+    @subscriber = Subscriber.new(company: @company)
+
+    if params[:coupon_code].nil?
       flash[:alert] = 'Invalid coupon!'
       return render :new
     end
-
-    @subscriber = Subscriber.new(company: @company)
 
     plan = Plan.find_by(stripe_id: params[:plan])
 
@@ -67,5 +67,7 @@ class SubscribersController < ApplicationController
       else
         ''
       end
+
+      # throw error for invalid coupon
   end
 end
