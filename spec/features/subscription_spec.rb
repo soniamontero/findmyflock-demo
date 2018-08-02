@@ -7,6 +7,14 @@ feature 'Subscriptions' do
   before do
     StripeMock.start
     stripe_helper.create_plan id: plan.stripe_id
+
+    Stripe::Coupon.create(
+      percent_off: 25,
+      duration: 'repeating',
+      duration_in_months: 3,
+      id: "fmf-1"
+    )
+
   end
 
   after { StripeMock.stop }
@@ -54,6 +62,55 @@ feature 'Subscriptions' do
     current_email.click_link 'CLICK HERE'
     sign_in recruiter
     expect(page).to have_content 'Create your job'
+  end
+
+  scenario 'a recruiter signs up with an invalid coupon code' do
+    new_recruiter = build :recruiter
+
+    visit new_recruiter_registration_path
+
+    fill_in 'Email', with: new_recruiter.email
+    fill_in 'Password', with: new_recruiter.password
+    fill_in 'Password confirmation', with: new_recruiter.password
+    click_on 'Sign up'
+
+    fill_in 'Name', with: new_recruiter.company.name
+    fill_in 'Industry', with: new_recruiter.company.industry
+    fill_in 'Url', with: new_recruiter.company.url
+    click_on 'Confirm'
+
+    card = stripe_helper.generate_card_token
+    find('label', text: '1 Job').click
+    find('#stripeToken', visible: false).set card
+    fill_in 'Coupon Code', with: "FakeCoupon"
+    click_on 'Submit Payment'
+
+    expect(page).to_not have_link "Add a new job"
+    expect(page).to have_content "Payment method"
+  end
+
+  scenario 'a recruiter signs up with an valid coupon code' do
+    new_recruiter = build :recruiter
+
+    visit new_recruiter_registration_path
+
+    fill_in 'Email', with: new_recruiter.email
+    fill_in 'Password', with: new_recruiter.password
+    fill_in 'Password confirmation', with: new_recruiter.password
+    click_on 'Sign up'
+
+    fill_in 'Name', with: new_recruiter.company.name
+    fill_in 'Industry', with: new_recruiter.company.industry
+    fill_in 'Url', with: new_recruiter.company.url
+    click_on 'Confirm'
+
+    card = stripe_helper.generate_card_token
+    find('label', text: '1 Job').click
+    find('#stripeToken', visible: false).set card
+    fill_in 'Coupon Code', with: "FMF1"
+    click_on 'Submit Payment'
+
+    expect(page).to have_link "Add a new job"
   end
 
   scenario 'a recruiter with incomplete signup gets redirected to new company' do
