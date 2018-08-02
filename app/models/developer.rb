@@ -5,10 +5,9 @@ class Developer < ApplicationRecord
   has_one_attached :avatar
   has_many_attached :resumes
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
   geocoded_by :developer_location
   before_validation :email_downcase
-  before_validation :capitalize_name
   after_validation :geocode, on: :update
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validate :password_complexity
@@ -18,11 +17,13 @@ class Developer < ApplicationRecord
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
 
-  DEFAULT_AVATAR = "avatar.jpg"
+  DEFAULT_AVATAR = 'avatar.jpg'.freeze
 
   def avatar_thumbnail
     return DEFAULT_AVATAR unless avatar.attachment.present?
-    avatar.variant combine_options: {resize: "300x300^", gravity: "center", extent: "300x300"}
+    avatar.variant combine_options: {
+      resize: '300x300^', gravity: 'center', extent: '300x300'
+    }
   end
 
   def developer_location
@@ -30,7 +31,7 @@ class Developer < ApplicationRecord
   end
 
   def wants_office
-    self.remote != ['remote']
+    remote != ['remote']
   end
 
   def set_mobility
@@ -38,30 +39,24 @@ class Developer < ApplicationRecord
   end
 
   def check_coordinates
-    errors.add(:city, "There is a problem with your location. Please try again") if !latitude
+    return unless latitude
+    errors.add(:city, 'There is a problem with your location. Please try again')
   end
 
   def email_downcase
-    email = email.strip.downcase if email
+    email&.strip&.downcase
   end
-
-  def capitalize_name
-    first_name = first_name.capitalize if first_name
-    last_name = last_name.capitalize if last_name
-  end
-
 
   def set_url
     linkedin = "https://linkedin.com/in/#{linkedin_url}"
     github = "https://github.com/#{github_url}"
-    self.github_url.empty? ? self.github_url = nil : self.github_url = github
-    self.linkedin_url.empty? ? self.linkedin_url = nil : self.linkedin_url = linkedin
+    self.github_url = self.github_url.empty? ? nil : github
+    self.linkedin_url = self.linkedin_url.empty? ? nil : linkedin
   end
 
   def full_name
-    first_name.capitalize + " " + last_name.capitalize if first_name && last_name
+    first_name + ' ' + last_name if first_name && last_name
   end
-
 
   def password_complexity
     if !password.nil? && password !~ /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/
@@ -80,7 +75,7 @@ class Developer < ApplicationRecord
       jobs = jobs.remote_and_local_jobs(mobility, latitude, longitude)
     else
       jobs = jobs.remote_or_office_jobs(remote)
-      if remote.include?("office") && !full_mobility
+      if remote.include?('office') && !full_mobility
         jobs = jobs.check_location(mobility, latitude, longitude)
       end
     end
@@ -90,16 +85,13 @@ class Developer < ApplicationRecord
     jobs.match_skills_type(skills_array)
   end
 
-
   def check_for_first_matches
-    self.matched_job.each do |job|
-      Match.create(developer_id: self.id, job_id: job.id)
+    matched_job.each do |job|
+      Match.create(developer_id: id, job_id: job.id)
     end
   end
 
-
   def self.check_for_new_matches
-    string = ''
     all.each do |developer|
       jobs_array = []
       new_matches = 0
@@ -110,7 +102,7 @@ class Developer < ApplicationRecord
           jobs_array << job
         end
       end
-      if new_matches > 0
+      if new_matches.positive?
         DeveloperMailer.new_match_advise(developer, jobs_array.uniq).deliver
       end
     end

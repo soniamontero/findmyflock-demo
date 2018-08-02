@@ -8,13 +8,14 @@ class SubscribersController < ApplicationController
   end
 
   def create
-		coupon_code = params[:coupon_code].present? ? get_id_coupon(params[:coupon_code]) : ""
-		@subscriber = Subscriber.new(company: @company)
+    coupon_code = params[:coupon_code].present? ? get_id_coupon(params[:coupon_code]) : ""
 
-		if coupon_code.nil?
-			flash[:alert] = "Invalid coupon!"
-			return render :new
-		end
+    @subscriber = Subscriber.new(company: @company)
+
+    if coupon_code.nil?
+      flash[:alert] = 'Invalid coupon!'
+      return render :new
+    end
 
     plan = Plan.find_by(stripe_id: params[:plan])
 
@@ -35,7 +36,7 @@ class SubscribersController < ApplicationController
       begin
         @subscriber.cancel!
         flash[:notice] = "Your subscription was canceled. You will still a member until the next billing period."
-      rescue => e
+      rescue StandardError
         flash[:alert] = "Oops! An error has occurred. Please contant the support team at info@findmyflock.com."
       end
       redirect_to subscribers_path
@@ -48,11 +49,11 @@ class SubscribersController < ApplicationController
     @company = current_recruiter.company
   end
 
-	COUPONS = {
+  COUPONS = {
     'FMF1' => 'fmf-1',
     'FMF2' => 'fmf-2',
     'LIConnections' => 'li-connections'
-  }
+  }.freeze
 
   def get_id_coupon(code)
     # Normalize user input
