@@ -42,6 +42,7 @@ feature 'Developer sign up' do
       click_on "Continue to your dashboard"
       expect(page).to_not have_content "Matched Jobs"
       expect(current_path).to eq add_skills_developers_path
+      expect(page).to have_content "Please complete your profile"
     end
 
     scenario 'with all required info redirects to dashboard', js: true do

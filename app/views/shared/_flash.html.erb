@@ -1,3 +1,13 @@
 <% if notice || alert %>
-  <div id="alert-component" data-notice="<%= notice %>" data-alert="<%= alert %>" class="fixed-bottom left-bottom-alert"></div>
+  <% alert_class = alert.present? ? 'alert-danger' : 'alert-success' %>
+  <div class="fixed-bottom left-bottom-alert">
+    <div id="flash-message"
+      class="alert <%= alert_class %> fade show mt-3"
+      role="alert">
+      <span><%= notice || alert %></span>
+    </div>
+  </div>
+  <script type="text/javascript">
+    setTimeout(function() { $("#flash-message").alert('close') }, 9000);
+  </script>
 <% end %>
