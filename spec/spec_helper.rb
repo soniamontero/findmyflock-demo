@@ -4,7 +4,9 @@ require 'simplecov'
 # require 'simplecov-console'
 # SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
 
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  add_filter '/admin'
+end
 
 require 'capybara/email/rspec'
 require 'webmock/rspec'
