@@ -62,19 +62,22 @@
         </div>
       </div>
 
-      <% if action_name == "edit" && job.company.is_member?  %>
+      <% if action_name == "edit" %>
         <h5 class="mt-5">Allow job to be visible?</h5>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <%= f.input :active %>
-            <small class="form-text text-muted"> You can deactivate the job at any time. It will automatically be removed from job searches.</small>
+        <% if job.company.is_member? %>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <%= f.input :active %>
+              <small class="form-text text-muted">
+                You can deactivate the job at any time. It will automatically be removed from job searches.
+              </small>
+            </div>
           </div>
-        </div>
-      <% elsif action_name == "edit" %>
-        <h5 class="mt-5">Allow job to be visibile</h5>
-        <div class="alert alert-warning" role="alert">
-        You are not a member anymore and this job is being deactived. In order to activate the job again please subscibe to a plan <%= link_to "here", new_subscriber_path %>.
-        </div>
+        <% else action_name == "edit" %>
+          <div class="alert alert-warning" role="alert">
+            You are not a member anymore and this job is being deactived. In order to activate the job again please subscibe to a plan <%= link_to "here", new_subscriber_path %>.
+          </div>
+        <% end %>
       <% end %>
 
       <%= f.hidden_field :navigate_to, value: "benefits" %>
