@@ -12,6 +12,7 @@ jobs:
           RAILS_ENV: test
           BUNDLE_PATH: vendor/bundle
           PGUSER: root
+          PGHOST: 127.0.0.1
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
