@@ -75,9 +75,9 @@ class JobsController < ApplicationController
       :employment_type,
       :can_sponsor,
       :active,
-      remote:[],
-      benefits:[],
-      cultures:[]
+      remote: [],
+      benefits: [],
+      cultures: []
     )
   end
 
