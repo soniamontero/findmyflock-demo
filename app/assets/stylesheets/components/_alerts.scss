@@ -1,7 +1,6 @@
-.alert-warning {
-    color: #ffffff;
-    background-color: #77c0cb;
-    border-color: #77c0cb;
+.main-body > .alert {
+  border-radius: 0;
+  border-width: 1px 0;
 }
 .fa-border-info {
   border-color: rgb(12, 84, 96);

@@ -11,8 +11,9 @@
 
   @media (min-width: map-get($grid-breakpoints, sm)) {
     .accordion {
-      height: 50vh;
+      height: 90vh;
       top: 60px;
+      overflow: scroll;
     }
   }
 
