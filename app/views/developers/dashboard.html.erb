@@ -3,8 +3,8 @@
     <div class="row">
       <nav class="filters">
         <h5 class="h6 pl-3 pt-2 my-3 sticky-top" style="color: #6c757d;">Filter by:</h5>
-        <div class="accordion sticky-top" style="" id="accordion">
-          <%= form_for(:developer, :url => { :action => "dashboard" }, :html => {:method => :get, id: "filter"}, remote: true) do |f| %>
+        <div class="accordion sticky-top" id="accordion">
+          <%= form_for(:developer,url: { action: "dashboard" }, html: {method: :get, id: "filter"}, remote: true) do |f| %>
             <%= render "utils/checkboxes_filter", title: "Benefits", dataset: @benefits, value: "benefits[]", collapse_name: "benefitsCollapse" %>
             <%= render "utils/checkboxes_filter", title: "Cultures", dataset: @cultures, value: "cultures[]", collapse_name: "culturesCollapse" %>
             <%= render "utils/checkboxes_filter", title: "Cities", dataset: @cities, value: "cities[]", collapse_name: "citiesCollapse" %>
