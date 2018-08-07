@@ -32,8 +32,8 @@ feature 'Jobs' do
 
     job_attrs.benefits.map { |benefit| check benefit }
     job_attrs.cultures.map { |culture| check culture }
-    # click_on 'Continue'
-    click_on 'Continue' # remove when button labels are switched
+
+    click_on 'Continue'
 
     expect(page).to have_content "Please choose up to 2 skills"
     new_job = Job.find_by title: job_attrs.title
@@ -59,11 +59,34 @@ feature 'Jobs' do
     find('.dropdown-item', match: :first).click
     click_on "Add to your skills"
 
-    # click_on 'Publish'
-    click_on 'Publish' # remove when button labels are switched
+    click_on 'Publish'
 
     expect(page).to have_content new_job.title.upcase
     expect(page).to have_content "Rails 1"
     expect(new_job.reload.skills_array).to match_array ["Rails/1", "#{competencies.first.value}/1"]
+  end
+
+  context 'with active jobs', focus: true do
+    let!(:jobs) { create_list :job, 3, company: company }
+    let!(:job_to_change) { create :job, company: company }
+
+    scenario 'can deactivate a job' do
+      visit dashboard_companies_path
+      within('div.matched-job', text: job_to_change.title) { click_on 'Edit' }
+
+      uncheck 'Active'
+      click_on 'Continue'
+
+      expect(job_to_change.reload.active).to eq false
+    end
+
+    scenario 'can delete a job' do
+      visit dashboard_companies_path
+      within('div.matched-job', text: job_to_change.title) { click_on 'Edit' }
+
+      click_on 'Delete'
+      expect(current_path).to eq dashboard_companies_path
+      expect(page).to_not have_content job_to_change.title
+    end
   end
 end

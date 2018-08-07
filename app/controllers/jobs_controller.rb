@@ -65,17 +65,17 @@ class JobsController < ApplicationController
 
   def job_params
     params.require(:job).permit(
-      :title, 
-      :description, 
-      :city, 
-      :zip_code, 
-      :state, 
-      :country, 
-      :max_salary, 
-      :employment_type, 
-      :can_sponsor, 
-      :active, 
-      remote:[], 
+      :title,
+      :description,
+      :city,
+      :zip_code,
+      :state,
+      :country,
+      :max_salary,
+      :employment_type,
+      :can_sponsor,
+      :active,
+      remote:[],
       benefits:[],
       cultures:[]
     )
