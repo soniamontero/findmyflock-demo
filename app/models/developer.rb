@@ -16,6 +16,7 @@ class Developer < ApplicationRecord
   validates :remote, inclusion: { in: [['remote'], ['office'], %w[remote office]] }, on: :update
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
+  after_update :subscribe_developer_to_mailing_list
 
   DEFAULT_AVATAR = 'avatar.jpg'.freeze
 
@@ -106,5 +107,11 @@ class Developer < ApplicationRecord
         DeveloperMailer.new_match_advise(developer, jobs_array.uniq).deliver
       end
     end
+  end
+
+  private
+
+  def subscribe_developer_to_mailing_list
+    SubscribeDeveloperToMailingListJob.perform_later(self)
   end
 end

@@ -1,14 +1,14 @@
-api_key = Rails.application.credentials.mailchimp[:api_key]
-list_id = Rails.application.credentials.mailchimp[:list_id]
+Gibbon::Request.api_key = ENV["MAILCHIMP_API_KEY"]
+Gibbon::Request.timeout = 15
+Gibbon::Request.throws_exceptions = true
+puts "MailChimp API key: #{Gibbon::Request.api_key}" # to remove in prod
 
-Rails.configuration.gibbon = {
-  api_key: api_key,
-  list_id: list_id
-}
+# api_key = Rails.application.credentials.mailchimp[:api_key]
+# list_id = Rails.application.credentials.mailchimp[:list_id]
 
-gibbon = Gibbon::Request.new(api_key: api_key)
-gibbon.timeout = 15
-gibbon.throws_exceptions = true
-puts "MailChimp API key: #{gibbon}" # to remove in prod
+# Rails.configuration.gibbon = {
+#   api_key: api_key,
+#   list_id: list_id
+# }
 
 
