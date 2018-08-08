@@ -43,7 +43,8 @@ class CompaniesController < ApplicationController
     if @company.nil?
       redirect_to new_company_path, alert: 'Please create your company' and return
     end
-    @jobs = @company.jobs
+    @jobs = @company.jobs.where(active: true)
+    @inactive_jobs = @company.jobs.where(active: false)
   end
 
   private
