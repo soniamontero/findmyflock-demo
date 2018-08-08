@@ -43,8 +43,8 @@ class CompaniesController < ApplicationController
     if @company.nil?
       redirect_to new_company_path, alert: 'Please create your company' and return
     end
-    @jobs = @company.jobs.where(active: true)
-    @inactive_jobs = @company.jobs.where(active: false)
+    @jobs = @company.active_jobs
+    @inactive_jobs = @company.inactive_jobs
   end
 
   private
@@ -69,4 +69,11 @@ class CompaniesController < ApplicationController
     params.require(:company).permit(:name, :url, :industry, images: [])
   end
 
+  def active_jobs
+    @active_jobs ||= jobs.where(active: true)
+  end
+
+  def inactive_jobs
+    @inactive_jobs ||= jobs.where(active: false)
+  end
 end
