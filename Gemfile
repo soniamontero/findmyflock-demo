@@ -27,6 +27,7 @@ gem 'tinymce-rails'
 gem 'stripe'
 gem 'rollbar'
 gem 'rubocop', '~> 0.58.2', require: false
+gem 'gibbon'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

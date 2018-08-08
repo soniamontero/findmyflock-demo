@@ -143,6 +143,9 @@ GEM
       thor (~> 0.14)
     formatador (0.2.5)
     geocoder (1.4.9)
+    gibbon (3.2.0)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     guard (2.14.2)
@@ -414,6 +417,7 @@ DEPENDENCIES
   faker!
   figaro
   geocoder
+  gibbon
   guard
   guard-bundler
   guard-rails
