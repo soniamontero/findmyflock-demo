@@ -68,12 +68,4 @@ class CompaniesController < ApplicationController
   def company_params
     params.require(:company).permit(:name, :url, :industry, images: [])
   end
-
-  def active_jobs
-    @active_jobs ||= jobs.where(active: true)
-  end
-
-  def inactive_jobs
-    @inactive_jobs ||= jobs.where(active: false)
-  end
 end
