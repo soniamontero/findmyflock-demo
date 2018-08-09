@@ -1,0 +1,19 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Job</th>
+      <th>Developer</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td><%= match.job.title %></td>
+        <td><%= match.developer.full_name %></td>
+        <td><%= link_to "See developer", admin_developer_path(match.developer) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

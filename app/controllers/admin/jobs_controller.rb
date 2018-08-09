@@ -10,6 +10,7 @@ class Admin::JobsController < Admin::BaseController
   # GET /comapies/1
   # GET /comapies/1.json
   def show
+    @matches = Match.where(job_id: params[:id])
   end
 
   # GET /comapies/new

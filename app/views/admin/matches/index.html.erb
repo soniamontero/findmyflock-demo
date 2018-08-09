@@ -1,0 +1,23 @@
+<div>
+  <h1>Matches</h1>
+</div>
+
+<br />
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Job</th>
+      <th>Developer</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td><%= match.job.title %></td>
+        <td><%= match.developer.full_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
