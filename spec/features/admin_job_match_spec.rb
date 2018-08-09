@@ -9,12 +9,12 @@ feature 'See Developers that Match Jobs' do
   let!(:ruby_job) { create :job, :remote, skills_array: ["ruby/5", "javascript/5"] }
   let!(:ruby_developer) { create :developer, :with_profile, :remote, skills_array: ["ruby/5", "javascript/5"] }
 
-  scenario 'Can see developers that match the job' do
+  before do
+    Developer.check_for_new_matches
     sign_in admin
+  end
 
-    click_on 'Matches'
-    click_on 'Refresh Matches'
-
+  scenario 'Can see developers that match the job' do
     click_on 'Jobs'
     within 'tr', text: ruby_job.title do
       click_on 'See Matches'
