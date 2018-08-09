@@ -1,7 +1,7 @@
 <table class="table table-striped">
+  <h4>Matches for <%= @job_title %></h4>
   <thead>
     <tr>
-      <th>Job</th>
       <th>Developer</th>
       <th>Actions</th>
     </tr>
@@ -10,7 +10,6 @@
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= match.job.title %></td>
         <td><%= match.developer.full_name %></td>
         <td><%= link_to "See developer", admin_developer_path(match.developer) %></td>
       </tr>
