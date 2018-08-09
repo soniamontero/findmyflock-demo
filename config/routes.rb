@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       resources :matches
       resources :developers
       resources :applications, only: [:index, :show]
+      post 'refresh_matches', to: "matches#refresh_matches"
     end
   end
 
