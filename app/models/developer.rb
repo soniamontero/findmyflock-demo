@@ -112,6 +112,6 @@ class Developer < ApplicationRecord
   private
 
   def subscribe_developer_to_mailing_list
-    SubscribeDeveloperToMailingListJob.perform_later(self)
+    SubscribeDeveloperToMailingListJob.new(self).call
   end
 end
