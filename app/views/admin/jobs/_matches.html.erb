@@ -1,20 +1,18 @@
-<% if @developer_matches.any? %>
-  <h1>Matches</h1>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Job</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+<table class="table table-striped">
+  <h4>Matches for <%= @job.title %></h4>
+  <thead>
+    <tr>
+      <th>Developer</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% @developer_matches.each do |id| %>
-        <tr>
-          <td><%= Developer.find(id).first_name%> <%= Developer.find(id).last_name %></td>
-          <td><%= link_to "See developer", admin_developer_path(Developer.find(id)) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+  <tbody>
+    <% @developer_matches.each do |developer| %>
+      <tr>
+        <td><%= developer.full_name %></td>
+        <td><%= link_to "See developer", admin_developer_path(developer) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

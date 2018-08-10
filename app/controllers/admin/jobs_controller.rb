@@ -8,8 +8,7 @@ class Admin::JobsController < Admin::BaseController
   end
 
   def show
-    @matches = Match.where(job_id: params[:id])
-    @job_title = Job.find(params[:id]).title
+    @developer_matches = @job.matched_devs
   end
 
   def new
