@@ -46,10 +46,13 @@ describe Job do
 
     context 'remote job' do
       let!(:remote_job) { create :job, :remote }
+
       scenario 'only matches remote devs' do
         expect(remote_job.matched_devs).to include remote_dev
+        expect(remote_job.matched_devs).to include full_mobility_and_remote_dev
+        expect(remote_job.matched_devs).to include remote_and_office_dev
+        expect(remote_job.matched_devs).to_not include local_dev
         expect(remote_job.matched_devs).to_not include unmatched_skills_dev
-        expect(remote_job.matched_devs.length).to eq 1
       end
     end
 
@@ -93,7 +96,7 @@ describe Job do
       end
     end
 
-    context 'sponsoring jobs', skip: true do
+    context 'sponsoring jobs' do
       let!(:us_dev) { create :developer, :remote_and_office,
         need_us_permit: false,
         skills_array: ["apache/1", "android/3"] }
@@ -121,8 +124,8 @@ describe Job do
 
         it 'shows both jobs for US dev, neither for intl dev' do
           expect(local_job.matched_devs).to include us_dev
-          expect(local_job.matched_devs).to include intl_dev
-          expect(remote_job.matched_devs).not_to include us_dev
+          expect(local_job.matched_devs).to_not include intl_dev
+          expect(remote_job.matched_devs).to include us_dev
           expect(remote_job.matched_devs).not_to include intl_dev
         end
       end

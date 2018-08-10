@@ -17,7 +17,21 @@ class Developer < ApplicationRecord
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
 
+  scope :all_remote, -> { where("'remote' = ANY (remote)") }
+  scope :all_office, -> { where("'office' = ANY (remote)") }
+  scope :match_skills_type, ->(array) { where.not(skills_array: []).where('skills_array @> ARRAY[?]::text[]', array) }
+  # scope :match_skills_type, ->(array) { where.not(skills_array: []).where('skills_array && ARRAY[?]::text[]', array) }
+
   DEFAULT_AVATAR = 'avatar.jpg'.freeze
+
+  def self.check_location lat, long
+    if lat.present?
+      # binding.pry
+      geocoded.near([lat, long], mobility, units: :mi).unscope(:order)
+    else
+      all
+    end
+  end
 
   def avatar_thumbnail
     return DEFAULT_AVATAR unless avatar.attachment.present?

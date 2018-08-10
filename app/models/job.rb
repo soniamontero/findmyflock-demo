@@ -63,6 +63,23 @@ class Job < ApplicationRecord
     self.vetted = true if company.vetted?
   end
 
+  def office_and_remote?
+    remote.size == 2
+  end
+
   def matched_devs
+    if office_and_remote?
+      devs = Developer.all
+      # need to check distance
+    elsif remote == ["remote"]
+      devs = Developer.all_remote
+    elsif remote == ["office"]
+      devs = Developer.all_office
+      # need to check distance
+    end
+
+    devs = can_sponsor ? devs : devs.where(need_us_permit: false)
+
+    devs.match_skills_type(skills_array)
   end
 end
