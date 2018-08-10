@@ -49,6 +49,7 @@ feature 'Developer sign up' do
       click_on "Continue to your dashboard"
       expect(page).to_not have_content "Matched Jobs"
       expect(current_path).to eq add_skills_developers_path
+      expect(page).to have_content "Please complete your profile"
     end
 
     scenario 'with all required info redirects to dashboard', js: true do
@@ -89,5 +90,30 @@ feature 'Developer sign up' do
         expect(page).to have_content 'Important Tips'
       end
     end
+  end
+
+  scenario 'a new developer must confirm email beefore changing password' do
+    visit root_path
+    click_on 'Join'
+    expect(page).to have_content 'Create your developer account'
+    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
+    click_on 'Sign up'
+
+    click_on 'Logout'
+    click_on 'Login'
+    click_on 'Forgot your password?'
+    fill_in 'Email', with: 'mary@exmaple.com'
+    click_on 'Send me'
+
+    open_email('mary@exmaple.com')
+    current_email.click_link 'Change my password'
+
+    expect(page).to have_content "Change your password"
+    fill_in 'New password', with: 'Password2'
+    fill_in 'Confirm your new password', with: 'Password2'
+    expect(page).to have_content "Change your password"
+    expect(page).to have_content "confirm your email"
   end
 end

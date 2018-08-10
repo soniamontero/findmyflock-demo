@@ -31,13 +31,13 @@ class Company < ApplicationRecord
   end
 
   def max_active_jobs
+    return 1e6 if vetted?
+
     case subscriber.try(:plan).try(:stripe_id)
-    when "1-job"
+    when '1-job'
       1
-    when "3-jobs"
+    when '3-jobs'
       3
-    else
-      1e6
     end
   end
 
@@ -51,5 +51,13 @@ class Company < ApplicationRecord
         subscriber.canceled? && subscriber.subscription_expires_at >= Date.today
       ) || subscriber.trialing? || subscriber.past_due?
     )
+  end
+
+  def active_jobs
+    @active_jobs ||= jobs.where(active: true)
+  end
+
+  def inactive_jobs
+    @inactive_jobs ||= jobs.where(active: false)
   end
 end
