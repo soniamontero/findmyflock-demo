@@ -7,6 +7,11 @@ class Admin::JobsController < Admin::BaseController
     @jobs = Job.all.order(created_at: :desc)
   end
 
+  def show
+    @matches = Match.where(job_id: params[:id])
+    @job_title = Job.find(params[:id]).title
+  end
+
   def new
     @job = Job.new
   end
