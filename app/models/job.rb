@@ -69,13 +69,11 @@ class Job < ApplicationRecord
 
   def matched_devs
     if office_and_remote?
-      devs = Developer.all
-      # need to check distance
+      devs = Developer.match_location_or_remote(latitude, longitude)
     elsif remote == ["remote"]
       devs = Developer.all_remote
     elsif remote == ["office"]
-      devs = Developer.all_office
-      # need to check distance
+      devs = Developer.all_office.match_location(latitude, longitude)
     end
 
     devs = can_sponsor ? devs : devs.where(need_us_permit: false)

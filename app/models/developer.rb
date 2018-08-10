@@ -20,17 +20,13 @@ class Developer < ApplicationRecord
   scope :all_remote, -> { where("'remote' = ANY (remote)") }
   scope :all_office, -> { where("'office' = ANY (remote)") }
   scope :match_skills_type, ->(array) { where.not(skills_array: []).where('skills_array @> ARRAY[?]::text[]', array) }
-  # scope :match_skills_type, ->(array) { where.not(skills_array: []).where('skills_array && ARRAY[?]::text[]', array) }
+  scope :match_location, ->(lat, long) { where(id: (Developer.where(full_mobility: true).pluck(:id) + Developer.check_location(lat, long).pluck(:id)).uniq) }
+  scope :match_location_or_remote, ->(lat, long) { where(id: (Developer.all_remote.pluck(:id) + Developer.where(full_mobility: true).pluck(:id) + Developer.check_location(lat, long).pluck(:id)).uniq) }
 
   DEFAULT_AVATAR = 'avatar.jpg'.freeze
 
   def self.check_location lat, long
-    if lat.present?
-      # binding.pry
-      geocoded.near([lat, long], mobility, units: :mi).unscope(:order)
-    else
-      all
-    end
+    geocoded.near([lat, long], :mobility, units: :mi).unscope(:order)
   end
 
   def avatar_thumbnail

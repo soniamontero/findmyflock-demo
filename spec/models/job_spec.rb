@@ -31,7 +31,7 @@ describe Job do
     end
   end
 
-  context '#matched_devs', focus: true do
+  context '#matched_devs' do
     let!(:unmatched_skills_dev) {
       create :developer, :with_profile, :remote_and_office,
       latitude: 40, longitude: -105,
@@ -77,35 +77,35 @@ describe Job do
     end
 
     context 'remote or office job' do
-      let!(:office_job) { create :job, :remote_and_office, latitude: 40, longitude: -105 }
+      let!(:remote_office_job) { create :job, :remote_and_office, latitude: 40, longitude: -105 }
 
       scenario 'matches local devs' do
-        expect(office_job.matched_devs).to include local_dev
-        expect(office_job.matched_devs).to_not include far_away_dev
-        expect(office_job.matched_devs).to_not include unmatched_skills_dev
+        expect(remote_office_job.matched_devs).to include local_dev
+        expect(remote_office_job.matched_devs).to_not include far_away_dev
+        expect(remote_office_job.matched_devs).to_not include unmatched_skills_dev
       end
 
       scenario 'matches full_mobility (all office) devs' do
-        expect(office_job.matched_devs).to include remote_and_office_dev
-        expect(office_job.matched_devs).to include full_mobility_office_dev
-        expect(office_job.matched_devs).to include full_mobility_and_remote_dev
+        expect(remote_office_job.matched_devs).to include remote_and_office_dev
+        expect(remote_office_job.matched_devs).to include full_mobility_office_dev
+        expect(remote_office_job.matched_devs).to include full_mobility_and_remote_dev
       end
 
       scenario 'matches remote devs' do
-        expect(office_job.matched_devs).to include remote_dev
+        expect(remote_office_job.matched_devs).to include remote_dev
       end
     end
 
     context 'sponsoring jobs' do
       let!(:us_dev) { create :developer, :remote_and_office,
-        need_us_permit: false,
+        need_us_permit: false, latitude: 40, longitude: -105,
         skills_array: ["apache/1", "android/3"] }
       let!(:intl_dev) { create :developer, :remote_and_office,
-        need_us_permit: true,
+        need_us_permit: true, latitude: 40, longitude: -105,
         skills_array: ["apache/1", "android/3"] }
 
       context 'with sponsoring companies' do
-        let!(:local_job) { create :job, :office, latitude: 42, longitude: -78,
+        let!(:local_job) { create :job, :office, latitude: 40, longitude: -105,
           can_sponsor: true }
         let!(:remote_job) { create :job, :remote, can_sponsor: true }
 
@@ -118,7 +118,7 @@ describe Job do
       end
 
       context '#matched_devs with no sponsoring companies' do
-        let!(:local_job) { create :job, :office, latitude: 42, longitude: -78,
+        let!(:local_job) { create :job, :office, latitude: 40, longitude: -105,
                            can_sponsor: false }
         let!(:remote_job) { create :job, :remote, can_sponsor: false }
 
