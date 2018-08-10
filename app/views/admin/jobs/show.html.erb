@@ -18,5 +18,9 @@
 <h5>Skills</h5>
 <%= render 'admin/shared/skills_list', skills: @job.skills_array %>
 
+<br/>
+<br/>
+<%= render file: 'admin/matches/show' %>
+
 <%= link_to 'Edit', edit_admin_job_path(@job) %> |
 <%= link_to 'Back', admin_jobs_path %>

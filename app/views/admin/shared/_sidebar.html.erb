@@ -32,6 +32,12 @@
         <% end %>
       </li>
       <li class="nav-item">
+        <%= active_link_to admin_matches_path, class: "nav-link" do %>
+          <i class="far fa-file-code"></i>
+          Matches
+        <% end %>
+      </li>
+      <li class="nav-item">
         <%= active_link_to admin_applications_path, class: "nav-link" do %>
           <i class="fas fa-handshake"></i>
           Applications
