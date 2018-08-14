@@ -13,19 +13,28 @@ class Developer < ApplicationRecord
   validate :password_complexity
   validates :first_name, :last_name, presence: true, length: { maximum: 50 }, on: :update
   validates :city, :country, :state, presence: true, if: :wants_office, on: :update
-  validates :remote, inclusion: { in: [['remote'], ['office'], %w[remote office]] }, on: :update
+  validates :remote, inclusion: { in: [['remote'], ['office'], ['remote', 'office']] }, on: :update
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
 
   scope :all_remote, -> { where("'remote' = ANY (remote)") }
   scope :all_office, -> { where("'office' = ANY (remote)") }
-  scope :match_skills_type, ->(array) { where.not(skills_array: []).where('skills_array @> ARRAY[?]::text[]', array) }
-  scope :match_location, ->(lat, long) { where(id: (Developer.where(full_mobility: true).pluck(:id) + Developer.check_location(lat, long).pluck(:id)).uniq) }
-  scope :match_location_or_remote, ->(lat, long) { where(id: (Developer.all_remote.pluck(:id) + Developer.where(full_mobility: true).pluck(:id) + Developer.check_location(lat, long).pluck(:id)).uniq) }
+  scope :match_skills_type, ->(array) {
+    where.not(skills_array: []).where('skills_array @> ARRAY[?]::text[]', array)
+  }
+  scope :match_location, ->(lat, long) {
+    where(id: (Developer.where(full_mobility: true).pluck(:id) +
+               Developer.check_location(lat, long).pluck(:id)).uniq)
+  }
+  scope :match_location_or_remote, ->(lat, long) {
+    where(id: (Developer.all_remote.pluck(:id) +
+               Developer.where(full_mobility: true).pluck(:id) +
+               Developer.check_location(lat, long).pluck(:id)).uniq)
+  }
 
   DEFAULT_AVATAR = 'avatar.jpg'.freeze
 
-  def self.check_location lat, long
+  def self.check_location(lat, long)
     geocoded.near([lat, long], :mobility, units: :mi).unscope(:order)
   end
 
