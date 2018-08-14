@@ -15,9 +15,6 @@ class PagesController < ApplicationController
     @jobs = Job.where(id: [218,21,13,154])
   end
 
-  def policy
-  end
-
   private
 
   def valid_page?
