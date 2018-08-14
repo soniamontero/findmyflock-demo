@@ -12,6 +12,7 @@ class DevelopersController < ApplicationController
 
   def add_skills
     @developer = current_developer
+    @show_tips = !ignored_countries.include?(lookup_country)
   end
 
   def update
@@ -66,4 +67,16 @@ class DevelopersController < ApplicationController
     params.require(:developer).permit(:email, :password, :password_confirmation, :first_name, :last_name, :avatar, :min_salary, :need_us_permit, :city, :zip_code, :mobility, :state, :country, :linkedin_url, :github_url, :full_mobility, remote:[], resumes: [])
   end
 
+  def lookup_country
+    return 'US' if Rails.env.development?
+    ip = request.remote_ip
+    response = Net::HTTP.get_response URI.parse "http://ipinfo.io/#{ip}/country"
+    if response.code == '200'
+      response.body.strip rescue ''
+    end
+  end
+
+  def ignored_countries
+    ENV['ALLOWED_COUNTRIES'].split(',') rescue ['US']
+  end
 end
