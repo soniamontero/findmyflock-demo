@@ -24,12 +24,12 @@
     </p>
   </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 matched-job-skills">
+  <div class="col-xs-12 col-lg-4 matched-job-skills">
     <h5 class="row matched-job-skills-title">Main skills</h5>
     <%= render "jobs/shared/skills_table", skills: job.skills %>
   </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 mt-2 mb-2">
+  <div class="col-xs-12 col-lg-2 mt-2 mb-2">
     <%= link_to "Details", new_job_application_path(job), class:"btn-orange btn-apply"  %>
   </div>
 </div>
