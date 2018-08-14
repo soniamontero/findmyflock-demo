@@ -54,7 +54,7 @@ class JobsController < ApplicationController
   private
 
   def set_job
-    @job = Job.all.find(params[:id])
+    @job = Job.find(params[:id])
   end
 
   def authorize_action
