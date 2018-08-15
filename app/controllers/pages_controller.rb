@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-
   def show
     if valid_page?
       render template: "pages/#{params[:page]}"
@@ -15,7 +14,6 @@ class PagesController < ApplicationController
     # 218 Gusto, 21 Automattic, 13 Khan, 154 Slalom
     @jobs = Job.where(id: [218,21,13,154])
   end
-
 
   private
 

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   root 'pages#home'
   get "/pages/:page", to: "pages#show", as: :pages
+  get 'policy' => 'pages#policy', as: :policy
   get "jobsamples", to: "pages#jobsamples", as: :jobsamples
 
   resources :companies, only: [:new, :create, :edit, :update] do

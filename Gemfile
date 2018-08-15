@@ -56,6 +56,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'launchy'
+  gem 'webmock'
   gem 'stripe-ruby-mock', '~> 2.5.4', :require => 'stripe_mock'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false

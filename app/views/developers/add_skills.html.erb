@@ -2,6 +2,25 @@
   <div class="row justify-content-md-center">
     <div class="col col-lg-8">
       <%= render 'utils/progressbar', classname: "small", step: 2, navigations: ["Profile", "Skills"] %>
+
+      <% if @show_tips %>
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          <h4 class="alert-heading">Important Tips</h4>
+          <p>
+            Hi! You’re a human and we rather like you, so we want to see you shine. Here are some tips to help you out.
+          </p>
+          <ul>
+            <li> Be honest about your skills. Your first impression is better when you are truthful.</li>
+            <li> While we're at it, tell the truth about your visa status- it’s illegal (and punishable by law) if you don’t.</li>
+            <li> Companies like to feel special too! Personalize your letters to each company instead of sending the same one every time.</li>
+            <li> Not all jobs will fit you, and that’s okay. Apply to only the jobs that fit- ideally no more than 3 per day.</li>
+          </ul>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+
       <div class="card">
         <div class="card-body">
           <div class="alert alert-info">
