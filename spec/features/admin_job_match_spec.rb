@@ -23,4 +23,12 @@ feature 'See Developers that Match Jobs' do
     expect(page).to have_content ruby_developer.first_name
     expect(page).to_not have_content remote_developer.first_name
   end
+
+  scenario 'Can see developers on the job show page' do
+    click_on 'Jobs'
+    click_on ruby_job.title
+
+    expect(page).to have_content ruby_developer.first_name
+    expect(page).to_not have_content remote_developer.first_name
+  end
 end

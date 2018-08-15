@@ -16,3 +16,12 @@ Style/Documentation:
 
 Style/SymbolArray:
   EnforcedStyle: brackets
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/WordArray:
+  EnforcedStyle: brackets
+
+Style/Lambda:
+  EnforcedStyle: literal

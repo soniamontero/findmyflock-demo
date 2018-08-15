@@ -13,6 +13,6 @@ class Admin::ApplicationsController < Admin::BaseController
   private
 
   def set_application
-    @application = Application.all.find(params[:id])
+    @application = Application.find(params[:id])
   end
 end
