@@ -1,48 +1,22 @@
+require 'digest'
+
 class SubscribeDeveloperToMailingListJob < ApplicationJob
   queue_as :default
 
-  require 'digest'
-
   def perform(developer)
-    lower_case_md5_hashed_email_address = Digest::MD5.new.update(developer.email.downcase).hexdigest
+    member_id = Digest::MD5.new.update(developer.email.downcase).hexdigest
     list_id = Rails.application.credentials.mailchimp[:list_id]
     mailchimp_api_key = Rails.application.credentials.mailchimp[:api_key]
+    merge_fields = {}
+    merge_fields[:FNAME] = developer.first_name if developer.first_name.present?
+    merge_fields[:LNAME] = developer.last_name if developer.last_name.present?
     gibbon = Gibbon::Request.new(api_key: mailchimp_api_key)
-
     gibbon.lists(list_id)
-      .members(lower_case_md5_hashed_email_address)
-      .upsert(
-        body: {
+          .members(member_id)
+          .upsert(body: {
             email_address: developer.email,
-            status: "subscribed",
-            # merge_fields: {
-            #   FNAME: developer.first_name,
-            #   LNAME: developer.last_name
-            # }
+            status_if_new: "subscribed",
+            merge_fields: merge_fields,
           })
   end
-
-
-  # def initialize(developer)
-  #   @developer = developer
-  #   @gibbon = Gibbon::Request.new(api_key: Rails.application.credentials.mailchimp[:api_key])
-  #   @list_id = Rails.application.credentials.mailchimp[:list_id]
-  # end
-
-  # def call
-  #   lower_case_md5_hashed_email_address = Digest::MD5.new.update(@developer.email.downcase).hexdigest
-  #   @gibbon.lists(@list_id).members(lower_case_md5_hashed_email_address).upsert(
-  #     body: {
-  #       email_address: @developer.email,
-  #       status: "subscribed",
-  #       # merge_fields: {
-  #       #   FNAME: @developer.first_name,
-  #       #   LNAME: @developer.last_name
-  #       # }
-  #     }
-  #     )
-  # end
-
-# end
-
 end
