@@ -22,7 +22,7 @@ class ApplicationsController < ApplicationController
     @application = Application.new(application_params)
     @application.match = @match
     @developer = @match.developer
-    @developer.update(developer_params) if developer_params[:resumes]
+    @developer.update(developer_params) if developer_params.try(:[], :resumes)
     @company = @match.job.company
     @mail_addresses = @company.recruiters_mail.join(',')
 
