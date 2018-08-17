@@ -61,7 +61,6 @@ feature "Developer applications" do
     expect(developer.reload.resumes.present?).to be true
 
     expect(page).to have_content 'Congratulations!'
-
   end
 
   context 'with a pending application' do

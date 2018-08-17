@@ -22,9 +22,7 @@ class ApplicationsController < ApplicationController
     @application = Application.new(application_params)
     @application.match = @match
     @developer = @match.developer
-    if developer_params[:resumes]
-      @developer.update(developer_params)
-    end
+    @developer.update(developer_params) if developer_params[:resumes]
     @company = @match.job.company
     @mail_addresses = @company.recruiters_mail.join(',')
 
@@ -107,6 +105,6 @@ class ApplicationsController < ApplicationController
   end
 
   def developer_params
-    params.require(:application).permit(developer: [:resumes => []])[:developer]
+    params.require(:application).permit(developer: [resumes: []])[:developer]
   end
 end
