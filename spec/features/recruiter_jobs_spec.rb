@@ -122,19 +122,14 @@ feature 'Jobs' do
   context 'when a company is inactive' do
     let(:inactive_company) { create :company }
     let(:recruiter) { create :recruiter, company: inactive_company }
-    let!(:job) { create :job, company: inactive_company }
 
     before do
       sign_in recruiter
     end
 
     scenario 'cannot activate a job' do
-      visit dashboard_companies_path
-      within('div.matched-job', text: job.title) { click_on 'Edit' }
-
       expect(page).to have_content "You are no longer a member"
-
-      expect(page).not_to have_selector("#job_active")
+      expect(page).to have_link 'here', href: new_subscriber_path
     end
   end
 end

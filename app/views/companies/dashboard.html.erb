@@ -83,8 +83,14 @@
           </div>
 
           <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <% @jobs.each_with_index do |job| %>
-              <%= render 'job_card', job: job %>
+            <% if @company.is_member? || @company.vetted %>
+              <% @jobs.each_with_index do |job| %>
+                <%= render 'job_card', job: job %>
+              <% end %>
+            <% else %>
+              <div class="alert alert-warning" role="alert">
+                You are no longer a member so your jobs have been deactivated. <br>To activate your jobs again, please subscribe to a plan <%= link_to "here", new_subscriber_path %>.
+              </div>
             <% end %>
           </div>
 
