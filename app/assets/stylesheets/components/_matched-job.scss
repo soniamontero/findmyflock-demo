@@ -82,13 +82,13 @@
 }
 
 .btn-orange.btn-see-job {
-  width: 90px;
+  min-width: 90px;
   height: 30px;
   padding: 7px;
 }
 
 .btn-orange.btn-edit-job {
-  width: 90px;
+  min-width: 90px;
   height: 30px;
   padding: 0;
   background-color: #76c0cb;
@@ -102,7 +102,7 @@
 }
 
 .btn-orange.btn-delete-job {
-  width: 90px;
+  min-width: 90px;
   height: 30px;
   padding: 0;
   background-color: #797877;

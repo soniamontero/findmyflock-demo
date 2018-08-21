@@ -84,89 +84,13 @@
 
           <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <% @jobs.each_with_index do |job| %>
-              <div class="row centered matched-job">
-                <div class="col-xs-11 col-sm-11 col-md-5">
-
-                  <h4><%= job.title %></h4>
-                  <h5 class="text-muted"><%= job.company.name  %></h5>
-                  <p class="text-muted">
-                    <%= job.city %>
-                    <% if job.remote == ["remote"] %>
-                    - Remote
-                    <% elsif job.remote == ["office"] %>
-                    - Office
-                    <% elsif job.remote == ["remote", "office"]%>
-                    - Office & Remote
-                    <% end %>
-                  </p>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-5 matched-job-skills">
-                  <h5 class="row matched-job-skills-title">Skills</h5>
-                  <div class="row">
-                    <table class="table">
-                      <tbody>
-                        <% job.skills.each do |skill| %>
-                        <tr>
-                          <td><i class="devicon-<%= skill.name %>-plain colored"></i></td>
-                          <td><%= skill.name %></td>
-                          <td><%= skill.level %></td>
-                        </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-2">
-                  <%= link_to "See", job_path(job), class: "btn btn-orange btn-see-job"  %>
-                  <%= link_to "Edit", edit_job_path(job), class: "btn btn-orange btn-edit-job"  %>
-                </div>
-              </div>
+              <%= render 'job_card', job: job %>
             <% end %>
           </div>
 
           <div class="tab-pane fade" id="nav-inactive" role="tabpanel" aria-labelledby="nav0inactive-tab">
             <% @inactive_jobs.each_with_index do |job| %>
-              <div class="row centered matched-job">
-                <div class="col-xs-11 col-sm-11 col-md-5">
-
-                  <h4><%= job.title %></h4>
-                  <h5 class="text-muted"><%= job.company.name  %></h5>
-                  <p class="text-muted">
-                    <%= job.city %>
-                    <% if job.remote == ["remote"] %>
-                    - Remote
-                    <% elsif job.remote == ["office"] %>
-                    - Office
-                    <% elsif job.remote == ["remote", "office"]%>
-                    - Office & Remote
-                    <% end %>
-                  </p>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-5 matched-job-skills">
-                  <h5 class="row matched-job-skills-title">Skills</h5>
-                  <div class="row">
-                    <table class="table">
-                      <tbody>
-                        <% job.skills.each do |skill| %>
-                        <tr>
-                          <td><i class="devicon-<%= skill.name %>-plain colored"></i></td>
-                          <td><%= skill.name %></td>
-                          <td><%= skill.level %></td>
-                        </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-2">
-                  <%= link_to "See", job_path(job), class: "btn btn-orange btn-see-job"  %>
-                  <%= link_to "Edit", edit_job_path(job), class: "btn btn-orange btn-edit-job"  %>
-                </div>
-              </div>
+              <%= render 'job_card', job: job %>
             <% end %>
           </div>
         </div>
