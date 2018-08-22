@@ -84,14 +84,14 @@
 
 .btn-see-job {
   @extend .btn-orange;
-  min-width: 90px;
+  width: 120px;
   height: 30px;
   padding: 7px;
 }
 
 .btn-edit-job {
   @extend .btn-orange;
-  min-width: 90px;
+  width: 120px;
   height: 30px;
   padding: 0;
   background-color: #76c0cb;
@@ -106,7 +106,7 @@
 
 .btn-publish-job {
   @extend .btn-orange;
-  min-width: 90px;
+  width: 120px;
   height: 30px;
   padding: 0;
   background-color: #797877;
