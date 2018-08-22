@@ -38,12 +38,12 @@
     <% if job.active %>
       <%= form_for job do |f| %>
         <%= f.hidden_field :active, value: false %>
-        <%= f.submit 'Deactivate', class: "btn btn-orange btn-delete-job", data: { confirm: "Are you sure you want to deactivate #{job.title}? It will be removed from job searches." } %>
+        <%= f.submit 'Unpublish', class: "btn btn-orange btn-delete-job", data: { confirm: "Are you sure you want to deactivate #{job.title}? It will be removed from job searches." } %>
       <% end %>
     <% else %>
       <%= form_for job do |f| %>
         <%= f.hidden_field :active, value: true %>
-        <%= f.submit 'Activate', class: "btn btn-orange btn-delete-job", data: { confirm: "Are you sure you want to publish #{job.title}? It will be visible in job searches." } %>
+        <%= f.submit 'Publish', class: "btn btn-orange btn-delete-job", data: { confirm: "Are you sure you want to publish #{job.title}? It will be visible in job searches." } %>
       <% end %>
     <% end %>
   </div>

@@ -76,7 +76,7 @@ feature 'Jobs' do
 
       scenario 'can deactivate a job' do
         visit dashboard_companies_path
-        within('div.matched-job', text: job_to_change.title) { click_on 'Deactivate' }
+        within('div.matched-job', text: job_to_change.title) { click_on 'Unpublish' }
 
         expect(job_to_change.reload.active).to eq false
         within('#nav-profile') {
@@ -98,7 +98,7 @@ feature 'Jobs' do
 
     scenario 'can deactivate a job from the index' do
       visit dashboard_companies_path
-      within('div.matched-job', text: job.title) { click_on 'Deactivate' }
+      within('div.matched-job', text: job.title) { click_on 'Unpublish' }
 
       expect(job.reload.active).to eq false
       within('#nav-profile') {
