@@ -63,4 +63,9 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.webpacker.check_yarn_integrity = false
+
+  # allow console when running under Docker
+  if File.file?('/.dockerenv')
+    config.web_console.whitelisted_ips << '172.18.0.0/16'
+  end
 end

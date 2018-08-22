@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-xs-11 col-sm-11 col-md-8" style="max-width: 700px;">
+  <div class="col-xs-11 col-sm-11 col-lg-8" style="max-width: 700px;">
     <div class="auth-form">
       <div class="text-center">
         <%= render "recruiters/shared/tab_nav" %>
@@ -16,6 +16,7 @@
           <div class="form-actions">
               <%= f.button :submit, "Sign up", class: 'btn-orange log-in-button' %>
           </div>
+          <p class="submit-privacy">By clicking 'Sign up', you agree to our <%= link_to "Privacy Policy", policy_path, target: "_blank" %></p>
           <% end %>
         </div>
         <div class="login-form-bottom">

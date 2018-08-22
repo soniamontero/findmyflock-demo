@@ -1,28 +1,20 @@
+# frozen_string_literal: true
+
 class Admin::JobsController < Admin::BaseController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
-  # GET /comapies
-  # GET /comapies.json
   def index
     @jobs = Job.all.order(created_at: :desc)
   end
 
-  # GET /comapies/1
-  # GET /comapies/1.json
   def show
+    @developer_matches = @job.matched_devs
   end
 
-  # GET /comapies/new
   def new
     @job = Job.new
   end
 
-  # GET /comapies/1/edit
-  def edit
-  end
-
-  # POST /comapies
-  # POST /comapies.json
   def create
     @job = Job.new(job_params)
     @job.toggle_to_vetted
@@ -35,8 +27,6 @@ class Admin::JobsController < Admin::BaseController
     end
   end
 
-  # PATCH/PUT /comapies/1
-  # PATCH/PUT /comapies/1.json
   def update
     respond_to do |format|
       if @job.update(job_params)
@@ -47,8 +37,6 @@ class Admin::JobsController < Admin::BaseController
     end
   end
 
-  # DELETE /comapies/1
-  # DELETE /comapies/1.json
   def destroy
     @job.destroy
     respond_to do |format|
@@ -57,15 +45,28 @@ class Admin::JobsController < Admin::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job
-      @job = Job.all.find(params[:id])
-    end
 
-    # (:title, :description, remote:[], benefits:[], cultures:[], :city, :zip_code, :state, :country, :max_salary, :employment_type)
+  def set_job
+    @job = Job.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def job_params
-      params.require(:job).permit(:title, :active, :description, :city, :zip_code, :state, :country, :max_salary, :employment_type, :can_sponsor, :company_id, :vetted, remote:[], benefits:[], cultures:[])
-    end
+  def job_params
+    params.require(:job).permit(
+      :title,
+      :active,
+      :description,
+      :city,
+      :zip_code,
+      :state,
+      :country,
+      :max_salary,
+      :employment_type,
+      :can_sponsor,
+      :company_id,
+      :vetted,
+      remote: [],
+      benefits: [],
+      cultures: []
+    )
+  end
 end

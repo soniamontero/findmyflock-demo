@@ -7,14 +7,31 @@ Culture-centric tech job search.
 
 ## Technology and Stack
 - [PostgreSQL 10.4](https://www.postgresql.org/docs/current/static/release-10-4.html)
-- [ruby 2.4.3](https://www.ruby-lang.org/en/news/2017/12/14/ruby-2-4-3-released/)
+- [ruby 2.5.1](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/)
 - [rails 5.2](http://guides.rubyonrails.org/v5.2/)
 - [stripe](https://stripe.com/docs/api)
 - [npm](https://www.npmjs.com/get-npm)
 - [node](https://nodejs.org/) (see `.nvmrc` for version)
 - [yarn](https://yarnpkg.com/en/docs/install)
 
-## Setup
+## Docker development
+If you want to use Docker for development, make sure you have Docker for
+Mac / Linux / Windows installed on your machine.
+
+1. `docker-compose build`
+1. `docker-compose up`
+1. If you need to initialize the database, run: `docker-compose exec www bundle exec rails db:setup`
+1. View site at `http://localhost:3000/`
+    - Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password`
+
+### Running tests
+
+1. Start up the Docker dev environment as described above.
+1. `docker-compose exec www bundle exec rails spec`
+
+## Non-Docker development
+
+### Setup
 1. `bundle install` - Install ruby dependencies
 1. `nvm use` - Verify you are using the correct version of Node.
 1. `yarn` - Install javscript dependencies
@@ -24,12 +41,12 @@ Culture-centric tech job search.
 
 Run the development server and test suite to verify successful deployment. [See wiki for QA walkthrough](https://github.com/findmyflock/www/wiki/Manual-Testing-QA-Checklist).
 
-## Development server
+### Development server
 - `bundle exec rails server`
 - View site at `http://localhost:3000/`
 - Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password`
 
-## Testing
+### Testing
 - `bundle exec rspec spec`
 - Or run both the server and the tests with `bundle exec guard`. This will re-run tests after every change.
 

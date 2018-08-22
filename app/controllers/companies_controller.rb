@@ -43,7 +43,8 @@ class CompaniesController < ApplicationController
     if @company.nil?
       redirect_to new_company_path, alert: 'Please create your company' and return
     end
-    @jobs = @company.jobs
+    @jobs = @company.active_jobs
+    @inactive_jobs = @company.inactive_jobs
   end
 
   private
@@ -67,5 +68,4 @@ class CompaniesController < ApplicationController
   def company_params
     params.require(:company).permit(:name, :url, :industry, images: [])
   end
-
 end

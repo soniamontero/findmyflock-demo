@@ -54,7 +54,7 @@ class JobsController < ApplicationController
   private
 
   def set_job
-    @job = Job.all.find(params[:id])
+    @job = Job.find(params[:id])
   end
 
   def authorize_action
@@ -65,19 +65,19 @@ class JobsController < ApplicationController
 
   def job_params
     params.require(:job).permit(
-      :title, 
-      :description, 
-      :city, 
-      :zip_code, 
-      :state, 
-      :country, 
-      :max_salary, 
-      :employment_type, 
-      :can_sponsor, 
-      :active, 
-      remote:[], 
-      benefits:[],
-      cultures:[]
+      :title,
+      :description,
+      :city,
+      :zip_code,
+      :state,
+      :country,
+      :max_salary,
+      :employment_type,
+      :can_sponsor,
+      :active,
+      remote: [],
+      benefits: [],
+      cultures: []
     )
   end
 

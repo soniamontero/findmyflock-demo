@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 feature 'Developer sign up' do
+  let(:developer_country) { 'US' }
+  before do
+    stub_request(:get, /ipinfo.io/).
+      with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+      to_return(status: 200, body: developer_country, headers: {})
+  end
+
   scenario 'a new developer can sign up' do
     visit root_path
     click_on 'Join'
@@ -42,6 +49,7 @@ feature 'Developer sign up' do
       click_on "Continue to your dashboard"
       expect(page).to_not have_content "Matched Jobs"
       expect(current_path).to eq add_skills_developers_path
+      expect(page).to have_content "Please complete your profile"
     end
 
     scenario 'with all required info redirects to dashboard', js: true do
@@ -66,5 +74,46 @@ feature 'Developer sign up' do
       expect(page).to have_content(/Matched Jobs/i)
       expect(developer.reload.skills_array).to match_array ["Rails/1", "#{competencies.first.value}/1"]
     end
+
+    scenario 'US developer does not see tips' do
+      sign_in developer
+      visit add_skills_developers_path
+      expect(page).to_not have_content 'Important Tips'
+    end
+
+    context 'a non-US developer' do
+      let(:developer_country) { 'ID' }
+
+      scenario 'sees tips' do
+        sign_in developer
+        visit add_skills_developers_path
+        expect(page).to have_content 'Important Tips'
+      end
+    end
+  end
+
+  scenario 'a new developer must confirm email beefore changing password' do
+    visit root_path
+    click_on 'Join'
+    expect(page).to have_content 'Create your developer account'
+    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
+    click_on 'Sign up'
+
+    click_on 'Logout'
+    click_on 'Login'
+    click_on 'Forgot your password?'
+    fill_in 'Email', with: 'mary@exmaple.com'
+    click_on 'Send me'
+
+    open_email('mary@exmaple.com')
+    current_email.click_link 'Change my password'
+
+    expect(page).to have_content "Change your password"
+    fill_in 'New password', with: 'Password2'
+    fill_in 'Confirm your new password', with: 'Password2'
+    expect(page).to have_content "Change your password"
+    expect(page).to have_content "confirm your email"
   end
 end

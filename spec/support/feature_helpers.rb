@@ -2,6 +2,8 @@ module FeatureHelpers
   def sign_in user=nil, password="Password1"
     if user.is_a? Developer
       visit new_developer_session_path unless current_path == new_developer_session_path
+    elsif user.is_a? Admin
+      visit admin_session_path
     else
       visit recruiter_session_path unless current_path == recruiter_session_path
     end
