@@ -18,6 +18,7 @@ Culture-centric tech job search.
 If you want to use Docker for development, make sure you have Docker for
 Mac / Linux / Windows installed on your machine.
 
+1. [Install Docker for your platform](https://store.docker.com/search?type=edition&offering=community)
 1. `docker-compose build`
 1. `docker-compose up`
 1. If you need to initialize the database, run: `docker-compose exec www bundle exec rails db:setup`
