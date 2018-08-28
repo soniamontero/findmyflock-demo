@@ -75,6 +75,18 @@ feature 'Developer sign up' do
       expect(developer.reload.skills_array).to match_array ["Rails/1", "#{competencies.first.value}/1"]
     end
 
+    scenario 'uploads a resume' do
+      sign_in developer
+      expect(current_path).to eq edit_profile_developers_path
+      fill_in 'First name', with: 'Susie'
+      fill_in 'Last name', with: 'Jones'
+      attach_file('developer[resumes][]', 'spec/fixtures/asset_test_file.pdf')
+      find('[for=developer_remote_remote]', visible: false).click
+      click_on 'Continue'
+
+      expect(developer.reload.resumes.present?).to be true
+    end
+
     scenario 'US developer does not see tips' do
       sign_in developer
       visit add_skills_developers_path
