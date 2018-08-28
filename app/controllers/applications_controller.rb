@@ -11,7 +11,8 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-    @application = Application.new
+    @application = Application.find_by(match: @match)
+    @application = Application.new if !@application
     @developer = current_developer
     @is_posted = application_is_posted? @match
     @applications_sent = applications_sent_today
