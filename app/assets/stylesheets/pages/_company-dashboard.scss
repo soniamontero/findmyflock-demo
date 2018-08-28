@@ -78,7 +78,8 @@
   padding-right: 5vw;
 }
 
-.btn-orange.btn-application {
+.btn-application {
+  @extend .btn-orange;
   background-color: #338a98;
   border: 1px solid #338a98;
 
@@ -88,7 +89,8 @@
   }
 }
 
-.btn-orange.btn-application-small {
+.btn-application-small {
+  @extend .btn-orange;
   height: 30px;
   width: 160px;
   font-size: 10px;
@@ -102,4 +104,3 @@
     border-color: #3fb8cb;
   }
 }
-
