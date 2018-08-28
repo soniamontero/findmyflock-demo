@@ -1,8 +1,5 @@
-
 <div class="container-fluid user-job-show-container">
-
   <div class="row">
-
     <div class="col-sm-12 col-md-6 job-details-container">
       <%= render 'jobs/full_job' %>
     </div>
@@ -14,7 +11,6 @@
         </div>
 
         <% if (!@applications_sent.nil? && @applications_sent >= 5) %>
-
           <p class="alert pt-3 pb-3" role="alert" style="color: gray;">
             <i class="fas fa-exclamation-triangle fa-2x fa-pull-left fa-border"></i> Sorry! You can only apply to 5 jobs per day. Next time try using our excellent filters to find which ones are the BEST fit for you.
           </p>
@@ -31,30 +27,29 @@
               <i class="fas fa-quote-left fa-2x fa-pull-left fa-border"></i> We will attach the resume uploaded on your profile with this request.
             </p>
           <% end  %>
-
             <%= f.submit "Send application", class: "btn btn-orange btn-application btn-block" %>
           <% end %>
         <% end %>
 
+        <% else %>
 
+        <div class="job-show-titles">
+          <h4 class="row justify-content-center underlined">Application sent</h4>
+        </div>
 
-         <% else %>
-
-          <div class="job-show-titles">
-            <h4 class="row justify-content-center underlined">Application sent</h4>
-          </div>
-
-          <div class="applied-message">
-            <h5 class="h6 centered">Congratulations!</h5>
-            <p>Your application has been sent and will be reviewed by the recruiters at <%= @job.company.name %>.</p>
-            <p>You can check your application status on your dashboard under the “Applications” tab. We will send you an email when your app is opened, and if the recruiter wants to chat or decides they don't.</p>
-            <p>Thanks for choosing to use a site that reinvests in the tech community! Tell your friends!</p>
-          </div>
-
-       <% end %>
-
+        <div class="applied-message">
+          <h5 class="h6 centered">Congratulations!</h5>
+          <p>Your application has been sent and will be reviewed by the recruiters at <%= @job.company.name %>.</p>
+          <p>You can view the message you sent to the recruiter below.</p>
+          <p>You can check your application status on your dashboard under the “Applications” tab. We will send you an email when your app is opened, and if the recruiter wants to chat or decides they don't.</p>
+          <p>Thanks for choosing to use a site that reinvests in the tech community! Tell your friends!</p>
+        </div>
+        <div class="applied-message">
+          <h5 class="h6 centered">Message sent:</h5>
+          <p style="text-align: justify"><%=  @match.application.message %></p>
+        </div>
+     <% end %>
     </div>
-
   </div>
 
   <div class="centered my-5">
