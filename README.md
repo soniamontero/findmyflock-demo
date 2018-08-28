@@ -48,6 +48,8 @@ Run the development server and test suite to verify successful deployment. [See 
 - Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password`
 
 ### Testing
+- Install Chromedriver:
+    - macOS: `brew cask install chromedriver`
 - `bundle exec rspec spec`
 - Or run both the server and the tests with `bundle exec guard`. This will re-run tests after every change.
 

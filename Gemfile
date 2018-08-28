@@ -53,7 +53,6 @@ group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'capybara-email'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
   gem 'launchy'
   gem 'webmock'
   gem 'stripe-ruby-mock', '~> 2.5.4', :require => 'stripe_mock'
