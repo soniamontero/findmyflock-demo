@@ -21,9 +21,14 @@ Mac / Linux / Windows installed on your machine.
 1. [Install Docker for your platform](https://store.docker.com/search?type=edition&offering=community)
 1. `docker-compose build`
 1. `docker-compose up`
-1. If you need to initialize the database, run: `docker-compose exec www bundle exec rails db:setup`
+    1. This will take over the terminal window you run it in and show the output
+    from the running containers. Leave this running and open up a new terminal
+    window or tab to run subsequent commands.
+1. If you need to initialize the database, run:
+`docker-compose exec www bundle exec rails db:setup`
 1. View site at `http://localhost:3000/`
-    - Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password`
+    - Use test accounts: `dev@example.com`, `recruiter@example.com`, and
+    `admin@findmyflock.com` with password `password`
 
 ### Running tests
 
