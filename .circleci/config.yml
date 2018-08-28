@@ -26,12 +26,10 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
+      # Download and cache Ruby dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
 
       - run:
           name: install dependencies
@@ -44,11 +42,10 @@ jobs:
             - vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # Download and cache dependencies
+      # Download and cache JS dependencies
       - restore_cache:
           keys:
           - v1-yarn-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
 
       - run:
           name: install dependencies
