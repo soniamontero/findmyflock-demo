@@ -51,20 +51,23 @@
   letter-spacing: 5px;
 }
 
-.btn-orange.btn-back {
+.btn-back {
+  @extend .btn-orange;
   border: 1px solid gray;
   background-color: gray;
   margin: 20px auto;
   height: 38px;
 }
 
-.btn-orange.btn-back:hover {
+.btn-back:hover {
+  @extend .btn-orange;
   border: 1px solid #3c3b3a;
   background-color: #3c3b3a;
 }
 
 
-.btn-orange.joinbutton {
+.joinbutton {
+  @extend .btn-orange;
   padding: 10px 15px;
   height: 45px;
   width: 140px;
@@ -81,7 +84,8 @@
   transition: all 0.6s ease 0s;
 }
 
-.btn-orange.loginbutton {
+.loginbutton {
+  @extend .btn-orange;
   padding: 10px 15px;
   height: 45px;
   width: 140px;

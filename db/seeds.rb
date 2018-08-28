@@ -1065,7 +1065,7 @@ when "development"
 
       i = rand(0..3)
       job = Job.new(
-        title: Faker::FamilyGuy.character,
+        title: Faker::Company.profession,
         description: Faker::Lorem.paragraph(2, false, 4),
         remote: remote.sample,
         city: PLACES[i][:city],
