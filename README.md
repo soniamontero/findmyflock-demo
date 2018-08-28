@@ -7,7 +7,7 @@ Culture-centric tech job search.
 
 ## Technology and Stack
 - [PostgreSQL 10.4](https://www.postgresql.org/docs/current/static/release-10-4.html)
-- [ruby 2.5.1](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/)
+- [ruby 2.4.4](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-4-4-released/)
 - [rails 5.2](http://guides.rubyonrails.org/v5.2/)
 - [stripe](https://stripe.com/docs/api)
 - [npm](https://www.npmjs.com/get-npm)
