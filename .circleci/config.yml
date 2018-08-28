@@ -37,7 +37,7 @@ jobs:
           name: install dependencies
           command: |
             bundle check || bundle install
-            bundle exec chromedriver-update 2.36
+            sudo apt-get install -y chromium-driver
 
       - save_cache:
           paths:
