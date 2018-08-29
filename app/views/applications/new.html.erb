@@ -9,7 +9,7 @@
         <div class="job-show-titles mb-4">
           <h4 class="row justify-content-center underlined">Apply to this job</h4>
         </div>
-        <% if (!@applications_sent.nil? && @applications_sent >= 5) %>
+        <% if (@applications_sent.present? && @applications_sent >= 5) %>
           <p class="alert pt-3 pb-3" role="alert" style="color: gray;">
             <i class="fas fa-exclamation-triangle fa-2x fa-pull-left fa-border"></i> Sorry! You can only apply to 5 jobs per day. Next time try using our excellent filters to find which ones are the BEST fit for you.
           </p>
