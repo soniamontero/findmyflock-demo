@@ -30,6 +30,10 @@ class DevelopersController < ApplicationController
     end
   end
 
+  def destroy
+    current_developer.destroy
+    redirect_to root_path
+  end
 
   def dashboard
     @developer = current_developer
