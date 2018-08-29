@@ -31,8 +31,17 @@ class DevelopersController < ApplicationController
   end
 
   def destroy
-    current_developer.destroy
+    @developer = current_developer
+    byebug
+    @applications = @developer.applications
+    @addresses = []
+    @applications.each do |application|
+      @addresses << application.match.job.company.recruiters_mail.join(",")
+    end
+    CompanyMailer.cancelled_application_advise(@addresses, @developer).deliver
+    @developer.destroy
     redirect_to root_path
+    # end
   end
 
   def dashboard
