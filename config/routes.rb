@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   match 'developers/dashboard' => 'developers#dashboard', as: 'developer_root', via: :get
 
   resources :jobs do
-    resources :applications, only: [:new, :create, :show] do
+    resources :applications, only: [:new, :create, :show, :destroy] do
       member do
         post 'contact'
         post 'reject'

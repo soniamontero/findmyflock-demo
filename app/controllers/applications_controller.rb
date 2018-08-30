@@ -43,6 +43,15 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def destroy
+    @application = Application.find params[:id]
+    if @application.destroy
+      redirect_to dashboard_developers_path, notice: 'Application was successfully deleted.'
+    else
+      redirect_to dashboard_developers_path, notice: 'There was an error deleting your application'
+    end
+  end
+
   def contact
     message = params[:private_message]
     if !message.empty?
