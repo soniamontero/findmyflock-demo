@@ -6,6 +6,7 @@ feature 'Developer applications' do
   let(:company) { create :company, vetted: true }
   let!(:recruiter) { create :recruiter, company: company }
   let!(:active_job) { create :job, :remote, company: company }
+  let!(:another_job) { create :job, :remote, company: company }
   let!(:non_matching_job) { create :job, :office, company: company }
 
   before do
@@ -13,7 +14,7 @@ feature 'Developer applications' do
     clear_emails
   end
 
-  scenario 'applies for a job' do
+  scenario 'applies for a job', focus: true do
     within('.matched-job', text: active_job.title) do
       click_on 'Details'
     end
@@ -28,6 +29,10 @@ feature 'Developer applications' do
 
     within('#nav-profile .matched-job', text: active_job.title) do
       expect(page).to have_content "Current state\nPending"
+    end
+
+    within('#nav-home') do
+      expect(page).to_not have_content active_job.title
     end
   end
 
@@ -94,6 +99,9 @@ feature 'Developer applications' do
 
       within('#nav-profile') do
         expect(page).to_not have_content active_job.title
+      end
+      within('#nav-home') do
+        expect(page).to have_content active_job.title
       end
     end
 
