@@ -30,7 +30,6 @@
         <% end %>
 
       <% else %>
-
         <div class="job-show-titles">
           <h4 class="row justify-content-center underlined">Application sent</h4>
         </div>
@@ -45,6 +44,12 @@
           <h5 class="h6 centered">Message sent:</h5>
           <p style="text-align: justify"><%=  @application.message %></p>
         </div>
+        <%= link_to "Withdraw application",
+          job_application_path(id: @application.id),
+          method: :delete,
+          class: "btn btn-danger",
+          data: {confirm: 'Are you sure you want to delete this application?'}
+          %>
       <% end %>
 
     </div>
