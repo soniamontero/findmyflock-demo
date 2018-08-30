@@ -41,7 +41,6 @@ class DevelopersController < ApplicationController
     CompanyMailer.cancelled_application_advise(@addresses, @developer).deliver
     @developer.destroy
     redirect_to root_path
-    # end
   end
 
   def dashboard
