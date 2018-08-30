@@ -28,12 +28,18 @@ class JobsController < ApplicationController
   end
 
   def update
-    step = params[:job][:navigate_to]
-
-    respond_to do |format|
+    if job_params[:active]
       if activating_job and not current_recruiter.company.can_add_job?
         return redirect_to new_subscriber_path
       end
+
+      @job.update(job_params)
+      return redirect_to dashboard_companies_path
+    end
+
+    step = params[:job][:navigate_to]
+
+    respond_to do |format|
       if @job.update(job_params)
         if step == "benefits"
           format.html { redirect_to benefits_job_path(@job) }
