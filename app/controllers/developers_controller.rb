@@ -50,9 +50,7 @@ class DevelopersController < ApplicationController
     end
     @jobs = @jobs.filter_by_salary(params[:salaries]) if params[:salaries].present?
     @jobs = @jobs.sort_by { |j| j.vetted ? 0 : 1 }
-    binding.pry
-    @jobs
-    # @jobs = @jobs.delete_if { |j| j.developers.include? @developer }
+    @jobs.reject { |j| j.applied_developers.include? @developer }
   end
 
   def is_profile_complete?

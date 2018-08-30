@@ -14,7 +14,7 @@ feature 'Developer applications' do
     clear_emails
   end
 
-  scenario 'applies for a job', focus: true do
+  scenario 'applies for a job' do
     within('.matched-job', text: active_job.title) do
       click_on 'Details'
     end
