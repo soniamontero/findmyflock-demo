@@ -44,7 +44,23 @@ feature "Developer applications" do
     click_on 'Send application'
 
     expect(page).to_not have_content 'Congratulations!'
-      expect(emails_sent_to(recruiter.email)).to be_empty
+    expect(emails_sent_to(recruiter.email)).to be_empty
+  end
+
+  scenario 'can upload a resume and apply' do
+    developer.resumes.purge
+    within('.matched-job', text: active_job.title) do
+      click_on 'Details'
+    end
+    expect(page).to have_content 'Apply to this job'
+
+    fill_in 'Write a message to the recruiter', with: 'A message'
+    attach_file('application[developer][resumes][]', 'spec/fixtures/asset_test_file.pdf')
+
+    click_on 'Send application'
+    expect(developer.reload.resumes.present?).to be true
+
+    expect(page).to have_content 'Congratulations!'
   end
 
   context 'with a pending application' do
