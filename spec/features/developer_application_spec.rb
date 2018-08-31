@@ -87,6 +87,16 @@ feature 'Developer applications' do
       expect(page).to have_content 'Please hire me'
     end
 
+    scenario 'job does not show on matched jobs page' do
+      click_on 'Dashboard'
+      click_on 'Applications'
+
+      within('#nav-home') do
+        expect(page).to_not have_content active_job.title
+        expect(page).to have_content another_job.title
+      end
+    end
+
     scenario 'can withdraw the application' do
       click_on 'Dashboard'
       click_on 'Applications'
