@@ -95,4 +95,8 @@ class Job < ApplicationRecord
 
     devs.match_skills_type(skills_array)
   end
+
+  def has_applicant developer
+    applied_developers.include? developer
+  end
 end
