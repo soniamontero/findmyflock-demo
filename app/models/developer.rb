@@ -5,7 +5,7 @@ class Developer < ApplicationRecord
   has_one_attached :avatar
   has_many_attached :resumes
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  :recoverable, :rememberable, :trackable, :validatable, :confirmable
   geocoded_by :developer_location
   before_validation :email_downcase
   after_validation :geocode, on: :update
@@ -25,12 +25,12 @@ class Developer < ApplicationRecord
   }
   scope :match_location, ->(lat, long) {
     where(id: (Developer.where(full_mobility: true).pluck(:id) +
-               Developer.check_location(lat, long).pluck(:id)).uniq)
+     Developer.check_location(lat, long).pluck(:id)).uniq)
   }
   scope :match_location_or_remote, ->(lat, long) {
     where(id: (Developer.all_remote.pluck(:id) +
-               Developer.where(full_mobility: true).pluck(:id) +
-               Developer.check_location(lat, long).pluck(:id)).uniq)
+     Developer.where(full_mobility: true).pluck(:id) +
+     Developer.check_location(lat, long).pluck(:id)).uniq)
   }
 
   DEFAULT_AVATAR = 'avatar.jpg'.freeze
@@ -131,7 +131,8 @@ class Developer < ApplicationRecord
   private
 
   def subscribe_developer_to_mailing_list
-    # SubscribeDeveloperToMailingListJob.new(self).call
-    SubscribeDeveloperToMailingListJob.perform_later(self)
+    if gets_mail? == true
+      SubscribeDeveloperToMailingListJob.perform_later(self)
+    end
   end
 end
