@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "Developer applications" do
+feature 'Developer applications' do
   let(:developer) { create :developer, :with_profile, :remote }
 
   let(:company) { create :company, vetted: true }
@@ -13,7 +13,7 @@ feature "Developer applications" do
     clear_emails
   end
 
-  scenario "applies for a job" do
+  scenario 'applies for a job' do
     within('.matched-job', text: active_job.title) do
       click_on 'Details'
     end
@@ -44,32 +44,74 @@ feature "Developer applications" do
     click_on 'Send application'
 
     expect(page).to_not have_content 'Congratulations!'
-      expect(emails_sent_to(recruiter.email)).to be_empty
+    expect(emails_sent_to(recruiter.email)).to be_empty
+  end
+
+  scenario 'can upload a resume and apply' do
+    developer.resumes.purge
+    within('.matched-job', text: active_job.title) do
+      click_on 'Details'
+    end
+    expect(page).to have_content 'Apply to this job'
+
+    fill_in 'Write a message to the recruiter', with: 'A message'
+    attach_file('application[developer][resumes][]', 'spec/fixtures/asset_test_file.pdf')
+
+    click_on 'Send application'
+    expect(developer.reload.resumes.present?).to be true
+
+    expect(page).to have_content 'Congratulations!'
   end
 
   context 'with a pending application' do
     before do
       within('.matched-job', text: active_job.title) { click_on 'Details' }
-      fill_in 'Write a message to the recruiter', with: 'Message'
+      fill_in 'Write a message to the recruiter', with: 'Please hire me'
       click_on 'Send application'
       clear_emails
     end
 
-    scenario "Receives email when application is viewed for the first time" do
-      sign_in recruiter
-      within('.matched-job', text: developer.full_name) { click_on "View" }
+    scenario 'can see the message they sent' do
+      click_on 'Dashboard'
+      click_on 'Applications'
 
-      open_email developer.email
-      expect(current_email).to have_content "Your application has been opened"
+      within('#nav-profile .matched-job', text: active_job.title) do
+        click_on 'Show'
+      end
+
+      expect(page).to have_content 'Please hire me'
     end
 
-    scenario "Does not receive email when application is viewed again" do
+    scenario 'can withdraw the application' do
+      click_on 'Dashboard'
+      click_on 'Applications'
+
+      within('#nav-profile .matched-job', text: active_job.title) do
+        click_on 'Show'
+      end
+
+      click_on 'Withdraw application'
+
+      within('#nav-profile') do
+        expect(page).to_not have_content active_job.title
+      end
+    end
+
+    scenario 'Receives email when application is viewed for the first time' do
       sign_in recruiter
-      within('.matched-job', text: developer.full_name) { click_on "View" }
+      within('.matched-job', text: developer.full_name) { click_on 'View' }
+
+      open_email developer.email
+      expect(current_email).to have_content 'Your application has been opened'
+    end
+
+    scenario 'Does not receive email when application is viewed again' do
+      sign_in recruiter
+      within('.matched-job', text: developer.full_name) { click_on 'View' }
       clear_emails
 
       click_on 'Dashboard'
-      within('.matched-job', text: developer.full_name) { click_on "View" }
+      within('.matched-job', text: developer.full_name) { click_on 'View' }
 
       expect(emails_sent_to(developer.email)).to be_empty
     end

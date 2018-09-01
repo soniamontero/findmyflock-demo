@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.4.3-node-browsers
+      - image: circleci/ruby:2.4.4-node-browsers
         environment:
           RAILS_ENV: test
           BUNDLE_PATH: vendor/bundle
@@ -26,29 +26,25 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
+      # Download and cache Ruby dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
 
       - run:
           name: install dependencies
           command: |
             bundle check || bundle install
-            bundle exec chromedriver-update 2.36
 
       - save_cache:
           paths:
             - vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # Download and cache dependencies
+      # Download and cache JS dependencies
       - restore_cache:
           keys:
           - v1-yarn-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
 
       - run:
           name: install dependencies

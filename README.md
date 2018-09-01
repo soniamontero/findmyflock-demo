@@ -7,7 +7,7 @@ Culture-centric tech job search.
 
 ## Technology and Stack
 - [PostgreSQL 10.4](https://www.postgresql.org/docs/current/static/release-10-4.html)
-- [ruby 2.5.1](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/)
+- [ruby 2.4.4](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-4-4-released/)
 - [rails 5.2](http://guides.rubyonrails.org/v5.2/)
 - [stripe](https://stripe.com/docs/api)
 - [npm](https://www.npmjs.com/get-npm)
@@ -18,11 +18,17 @@ Culture-centric tech job search.
 If you want to use Docker for development, make sure you have Docker for
 Mac / Linux / Windows installed on your machine.
 
+1. [Install Docker for your platform](https://store.docker.com/search?type=edition&offering=community)
 1. `docker-compose build`
 1. `docker-compose up`
-1. If you need to initialize the database, run: `docker-compose exec www bundle exec rails db:setup`
+    1. This will take over the terminal window you run it in and show the output
+    from the running containers. Leave this running and open up a new terminal
+    window or tab to run subsequent commands.
+1. If you need to initialize the database, run:
+`docker-compose exec www bundle exec rails db:setup`
 1. View site at `http://localhost:3000/`
-    - Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password`
+    - Use test accounts: `dev@example.com`, `recruiter@example.com`, and
+    `admin@findmyflock.com` with password `password`
 
 ### Running tests
 
@@ -47,6 +53,8 @@ Run the development server and test suite to verify successful deployment. [See 
 - Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password`
 
 ### Testing
+- Install Chromedriver:
+    - macOS: `brew cask install chromedriver`
 - `bundle exec rspec spec`
 - Or run both the server and the tests with `bundle exec guard`. This will re-run tests after every change.
 

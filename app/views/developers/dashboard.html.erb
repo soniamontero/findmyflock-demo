@@ -92,6 +92,7 @@
                       <% else %>
                         <span class="badge btn-pending">Pending</span>
                       <% end %>
+                      <%= link_to "Show", new_job_application_path(application.match.job), class:"btn-apply"  %>
                     </div>
                   </div>
                 </div>

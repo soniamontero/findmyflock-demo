@@ -4,6 +4,8 @@ services:
     build: .
     ports:
       - "3000:3000"
+    security_opt:
+      - seccomp="spec/chrome-seccomp.json"
     environment:
       DATABASE_HOST: db
     depends_on:

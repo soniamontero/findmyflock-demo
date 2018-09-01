@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '~> 2.4'
 gem 'rails', '~> 5.2.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
@@ -56,7 +56,6 @@ group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'capybara-email'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
   gem 'launchy'
   gem 'webmock'
   gem 'stripe-ruby-mock', '~> 2.5.4', :require => 'stripe_mock'

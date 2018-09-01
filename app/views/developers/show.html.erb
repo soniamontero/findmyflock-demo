@@ -54,7 +54,7 @@
 
               <div class="centered">
                 <% if @developer.resumes.attached? %>
-                  <%= link_to "Resume", rails_blob_path(@developer.resumes.last, disposition: "attachment"), class: "btn btn-orange btn-application-small", style: "padding-top: 6px" %>
+                  <%= link_to "Resume", rails_blob_path(@developer.resumes.last, disposition: "attachment"), class: "btn btn-application-small", style: "padding-top: 6px" %>
                 <% end %>
               </div>
 
@@ -73,7 +73,7 @@
 
 
              <div style="display: flex" class="justify-content-center">
-              <%= link_to "Edit", edit_profile_developers_path, class: "btn btn-orange btn-edit-job" %>
+              <%= link_to "Edit", edit_profile_developers_path, class: "btn btn-edit-job" %>
 
             </div>
 
@@ -83,5 +83,5 @@
         </div>
 
         <div class="centered my-5">
-          <%= link_to "< Back", dashboard_developers_path(@developer), class: "btn-orange btn-back"  %>
+          <%= link_to "< Back", dashboard_developers_path(@developer), class: "btn-back"  %>
         </div>

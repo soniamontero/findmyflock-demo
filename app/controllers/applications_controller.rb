@@ -11,7 +11,7 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-    @application = Application.new
+    @application = Application.where(match: @match).first_or_initialize
     @developer = current_developer
     @is_posted = application_is_posted? @match
     @applications_sent = applications_sent_today
@@ -22,6 +22,7 @@ class ApplicationsController < ApplicationController
     @application = Application.new(application_params)
     @application.match = @match
     @developer = @match.developer
+    @developer.update(developer_params) if developer_params.try(:[], :resumes)
     @company = @match.job.company
     @mail_addresses = @company.recruiters_mail.join(',')
 
@@ -39,6 +40,15 @@ class ApplicationsController < ApplicationController
           render :new, alert: 'Something went wrong please try again.'
         end
       end
+    end
+  end
+
+  def destroy
+    @application = Application.find params[:id]
+    if @application.destroy
+      redirect_to dashboard_developers_path, notice: 'Application was successfully deleted.'
+    else
+      redirect_to dashboard_developers_path, notice: 'There was an error deleting your application'
     end
   end
 
@@ -101,5 +111,9 @@ class ApplicationsController < ApplicationController
 
   def application_params
     params.require(:application).permit(:message)
+  end
+
+  def developer_params
+    params.require(:application).permit(developer: [resumes: []])[:developer]
   end
 end
