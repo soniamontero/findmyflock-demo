@@ -20,11 +20,13 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def cancelled_application_advise(addresses, developer)
+  def cancelled_application_advise(address, developer, job)
+    @address = address
     @developer = developer
+    @job = job
     mail(
       from: 'info@findmyflock.com',
-      to: addresses,
+      to: address,
       subject: 'An application to your job has been cancelled'
     )
   end
