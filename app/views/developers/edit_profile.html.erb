@@ -113,7 +113,12 @@
             </div>
 
               <h5 class="mt-5 mb-4">Delete your account</h5>
-              <%= link_to "Delete my account", developer_path(current_developer), data: { confirm: "Are you sure? This will cancel all your matches and applications." }, method: :delete, class: "btn-orange" %>
+              <small class="form-text text-muted mb-4">
+                This will deactivate your account. Your profile, your matches and your applications will be deleted permanently. We will inform the recruiters who have opened your applications and contacted you.
+                <br/>
+                If you just want to change your email address and/or password, you don't need to deactivate your account — edit it in your <%= link_to "settings",edit_developer_registration_path(current_developer) %>.
+              </small>
+              <%= link_to "Delete account", developer_path(current_developer), data: { confirm: "Are you sure? This step is permanent." }, method: :delete, class: "btn-orange" %>
 
             <div class="text-center mt-4">
               <%= f.button :submit, "Continue", class: "btn btn-lg btn-primary mt-4 mb-2" %>
