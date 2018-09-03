@@ -112,12 +112,10 @@
               <label class="custom-control-label" for="customRadioInline2">No</label>
             </div>
 
-            <div>
-              <h5>Delete your account</h5>
-              <%= link_to "Delete my account", developer_path(current_developer), data: { confirm: "Are you sure?" }, method: :delete, class: "btn-orange" %>
-            </div>
+              <h5 class="mt-5 mb-4">Delete your account</h5>
+              <%= link_to "Delete my account", developer_path(current_developer), data: { confirm: "Are you sure? This will cancel all your matches and applications." }, method: :delete, class: "btn-orange" %>
 
-            <div class="text-center">
+            <div class="text-center mt-4">
               <%= f.button :submit, "Continue", class: "btn btn-lg btn-primary mt-4 mb-2" %>
             </div>
           <% end  %>
