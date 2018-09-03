@@ -29,7 +29,7 @@ class DevelopersController < ApplicationController
       render action: 'edit_profile'
     end
   end
-
+  
   def destroy
     @developer = current_developer
     @applications = @developer.applications

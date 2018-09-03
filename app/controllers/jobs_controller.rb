@@ -54,7 +54,6 @@ class JobsController < ApplicationController
         end
       end
     end
-
   end
 
   private
