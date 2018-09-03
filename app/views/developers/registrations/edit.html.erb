@@ -5,27 +5,32 @@
         <div class="card-body">
           <h2 class="text-center">Settings</h2>
 
+            <h5 class="mt-5 mb-4">Edit your email address</h5>
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.error_notification %>
-
           <%= f.input :email, required: true, autofocus: true %>
-
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
           <% end %>
 
-          <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-          <%= f.input :password_confirmation, required: false %>
+          <h5 class="mt-5 mb-4">Edit your password</h5>
+          <%= f.input :password, autocomplete: "off", hint: "Leave it blank if you don't want to change it", required: false, label: "New password" %>
+          <%= f.input :password_confirmation, required: false, label: "New password confirmation" %>
           <br><hr/>
-          <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+          <%= f.input :current_password, hint: "We need your current password to confirm your changes", required: true%>
 
           <div class="text-center">
-            <%= f.button :submit, "Update", class: "btn btn-application" %><br>
-            <%= link_to "Back", :back, class: "btn btn-back" %>
+            <%= f.button :submit, "Update", class: "btn btn-orange" %><br>
           </div>
           <% end %>
-          <!-- <h3>Cancel my account</h3> -->
-          <!-- <p>Unhappy? <%# link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p> -->
+          <h5 class="mt-5 mb-4">Delete your account</h5>
+          <small class="form-text text-muted mb-4">
+            This will deactivate your account. Your profile, your matches and your applications will be deleted permanently. We will inform the recruiters who have opened your applications and contacted you.
+            <br/>
+            If you just want to change your email address and/or password, you don't need to deactivate your account — edit it in your <%= link_to "settings",edit_developer_registration_path(current_developer) %>.
+          </small>
+          <%= link_to "Delete account", developer_path(current_developer), data: { confirm: "Are you sure? This step is permanent." }, method: :delete, class: "btn-orange" %>
+            <%= link_to "Back", :back, class: "btn btn-back" %>
         </div>
       </div>
     </div>
