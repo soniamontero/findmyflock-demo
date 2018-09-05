@@ -15,7 +15,11 @@ const googleLocation = () => {
         postal_code: 'short_name'
       };
 
-      autocomplete = new google.maps.places.Autocomplete((el), {types: ['geocode']});
+      var options = {
+        types: ['(cities)'],
+      }
+
+      autocomplete = new google.maps.places.Autocomplete((el), options);
 
       if (autocomplete != null) {
         autocomplete.addListener('place_changed', function(){

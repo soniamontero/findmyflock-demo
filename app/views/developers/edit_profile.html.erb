@@ -89,7 +89,7 @@
             </div>
 
             <div id="location-info">
-              <%= f.input :city, label: "Your address", input_html: { id: "locality", value: "#{@developer.city}" } %>
+              <%= f.input :city, label: "Please enter your city", input_html: { id: "locality", value: "#{@developer.city}" } %>
               <%= f.input :state, input_html: { id: "administrative_area_level_1" }%>
               <%= f.input :country, input_html: { id: "country" }, as: :string %>
               <div id="select-distance" class="hidden">
