@@ -131,7 +131,7 @@ class Developer < ApplicationRecord
   private
 
   def subscribe_developer_to_mailing_list
-    if gets_mail? == true
+    if gets_mail?
       SubscribeDeveloperToMailingListJob.perform_later(self)
     end
   end
