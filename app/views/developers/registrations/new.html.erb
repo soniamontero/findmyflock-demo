@@ -17,7 +17,7 @@
             <%= f.button :submit, "Sign up", class: 'log-in-button' %>
           </div>
           <p class="submit-privacy">By clicking 'Sign up', you agree to our <%= link_to "Privacy Policy", policy_path, target: "_blank" %></p>
-          <%= f.input :gets_mail, :label => 'Receive occasional emails about user-bonuses and updates to our service', :input_html => { checked: true }, :label_html => { style: 'font-size: 10px;' } %>
+          <%= f.input :gets_mail, label: 'Receive occasional emails about user-bonuses and updates to our service', :input_html => { checked: true }, :label_html => { style: 'font-size: 10px;' } %>
           <% end %>
 
         </div>
