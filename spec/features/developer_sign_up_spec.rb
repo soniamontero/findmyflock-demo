@@ -21,6 +21,39 @@ feature 'Developer sign up' do
     current_email.click_link 'CLICK HERE'
   end
 
+  scenario 'a new developer can sign up and join the mailing list' do
+    ActiveJob::Base.queue_adapter = :test
+
+    visit root_path
+    click_on 'Join'
+    expect(page).to have_content 'Create your developer account'
+    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
+    expect {
+      click_on 'Sign up'
+    }.to have_enqueued_job(SubscribeDeveloperToMailingListJob)
+
+    expect(emails_sent_to('mary@exmaple.com').count).to eq 1
+  end
+
+  scenario 'a new developer can sign up and opt out of the mailing list' do
+    ActiveJob::Base.queue_adapter = :test
+
+    visit root_path
+    click_on 'Join'
+    expect(page).to have_content 'Create your developer account'
+    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
+    uncheck 'developer[gets_mail]'
+    expect {
+      click_on 'Sign up'
+    }.to_not have_enqueued_job(SubscribeDeveloperToMailingListJob)
+
+    expect(emails_sent_to('mary@exmaple.com').count).to eq 1
+  end
+
   context 'creates a profile' do
     let!(:new_developer) { create :developer}
     let!(:developer) { create :developer, sign_in_count: 2 }
