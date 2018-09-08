@@ -61,10 +61,6 @@ class DevelopersController < ApplicationController
     end
   end
 
-  def gets_mail?
-    developer_params[:gets_mail] == "1"
-  end
-
   private
 
   def developer_params
