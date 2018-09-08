@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: 6b303de08d2c8022c8ae93a28a09898cb12fd307
+  revision: 6fabcbb20a536ba23782069a3dd651279935469d
   branch: master
   specs:
     faker (1.9.1)
@@ -58,10 +58,10 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
-    autoprefixer-rails (9.1.3)
+    autoprefixer-rails (9.1.1)
       execjs
     aws-eventstream (1.0.1)
-    aws-partitions (1.100.0)
+    aws-partitions (1.98.0)
     aws-sdk-core (3.24.1)
       aws-eventstream (~> 1.0)
       aws-partitions (~> 1.0)
@@ -85,7 +85,7 @@ GEM
       sass (>= 3.5.2)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.6.0)
+    capybara (3.5.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -118,7 +118,7 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
     dante (0.2.0)
-    devise (4.5.0)
+    devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 6.0)
@@ -132,10 +132,10 @@ GEM
       railties (>= 3.2, < 6.0)
     erubi (1.7.1)
     execjs (2.7.0)
-    factory_bot (4.11.0)
+    factory_bot (4.10.0)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.11.0)
-      factory_bot (~> 4.11.0)
+    factory_bot_rails (4.10.0)
+      factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
@@ -204,7 +204,7 @@ GEM
     method_source (0.9.0)
     mimemagic (0.3.2)
     mini_magick (4.8.0)
-    mini_mime (1.0.1)
+    mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     money (6.12.0)
@@ -212,7 +212,7 @@ GEM
     msgpack (1.2.4)
     multi_json (1.13.1)
     multipart-post (2.0.0)
-    mustermann (1.0.3)
+    mustermann (1.0.2)
     nenv (0.3.0)
     nio4r (2.3.1)
     nokogiri (1.8.4)
@@ -235,7 +235,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-    public_suffix (3.0.3)
+    public_suffix (3.0.2)
     puma (3.12.0)
     rack (2.0.5)
     rack-protection (2.0.3)
@@ -362,7 +362,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    stripe (3.22.0)
+    stripe (3.21.0)
       faraday (~> 0.10)
     stripe-ruby-mock (2.5.4)
       dante (>= 0.2.0)
@@ -373,9 +373,9 @@ GEM
     tilt (2.0.8)
     tinymce-rails (4.8.2)
       railties (>= 3.1.1)
-    turbolinks (5.2.0)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    turbolinks (5.1.1)
+      turbolinks-source (~> 5.1)
+    turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.18)
@@ -412,14 +412,14 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.1.1)
   byebug
-  capybara (>= 2.15, < 4.0)
+  capybara (~> 3.5)
   capybara-email
   coffee-rails (~> 4.2)
   country_select
-  devise
+  devise (~> 4.4)
   dotenv-rails
-  factory_bot
-  factory_bot_rails
+  factory_bot (~> 4.10)
+  factory_bot_rails (~> 4.10)
   faker!
   figaro
   geocoder
@@ -450,10 +450,10 @@ DEPENDENCIES
   simplecov-console
   spring
   spring-watcher-listen (~> 2.0.0)
-  stripe
+  stripe (~> 3.21)
   stripe-ruby-mock (~> 2.5.4)
   tinymce-rails
-  turbolinks
+  turbolinks (~> 5.1)
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
