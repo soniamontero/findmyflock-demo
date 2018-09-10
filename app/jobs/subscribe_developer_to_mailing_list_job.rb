@@ -10,6 +10,7 @@ class SubscribeDeveloperToMailingListJob < ApplicationJob
     merge_fields = {}
     merge_fields[:FNAME] = developer.first_name if developer.first_name.present?
     merge_fields[:LNAME] = developer.last_name if developer.last_name.present?
+
     gibbon = Gibbon::Request.new(api_key: mailchimp_api_key)
     gibbon.lists(list_id)
     .members(member_id)
