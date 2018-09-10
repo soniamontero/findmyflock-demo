@@ -19,7 +19,7 @@ describe SubscribeDeveloperToMailingListJob, type: :job do
     expect(stub).to have_been_requested
   end
 
-  it 'requests mailchimp with the correct arguments' do
+  it 'requests mailchimp with name when available' do
     stub = stub_request(:put, /api.mailchimp.com/).
       with(body: "{\"email_address\":\"#{developer_with_name.email}\",\"status_if_new\":\"subscribed\",\"merge_fields\":{\"FNAME\":\"Sue\",\"LNAME\":\"Smith\"}}")
 
