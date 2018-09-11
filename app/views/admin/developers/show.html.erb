@@ -8,14 +8,102 @@
       <%= image_tag @developer.avatar_thumbnail %>
   </p>
 <% end %>
+
 <p><b>Email:</b> <%= @developer.email %></p>
-<p><b>Need us permit:</b> <%= @developer.need_us_permit %></p>
-<p><b>Linkedin url:</b> <%= @developer.linkedin_url %></p>
-<p><b>Github url:</b> <%= @developer.github_url %></p>
-<p><b>min_salary:</b> <%= @developer.min_salary %></p>
-<p><b>City:</b> <%= @developer.city %></p>
-<p><b>ZipCode:</b> <%= @developer.zip_code %></p>
-<p><b>Remote:</b> <%= @developer.remote %></p>
+
+<p>
+  <b>Need US work permit:</b>
+  <% if @developer.need_us_permit == false %>
+    No
+  <% else %>
+    Yes
+  <% end %>
+</p>
+
+<p>
+  <b>LinkedIn Profile:</b>
+  <% if @developer.linkedin_url.nil? %>
+    None
+  <% else %>
+    <%= @developer.linkedin_url %>
+  <% end %>
+</p>
+
+<p>
+  <b>Github Profile:</b>
+  <% if @developer.github_url.nil? %>
+    None
+  <% else %>
+    <%= @developer.github_url %>
+  <% end %>
+</p>
+
+<p>
+  <b>Minimum salary:</b>
+  <% if @developer.min_salary.nil? %>
+    Not defined
+  <% else %>
+    <%= @developer.min_salary %>
+  <% end %>
+</p>
+
+<% if @developer.remote != ["remote"] %>
+  <p>
+    <b>City:</b>
+    <% if @developer.city.nil? %>
+      Undefined
+    <% else %>
+      <%= @developer.city %>
+    <% end %>
+  </p>
+
+  <p>
+    <b>State:</b>
+    <% if @developer.state.nil? %>
+      Undefined
+    <% else %>
+      <%= @developer.state %>
+    <% end %>
+  </p>
+
+  <p>
+    <b>Country:</b>
+    <% if @developer.country.nil? %>
+      Undefined
+    <% else %>
+      <%= @developer.country %>
+    <% end %>
+  </p>
+<% end %>
+
+<p>
+  <b>Mobility:</b>
+  <% if @developer.full_mobility == true %>
+    Unlimited
+  <% else %>
+    <%= @developer.mobility %> miles
+  <% end %>
+</p>
+
+<p>
+  <b>Full Mobility:</b>
+  <% if @developer.full_mobility == true %>
+    Yes
+  <% else %>
+    No
+  <% end %>
+</p>
+
+<p>
+  <b>Interested by:</b>
+  <% if @developer.remote == ["remote", "office"] %>
+    Remote and in-office job opportunities
+  <% elsif @developer.remote == ["remote"] %>
+    Remote job opportunities
+  <% elsif @developer.remote == ["office"] %>
+    In-office opportunities
+  <% end %>
+</p>
 
 <h5>Skills</h5>
 <%= render 'admin/shared/skills_list', skills: @developer.skills_array %>
