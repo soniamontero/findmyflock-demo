@@ -1,5 +1,6 @@
 require 'simplecov'
 
+
 # # see results in the console instead of saving to a file
 # require 'simplecov-console'
 # SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
