@@ -6,14 +6,14 @@
   <p><b>Is a vetted job:</b> <%= @job.vetted %></p>
 </p>
 
-<p><b>Type of job:</b>
   <% if @job.remote == ["remote"] %>
-    Remote job</p>
+    <b><p>Remote job</p></b>
   <% elsif @job.remote == ["office"] %>
-    In-office job
+    <b><p>In-office job</p></b>
   <% elsif @job.remote == ["remote", "office"]  %>
-    Remote or In-office job
+    <b><p>Remote or In-office job</p></b>
   <% end %>
+
 <p><b>City:</b> <%= @job.city %></p>
 <p><b>Zipcode:</b> <%= @job.zip_code %></p>
 <p><b>State:</b> <%= @job.state %></p>
