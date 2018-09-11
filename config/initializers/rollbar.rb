@@ -1,4 +1,13 @@
+crawlers = %w[AhrefsBot Applebot Baiduspider BLEXBot Cliqzbot coccocbot linkdexbot MJ12bot robots SemrushBot TweetmemeBot uCrawler YandexImages]
+regexp = Regexp.new(Regexp.union(*crawlers).source, Regexp::IGNORECASE)
+
 Rollbar.configure do |config|
+  ignore_bots = lambda do |options|
+    agent = options.fetch(:scope).fetch(:request).call.fetch(:headers)['User-Agent']
+    raise Rollbar::Ignore if agent.match?(regexp)
+  end
+
+  config.before_process << ignore_bots
   # Without configuration, Rollbar is enabled in all environments.
   # To disable in specific environments, set config.enabled=false.
 

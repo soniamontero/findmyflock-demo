@@ -6,13 +6,21 @@
         <div class="accordion sticky-top" id="accordion">
           <%= form_for(:developer,url: { action: "dashboard" }, html: {method: :get, id: "filter"}, remote: true) do |f| %>
             <%= render "utils/checkboxes_filter", title: "Benefits", dataset: @benefits, value: "benefits[]", collapse_name: "benefitsCollapse" %>
-            <%= render "utils/checkboxes_filter", title: "Cultures", dataset: @cultures, value: "cultures[]", collapse_name: "culturesCollapse" %>
+
+            <% if @cultures.any? %>
+              <%= render "utils/checkboxes_filter", title: "Cultures", dataset: @cultures, value: "cultures[]", collapse_name: "culturesCollapse" %>
+            <% end %>
+
             <%= render "utils/checkboxes_filter", title: "Cities", dataset: @cities, value: "cities[]", collapse_name: "citiesCollapse" %>
-            <%= render "utils/checkboxes_filter", title: "Salary", dataset: @salaries, value: "salaries[]", collapse_name: "salaryCollapse" %>
+
+            <% if @salaries.any? %>
+              <%= render "utils/checkboxes_filter", title: "Salary", dataset: @salaries, value: "salaries[]", collapse_name: "salaryCollapse" %>
+            <% end %>
 
             <% if @developer.remote == ["remote", "office"] %>
               <%= render "utils/checkboxes_filter", title: "Remote/Office", dataset: ["Remote", "Office", "Both"], value: "remote[]", collapse_name: "remoteCollapse" %>
             <% end %>
+
           <% end %>
         </div>
         <div class="d-sm-none my-4 text-center"><a href="#nav-home" id="filter-hide" class="btn-orange">Apply Filters</a></div>
@@ -92,6 +100,7 @@
                       <% else %>
                         <span class="badge btn-pending">Pending</span>
                       <% end %>
+                      <%= link_to "Show", new_job_application_path(application.match.job), class:"btn-apply"  %>
                     </div>
                   </div>
                 </div>

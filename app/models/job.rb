@@ -6,6 +6,8 @@ class Job < ApplicationRecord
   has_many :skills, as: :skillable, dependent: :destroy
   has_many :developers, through: :matches
   has_many :applications, through: :matches
+  has_many :application_matches, through: :applications, source: :match
+  has_many :applied_developers, through: :application_matches, source: :developer
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { maximum: 10_000 }
   validates :city, :state, :country, presence: true, length: { maximum: 100 }
@@ -92,5 +94,9 @@ class Job < ApplicationRecord
     devs = can_sponsor ? devs : devs.where(need_us_permit: false)
 
     devs.match_skills_type(skills_array)
+  end
+
+  def has_applicant? developer
+    applied_developers.include? developer
   end
 end
