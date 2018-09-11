@@ -6,6 +6,7 @@ feature 'Developer applications' do
   let(:company) { create :company, vetted: true }
   let!(:recruiter) { create :recruiter, company: company }
   let!(:active_job) { create :job, :remote, company: company }
+  let!(:another_job) { create :job, :remote, company: company }
   let!(:non_matching_job) { create :job, :office, company: company }
 
   before do
@@ -28,6 +29,10 @@ feature 'Developer applications' do
 
     within('#nav-profile .matched-job', text: active_job.title) do
       expect(page).to have_content "Current state\nPending"
+    end
+
+    within('#nav-home') do
+      expect(page).to_not have_content active_job.title
     end
   end
 
@@ -82,6 +87,16 @@ feature 'Developer applications' do
       expect(page).to have_content 'Please hire me'
     end
 
+    scenario 'job does not show on matched jobs page' do
+      click_on 'Dashboard'
+      click_on 'Applications'
+
+      within('#nav-home') do
+        expect(page).to_not have_content active_job.title
+        expect(page).to have_content another_job.title
+      end
+    end
+
     scenario 'can withdraw the application' do
       click_on 'Dashboard'
       click_on 'Applications'
@@ -94,6 +109,9 @@ feature 'Developer applications' do
 
       within('#nav-profile') do
         expect(page).to_not have_content active_job.title
+      end
+      within('#nav-home') do
+        expect(page).to have_content active_job.title
       end
     end
 
