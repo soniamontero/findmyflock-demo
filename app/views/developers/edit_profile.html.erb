@@ -91,6 +91,7 @@
             <div id="location-info">
               <%= f.input :city, label: "Please enter your city", input_html: { id: "locality", value: "#{@developer.city}" } %>
               <%= f.input :state, input_html: { id: "administrative_area_level_1" }%>
+              <%= f.input :zip_code, input_html: { id: "postal_code" }, as: :string %>
               <%= f.input :country, input_html: { id: "country" }, as: :string %>
               <div id="select-distance" class="hidden">
                 <h5 class="mt-5">How far are you willing to commute? <span id="range-distance" class="float-right"><%= @developer.mobility%> Mi</span></h5>
