@@ -10,7 +10,6 @@ const googleLocation = () => {
         locality: 'long_name',
         administrative_area_level_1: 'short_name',
         country: 'long_name',
-        postal_code: 'short_name'
       };
 
       var options = {
