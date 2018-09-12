@@ -1,4 +1,4 @@
-crawlers = %w[AhrefsBot Applebot Baiduspider BLEXBot Cliqzbot coccocbot linkdexbot MJ12bot robots SemrushBot TweetmemeBot uCrawler YandexImages]
+crawlers = %w[AhrefsBot Apache-HttpClient Applebot Baiduspider BLEXBot Cliqzbot coccocbot DotBot linkdexbot MJ12bot robots SemrushBot TweetmemeBot uCrawler YandexImages]
 regexp = Regexp.new(Regexp.union(*crawlers).source, Regexp::IGNORECASE)
 
 Rollbar.configure do |config|
