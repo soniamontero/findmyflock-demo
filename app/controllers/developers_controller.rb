@@ -34,8 +34,8 @@ class DevelopersController < ApplicationController
     @developer = current_developer
     @applications = @developer.applications
     @applications.where(status: ["opened", "contacted"]).find_each do |app|
-      @address = app.match.job.company.recruiters_mail
-      @job = app.match.job
+      @address = app.job.company.recruiters_mail
+      @job = app.job
       CompanyMailer.cancelled_application_advise(@address, @developer, @job).deliver
     end
     @developer.destroy

@@ -8,4 +8,6 @@ class Application < ApplicationRecord
   validates :message, length: { maximum: 8000 }
 
   scope :open, -> { where.not(status: :rejected) }
+
+  delegate :job, to: :match, allow_nil: true
 end
