@@ -30,14 +30,14 @@
 <% if @developer.linkedin_url.present? %>
 <p>
   <b>LinkedIn Profile:</b>
-  <%= @developer.linkedin_url %>
+  <a href="<%= @developer.linkedin_url %>" target="_blank"><%= @developer.linkedin_url %></a>
 </p>
 <% end %>
 
 <% if @developer.github_url.present? %>
   <p>
     <b>Github Profile:</b>
-    <%= @developer.github_url %>
+    <a href="<%= @developer.github_url %>" target="_blank"><%= @developer.github_url %></a>
   </p>
 <% end %>
 
