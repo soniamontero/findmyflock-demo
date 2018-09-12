@@ -10,8 +10,12 @@
 <% end %>
 <p><b>Email:</b> <%= @developer.email %></p>
 <p><b>Need us permit:</b> <%= @developer.need_us_permit %></p>
-<p><b>Linkedin url:</b> <%= @developer.linkedin_url %></p>
-<p><b>Github url:</b> <%= @developer.github_url %></p>
+<p><b>Linkedin url:</b>
+  <a href="<%= @developer.linkedin_url %>" target="_blank"><%= @developer.linkedin_url %></a>
+</p>
+<p><b>Github url:</b>
+  <a href="<%= @developer.github_url %>" target="_blank"><%= @developer.github_url %></a>
+</p>
 <p><b>min_salary:</b> <%= @developer.min_salary %></p>
 <p><b>City:</b> <%= @developer.city %></p>
 <p><b>ZipCode:</b> <%= @developer.zip_code %></p>
