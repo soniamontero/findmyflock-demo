@@ -21,6 +21,8 @@ class Job < ApplicationRecord
 
   before_validation :sanitize_benefits_cultures
 
+  delegate :name, to: :company, prefix: true
+
   scope :active, -> { where(active: true, company: Company.active) }
   scope :remote_and_local_jobs, ->(miles, lat, long) {
     where(id: (Job.all_remote.pluck(:id) +

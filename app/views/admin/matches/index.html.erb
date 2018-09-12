@@ -3,12 +3,20 @@
 </div>
 
 <br/>
-  <p>Possible application status:</p>
-<small>
-  <p><b>Pending:</b> The application hasn't been opened by the company yet.<br/>
-  <b>Opened:</b> The application has been opened and read by the company.<br/>
-  <b>Contacted:</b> The company has contacted the developer by email.<br/>
-  <b>Rejected:</b> The company has rejected the developer's application.</p></small>
+  <p>
+    Possible application status:
+  </p>
+  <small>
+    <p>
+      <b>Pending:</b> The application hasn't been opened by the company yet.
+      <br/>
+      <b>Opened:</b> The application has been opened and read by the company.
+      <br/>
+      <b>Contacted:</b> The company has contacted the developer by email.
+      <br/>
+      <b>Rejected:</b> The company has rejected the developer's application.
+    </p>
+  </small>
 
 <table class="table table-striped">
   <thead>
@@ -25,24 +33,14 @@
     <% @matches.each do |match| %>
       <tr>
         <td><%= link_to match.job.title, admin_job_path(match.job) %></td>
-        <td><%= link_to match.job.company.name, "#{match.job.company.url}" %></td>
+        <td><%= link_to match.job.company.name, match.job.company.url, target: "_blank" %></td>
         <td><%= link_to match.developer.full_name, admin_developer_path(match.developer) %></td>
-        <% if match.application == nil %>
-          <td>No</td>
-        <% else %>
-          <td>Yes</td>
-        <% end %>
+        <%= match.application.nil? ? raw("<td>No</td>") : raw("<td>Yes</td>") %>
 
-        <% if match.application == nil %>
+        <% if match.application.nil? %>
           <td></td>
-        <% elsif match.application.status == "pending" %>
-          <td>Pending</td>
-        <% elsif match.application.status == "opened" %>
-          <td>Opened</td>
-        <% elsif match.application.status == "contacted" %>
-          <td>Contacted</td>
-        <% elsif match.application.status == "rejected" %>
-          <td>Rejected</td>
+        <% else %>
+        <td><%= match.application_status.to_s.humanize %><td>
         <% end %>
 
       </tr>
