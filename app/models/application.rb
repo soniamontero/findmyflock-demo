@@ -10,4 +10,5 @@ class Application < ApplicationRecord
   scope :open, -> { where.not(status: :rejected) }
 
   delegate :job, to: :match, allow_nil: true
+  delegate :developer, to: :match, allow_nil: true
 end
