@@ -20,10 +20,10 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def cancelled_application_advise(address, developer, job)
+  def cancelled_application_advise(address, developer_id, job_id)
     @address = address
-    @developer = developer
-    @job = job
+    @developer = Developer.find_by_id(developer_id)
+    @job = Job.find_by_id(job_id)
     mail(
       from: 'info@findmyflock.com',
       to: address,
