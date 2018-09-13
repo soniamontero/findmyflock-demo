@@ -14,7 +14,6 @@ class Developer < ApplicationRecord
   validates :first_name, :last_name, presence: true, length: { maximum: 50 }, on: :update
   validates :city, :country, :state, presence: true, if: :wants_office, on: :update
   validates :remote, inclusion: { in: [['remote'], ['office'], ['remote', 'office']] }, on: :update
-  validates_format_of :github_url, :linkedin_url, :with => /\A^[\S]+$\z/i, :message => "No whitespaces allowed", allow_nil: true, on: :update
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
 
