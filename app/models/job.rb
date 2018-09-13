@@ -20,6 +20,7 @@ class Job < ApplicationRecord
   validate :check_coordinates, on: [:create, :update]
 
   before_validation :sanitize_benefits_cultures
+  before_validation :sanitize_description
 
   delegate :name, to: :company, prefix: true
 
@@ -69,6 +70,10 @@ class Job < ApplicationRecord
   def sanitize_benefits_cultures
     benefits.reject!(&:empty?)
     cultures.reject!(&:empty?)
+  end
+
+  def sanitize_description
+    Sanitize.fragment(self.description, Sanitize::Config::BASIC)
   end
 
   def check_coordinates
