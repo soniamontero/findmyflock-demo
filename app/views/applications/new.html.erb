@@ -15,8 +15,8 @@
           </p>
         <% else %>
           <%= simple_form_for([@job, @application]) do |f| %>
-          <p>
-            Write a message to the recruiter at <%= @recruiter %>:
+            <p>
+              Write a message to the recruiter at <%= @recruiter %>:
               <% if @job.vetted? %>
                 <%=
                   image_tag "information.png",
@@ -27,7 +27,7 @@
                   }
                 %>
               <% end %>
-          </p>
+            </p>
             <%= f.input :message,  :input_html => {:rows => 5}, label: false, required: true %>
             <% if !@developer.resumes.attached? %>
               <%= f.simple_fields_for @developer do |f| %>
