@@ -30,6 +30,19 @@ class DevelopersController < ApplicationController
     end
   end
 
+  def destroy
+    @developer = current_developer
+    @developer_id = current_developer.id
+    @applications = Developer.find(@developer_id).applications
+    @applications.where(status: ["opened", "contacted"]).find_each do |app|
+      @address = app.recruiters_mail
+      @job_id = app.job.id
+      CompanyMailer.cancelled_application_advise(@address, @developer_id, @job_id).deliver
+    end
+    @developer.destroy
+    redirect_to root_path
+  end
+
   def dashboard
     @developer = current_developer
     @jobs = @developer.matched_job
