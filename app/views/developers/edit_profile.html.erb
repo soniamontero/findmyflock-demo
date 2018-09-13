@@ -7,7 +7,7 @@
           <% if @developer.sign_in_count == 1 %>
             <h4 class="text-center mt-3 mb-4">We're glad you're here!</h4>
           <% else %>
-            <h4 class="text-center mt-3 mb-4">Edit your dev profile</h4>
+            <h4 class="text-center mt-3 mb-4">Edit your profile</h4>
           <% end %>
           <%= simple_form_for @developer, action: :post, html: { autocomplete: 'off' } do |f| %>
 
