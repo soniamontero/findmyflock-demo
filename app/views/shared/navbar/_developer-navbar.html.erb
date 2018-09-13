@@ -8,10 +8,10 @@
     </button>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
       <h6 class="dropdown-header"><%= current_developer.email %></h6>
-      <%= active_link_to "My Dev Profile", developer_path(current_developer), class: "dropdown-item" %>
-      <%= active_link_to "Edit Your Profile", edit_profile_developers_path, class: "dropdown-item" %>
-      <%= active_link_to "Manage Your Skills", add_skills_developers_path, class: "dropdown-item" %>
-      <%= active_link_to "Account Settings", edit_developer_registration_path, class: "dropdown-item" %>
+      <%= active_link_to "Profile", developer_path(current_developer), class: "dropdown-item" %>
+      <%= active_link_to "Edit profile", edit_profile_developers_path, class: "dropdown-item" %>
+      <%= active_link_to "Manage skills", add_skills_developers_path, class: "dropdown-item" %>
+      <%= active_link_to "Account settings", edit_developer_registration_path, class: "dropdown-item" %>
       <div class="dropdown-divider"></div>
       <%= link_to 'Logout', destroy_developer_session_path, method: :delete , class: "dropdown-item" %>
     </div>
