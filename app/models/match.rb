@@ -4,6 +4,14 @@ class Match < ApplicationRecord
   belongs_to :job
   validates_uniqueness_of :developer_id, :scope => :job_id
   validate :match_is_valid?
+  enum status: [
+    'Uncontacted',
+    'Contacted',
+    'Interested',
+    'Applied to role',
+    'Sent to Google Hire',
+    'Rejected'
+  ]
 
   def match_is_valid?
     if !developer.matched_job.include?(job)
