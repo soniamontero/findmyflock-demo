@@ -53,7 +53,6 @@ end
 group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'capybara-email'
-  gem 'chromedriver-helper'
   gem 'geckodriver-helper'
   gem 'selenium-webdriver'
   gem 'launchy'

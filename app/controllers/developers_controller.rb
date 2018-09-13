@@ -33,7 +33,7 @@ class DevelopersController < ApplicationController
   def destroy
     @developer = current_developer
     @developer_id = current_developer.id
-    @applications = Developer.find_by_id(@developer_id).applications
+    @applications = Developer.find(@developer_id).applications
     @applications.where(status: ["opened", "contacted"]).find_each do |app|
       @address = app.recruiters_mail
       @job_id = app.job.id
