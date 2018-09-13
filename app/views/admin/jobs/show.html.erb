@@ -30,7 +30,7 @@
 <br/>
 <%= render 'admin/jobs/matches' %>
 <br/>
-<p><b>Description:</b> <%= raw @job.description %></p>
+<p><b>Description:</b> <%= sanitize @job.description %></p>
 
 <%= link_to 'Edit', edit_admin_job_path(@job) %> |
 <%= link_to 'Back', admin_jobs_path %>

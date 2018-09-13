@@ -124,7 +124,7 @@
             </div>
             <div class="collapsing-description" id='<%= "#{index}-description" %>'>
             <div class="row justify-content-center pt-4" style="padding-right: 16px;padding-left: 16px;text-align: justify; font-family: 'Roboto'; font-weight: 100;">
-              <p class="job-description" ><%= raw job.description %></p>
+              <p class="job-description" ><%= sanitize job.description %></p>
             </div>
             <div class="collapsing-button" data-value='<%= "#{index}-description" %>'>Read More</div>
           </div>
