@@ -1,6 +1,11 @@
 <h2><%= @developer.full_name %></h2>
-<p><b>First Name:</b> <%= @developer.first_name %></p>
-<p><b>Last Name:</b> <%= @developer.last_name %></p>
+<p>
+  <b>First Name:</b> <%= @developer.first_name %>
+</p>
+<p>
+  <b>Last Name:</b> <%= @developer.last_name %>
+</p>
+
 <% if @developer.avatar.attached? %>
   <p>
     <strong>Avatar:</strong>
@@ -8,18 +13,86 @@
       <%= image_tag @developer.avatar_thumbnail %>
   </p>
 <% end %>
-<p><b>Email:</b> <%= @developer.email %></p>
-<p><b>Need us permit:</b> <%= @developer.need_us_permit %></p>
-<p><b>Linkedin url:</b>
+
+<p>
+  <b>Email:</b> <%= @developer.email %>
+</p>
+
+<p>
+  <b>Need US work permit:</b>
+  <% if @developer.need_us_permit? %>
+    Yes
+  <% else %>
+    No
+  <% end %>
+</p>
+
+<% if @developer.linkedin_url.present? %>
+<p>
+  <b>LinkedIn Profile:</b>
   <a href="<%= @developer.linkedin_url %>" target="_blank"><%= @developer.linkedin_url %></a>
 </p>
-<p><b>Github url:</b>
-  <a href="<%= @developer.github_url %>" target="_blank"><%= @developer.github_url %></a>
+<% end %>
+
+<% if @developer.github_url.present? %>
+  <p>
+    <b>Github Profile:</b>
+    <a href="<%= @developer.github_url %>" target="_blank"><%= @developer.github_url %></a>
+  </p>
+<% end %>
+
+<% if @developer.min_salary.present? %>
+  <p>
+    <b>Minimum salary:</b>
+    <%= @developer.min_salary %>
+  </p>
+<% end %>
+
+<% if @developer.remote != ["remote"] %>
+  <% if @developer.city.present? %>
+    <p>
+      <b>City:</b>
+      <%= @developer.city %>
+    </p>
+  <% end %>
+
+  <% if @developer.state.present? %>
+    <p>
+      <b>State:</b>
+      <%= @developer.state %>
+    </p>
+  <% end %>
+
+  <% if @developer.country.present? %>
+    <p>
+      <b>Country:</b>
+      <%= @developer.country %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if @developer.full_mobility? %>
+  <p>
+    <b>Full Mobility:</b>
+      Yes
+  </p>
+<% else %>
+  <p>
+    <b>Mobility:</b>
+    <%= @developer.mobility %> miles
+  </p>
+<% end %>
+
+<p>
+  <b>Interested in:</b>
+  <% if @developer.remote == ["remote", "office"] %>
+    Remote and in-office job opportunities
+  <% elsif @developer.remote == ["remote"] %>
+    Remote job opportunities
+  <% elsif @developer.remote == ["office"] %>
+    In-office opportunities
+  <% end %>
 </p>
-<p><b>min_salary:</b> <%= @developer.min_salary %></p>
-<p><b>City:</b> <%= @developer.city %></p>
-<p><b>ZipCode:</b> <%= @developer.zip_code %></p>
-<p><b>Remote:</b> <%= @developer.remote %></p>
 
 <h5>Skills</h5>
 <%= render 'admin/shared/skills_list', skills: @developer.skills_array %>
