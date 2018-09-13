@@ -4,7 +4,7 @@
       <div class="text-center">
         <%= render "developers/shared/tab_nav" %>
         <div class="login-form">
-          <h4 class="centered mt-5 mb-4">Create your <strong>developer</strong> account</h4>
+          <h4 class="centered mt-5 mb-4">Create your <strong>job seeker</strong> account</h4>
           <p class="mb-4">Are you a <strong>recruiter</strong>? <%= link_to "Sign up here", new_recruiter_registration_path %></p>
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= f.error_notification %>
