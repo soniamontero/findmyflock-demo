@@ -28,7 +28,7 @@ feature 'Deleting developer\'s account' do
 
     sign_in developer
     visit edit_developer_registration_path
-    click_on 'Account Settings'
+    click_on 'Account settings'
     click_on 'Delete account'
     expect(page).to have_content 'Find the company that values the unique you'
 
@@ -45,7 +45,7 @@ feature 'Deleting developer\'s account' do
 
     sign_in developer
     visit edit_developer_registration_path
-    click_on 'Account Settings'
+    click_on 'Account settings'
     expect{click_on 'Delete account'}.to change{Developer.count}.by(-1)
     expect(page).to have_content 'Find the company that values the unique you'
 
