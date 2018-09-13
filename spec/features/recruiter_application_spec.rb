@@ -15,7 +15,7 @@ feature "Recruiter applications" do
       clear_emails
 
       within('.matched-job', text: active_job.title) { click_on 'Details' }
-      fill_in 'Write a message to the recruiter', with: developer_message
+      fill_in 'application_message', with: developer_message
       click_on 'Send application'
 
       sign_in recruiter

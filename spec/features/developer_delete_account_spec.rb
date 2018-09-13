@@ -12,7 +12,7 @@ feature 'Deleting developer\'s account' do
     clear_emails
 
     within('.matched-job', text: active_job.title) { click_on 'Details' }
-    fill_in 'Write a message to the recruiter', with: 'Message'
+    fill_in 'application_message', with: 'Message'
     click_on 'Send application'
     clear_emails
   end

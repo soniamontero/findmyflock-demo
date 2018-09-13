@@ -15,7 +15,20 @@
           </p>
         <% else %>
           <%= simple_form_for([@job, @application]) do |f| %>
-            <%= f.input :message,  :input_html => {:rows => 5}, label: "Write a message to the recruiter at #{@recruiter}", required: true %>
+            <p>
+              Write a message to the recruiter at <%= @recruiter %>:
+              <% if @job.vetted? %>
+                <%=
+                  image_tag "information.png",
+                  class: "why-vetted-icon",
+                  data: {
+                    toggle: 'vetted-job',
+                    content: "Since this is a Vetted job, your application will be received by a Find My Flock Job Seeker Advocate. We'll respond ASAP to either let you know this wasn't a fit or help you get prepared and as confident as possible for your first interview!"
+                  }
+                %>
+              <% end %>
+            </p>
+            <%= f.input :message,  :input_html => {:rows => 5}, label: false, required: true %>
             <% if !@developer.resumes.attached? %>
               <%= f.simple_fields_for @developer do |f| %>
                 <%= f.input :resumes, as: :file, :input_html => {multiple: true , :data => {"direct-upload-url": "#{root_url}rails/active_storage/direct_uploads" }, accept: "application/pdf" } %>
