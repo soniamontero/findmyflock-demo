@@ -21,7 +21,7 @@
         <td><%= job.company.name %></td>
         <td><%= render 'admin/shared/skills_list', skills: job.skills_array %></td>
         <td><%= link_to 'Edit', edit_admin_job_path(job) %></td>
-        <td><%= link_to 'See Matches', admin_match_path(job) %></td>
+        <td><%= link_to "See Matches(#{job.matches.count})", admin_match_path(job) %></td>
         <!-- <td><%= link_to 'Destroy', admin_job_path(job), method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
     <% end %>
