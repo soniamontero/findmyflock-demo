@@ -9,6 +9,8 @@
     <tr>
       <th>Job</th>
       <th>Developer</th>
+      <th>Status</th>
+      <th>Date Changed</th>
     </tr>
   </thead>
 
@@ -17,6 +19,8 @@
       <tr>
         <td><%= link_to match.job.title, admin_job_path(match.job) %></td>
         <td><%= link_to match.developer.full_name, admin_developer_path(match.developer) %></td>
+        <td><%= match.status %></td>
+        <td><%= match.updated_at.to_date %></td>
       </tr>
     <% end %>
   </tbody>

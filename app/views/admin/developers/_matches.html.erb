@@ -4,14 +4,19 @@
     <thead>
       <tr>
         <th>Job</th>
+        <th>Status</th>
+        <th>Date Changed</th>
         <th>Actions</th>
       </tr>
     </thead>
 
     <tbody>
       <% @job_matches.each do |job| %>
+      <% match = job.matches.find_by_developer_id @developer.id %>
         <tr>
           <td><%= job.title %></td>
+          <td><%= match.status %></td>
+          <td><%= match.updated_at.to_date %></td>
           <td><%= link_to "See job", admin_job_path(job) %></td>
         </tr>
       <% end %>

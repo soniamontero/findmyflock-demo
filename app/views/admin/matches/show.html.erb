@@ -3,6 +3,8 @@
   <thead>
     <tr>
       <th>Developer</th>
+      <th>Status</th>
+      <th>Date Changed</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -11,6 +13,8 @@
     <% @matches.each do |match| %>
       <tr>
         <td><%= match.developer.full_name %></td>
+        <td><%= match.status %></td>
+        <td><%= match.updated_at.to_date %></td>
         <td><%= link_to "See developer", admin_developer_path(match.developer) %></td>
       </tr>
     <% end %>
