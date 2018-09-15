@@ -16,7 +16,7 @@
     </div>
 
     <div class="row pt-2">
-     <p class="job-description" style=><%= raw @job.description %></p>
+     <p class="job-description" style=><%= sanitize @job.description %></p>
    </div>
 
    <div class="row centered justify-content-center pt-2 pb-4">
