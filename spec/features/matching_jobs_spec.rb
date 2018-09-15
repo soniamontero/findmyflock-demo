@@ -143,4 +143,52 @@ feature "Matching Jobs" do
       expect(page).to_not have_content far_away_job.title
     end
   end
+
+  context 'developer notifications' do
+    let!(:developer) { create :developer, :with_profile, :remote }
+
+    before do
+      sign_in developer
+      visit edit_developer_registration_path
+      click_on 'Account settings'
+    end
+
+    scenario 'developer has turned off email notifications' do
+      uncheck 'developer_notifications'
+      click_on 'Save'
+      visit developer_path(developer)
+      expect(page).to have_content "Email notifications: Disabled"
+    end
+
+    scenario 'developer has turned on email notifications' do
+      check 'developer_notifications'
+      click_on 'Save'
+      visit developer_path(developer)
+      expect(page).to have_content "Email notifications: Enabled"
+    end
+  end
+
+  context 'developer matches notifications' do
+    let!(:developer) { create :developer, :with_profile, :remote }
+
+    before do
+      sign_in developer
+      visit edit_developer_registration_path
+      click_on 'Account settings'
+    end
+
+    scenario 'developer has turned off email notifications' do
+      uncheck 'developer_notifications'
+      click_on 'Save'
+      visit developer_path(developer)
+      expect(page).to have_content "Email notifications: Disabled"
+    end
+
+    scenario 'developer has turned on email notifications' do
+      check 'developer_notifications'
+      click_on 'Save'
+      visit developer_path(developer)
+      expect(page).to have_content "Email notifications: Enabled"
+    end
+  end
 end

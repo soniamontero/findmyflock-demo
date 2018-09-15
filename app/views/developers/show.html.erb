@@ -3,7 +3,6 @@
     <!-- Job details -->
 
     <div class="col-sm-12 col-md-12 job-details-container">
-
      <div class="user-intro mx-auto">
       <div class="avatar-lg">
         <%= image_tag @developer.avatar_thumbnail, class: "d-block mx-auto" %>
@@ -26,62 +25,76 @@
 
         <div class="user-details">
           <ul>
-            <li><p><b>Searching for</b>
-              <% if @developer.remote == ["remote"] %>
-              : Remote opportunities
-              <% elsif @developer.remote == ["office"] %>
-              : Office opportunities
-              <% elsif @developer.remote == ["remote", "office"]%>
-              : Office & Remote opportunities
-              <% end %></p></li>
-
-              <li><% if @developer.mobility %>
-                <p>Mobility: <%= @developer.mobility %></p>
-                <% else %>
-                <p><b>Mobility:</b> Full mobility</p>
-                <% end %></li>
-
-                <li><p><b>Need US sponsorship:</b>
-                  <% if @developer.need_us_permit == false %>
-                  No
-                  <% else %>
-                  Yes
-                  <% end %></p></li>
-
-                </ul>
-              </div>
-
-
-              <div class="centered">
-                <% if @developer.resumes.attached? %>
-                  <%= link_to "Resume", rails_blob_path(@developer.resumes.last, disposition: "attachment"), class: "btn btn-application-small", style: "padding-top: 6px" %>
+            <li>
+              <p>
+                <b>Email notifications:</b>
+                <% if @developer.notifications %>
+                  Enabled
+                <% elsif !@developer.notifications %>
+                  Disabled
                 <% end %>
-              </div>
+              </p>
+            </li>
 
+            <li>
+              <p>
+                <b>Searching for</b>
+                <% if @developer.remote == ["remote"] %>
+                  : Remote opportunities
+                <% elsif @developer.remote == ["office"] %>
+                  : Office opportunities
+                <% elsif @developer.remote == ["remote", "office"]%>
+                  : Office & Remote opportunities
+                <% end %>
+              </p>
+            </li>
 
-              <div class="row centered justify-content-center pt-4 pb-4">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-md-12 job-show-skills">
-                 <div class="job-show-titles">
-                   <h5 class="h6 row justify-content-center underlined-orange pt-3">Skills</h5>
-                 </div>
+            <li>
+              <% if @developer.mobility %>
+                <p>Mobility: <%= @developer.mobility %></p>
+              <% else %>
+                <p>
+                  <b>Mobility:</b> Full mobility
+                </p>
+              <% end %>
+            </li>
 
-                 <%= render "developers/shared/skills_table" %>
-
-               </div>
-             </div>
-
-
-
-             <div style="display: flex" class="justify-content-center">
-              <%= link_to "Edit", edit_profile_developers_path, class: "btn btn-edit-job" %>
-
-            </div>
-
-
-          </div>
-
+            <li>
+              <p>
+                <b>Need US sponsorship:</b>
+                <% if @developer.need_us_permit == false %>
+                  No
+                <% else %>
+                  Yes
+                <% end %>
+              </p>
+            </li>
+          </ul>
         </div>
 
-        <div class="centered my-5">
-          <%= link_to "< Back", dashboard_developers_path(@developer), class: "btn-back"  %>
+        <div class="centered">
+          <% if @developer.resumes.attached? %>
+            <%= link_to "Resume", rails_blob_path(@developer.resumes.last, disposition: "attachment"), class: "btn btn-application-small", style: "padding-top: 6px" %>
+          <% end %>
         </div>
+
+        <div class="row centered justify-content-center pt-4 pb-4">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-md-12 job-show-skills">
+           <div class="job-show-titles">
+             <h5 class="h6 row justify-content-center underlined-orange pt-3">Skills</h5>
+           </div>
+
+           <%= render "developers/shared/skills_table" %>
+
+         </div>
+       </div>
+
+       <div style="display: flex" class="justify-content-center">
+        <%= link_to "Edit", edit_profile_developers_path, class: "btn btn-edit-job" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="centered my-5">
+    <%= link_to "< Back", dashboard_developers_path(@developer), class: "btn-back"  %>
+  </div>
