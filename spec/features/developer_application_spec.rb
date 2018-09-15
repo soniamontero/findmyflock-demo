@@ -20,7 +20,7 @@ feature 'Developer applications' do
     end
     expect(page).to have_content 'Apply to this job'
 
-    fill_in 'Write a message to the recruiter', with: 'A message'
+    fill_in 'application_message', with: 'A message'
     click_on 'Send application'
     expect(page).to have_content 'Congratulations!'
 
@@ -59,7 +59,7 @@ feature 'Developer applications' do
     end
     expect(page).to have_content 'Apply to this job'
 
-    fill_in 'Write a message to the recruiter', with: 'A message'
+    fill_in 'application_message', with: 'A message'
     attach_file('application[developer][resumes][]', 'spec/fixtures/asset_test_file.pdf')
 
     click_on 'Send application'
@@ -71,7 +71,7 @@ feature 'Developer applications' do
   context 'with a pending application' do
     before do
       within('.matched-job', text: active_job.title) { click_on 'Details' }
-      fill_in 'Write a message to the recruiter', with: 'Please hire me'
+      fill_in 'application_message', with: 'Please hire me'
       click_on 'Send application'
       clear_emails
     end

@@ -87,7 +87,7 @@
             <div class="col-xs-12 col-sm-12 centered">
               <h4 class='h6'>Resume</h4>
               <% @developer.resumes.each do |resume| %>
-              <%= link_to "Download", rails_blob_path(resume, disposition: "attachment"), class: "btn btn-application-small", style: "padding-top: 6px;" %>
+                <%= link_to "Download", rails_blob_path(resume, disposition: "attachment"), class: "btn btn-application-small", style: "padding-top: 6px;" %>
               <% end %>
             </div>
           </div>
