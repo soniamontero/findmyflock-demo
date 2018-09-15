@@ -17,7 +17,7 @@ feature 'Developer sign up' do
     fill_in 'Password confirmation', with: 'Password1'
     click_on 'Sign up'
 
-    open_email('mary@exmaple.com')
+    open_email('mary@example.com')
     current_email.click_link 'CLICK HERE'
   end
 
@@ -32,9 +32,11 @@ feature 'Developer sign up' do
     fill_in 'Password confirmation', with: 'Password1'
     expect {
       click_on 'Sign up'
-    }.to have_enqueued_job(SubscribeDeveloperToMailingListJob)
+    }.to have_enqueued_job(SubscribeDeveloperToMailingListJob).with { |dev|
+      expect(dev.email).to eq 'mary@example.com'
+    }
 
-    expect(emails_sent_to('mary@exmaple.com').count).to eq 1
+    expect(emails_sent_to('mary@example.com').count).to eq 1
   end
 
   scenario 'a new developer can sign up and opt out of the mailing list' do
@@ -51,7 +53,7 @@ feature 'Developer sign up' do
       click_on 'Sign up'
     }.to_not have_enqueued_job(SubscribeDeveloperToMailingListJob)
 
-    expect(emails_sent_to('mary@exmaple.com').count).to eq 1
+    expect(emails_sent_to('mary@example.com').count).to eq 1
   end
 
   context 'creates a profile' do
@@ -149,10 +151,10 @@ feature 'Developer sign up' do
     click_on 'Logout'
     click_on 'Login'
     click_on 'Forgot your password?'
-    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Email', with: 'mary@example.com'
     click_on 'Send me'
 
-    open_email('mary@exmaple.com')
+    open_email('mary@example.com')
     current_email.click_link 'Change my password'
 
     expect(page).to have_content "Change your password"
