@@ -23,12 +23,22 @@
             <%= f.button :submit, "Update", class: "btn-orange" %><br>
           </div>
           <% end %>
+
+          <div class="delete-account">
+            <h5 class="mt-5 mb-4">Email Notifications</h5>
+              <small class="form-text text-muted mb-4">
+                You can activate or deactivate your email notifications for new job matches. But be careful, you may miss the next opportunity that may be your dream job etc etc
+              </small>
+            <%= simple_form_for @developer, url: update_notifications_developers_path(@developer), method: :update_notifications do |f| %>
+              <%= f.input :notifications, label: 'I want to receive an email when I have a new job match'%>
+              <%= f.button :submit, "Save", class: "btn-orange" %>
+            <% end %>
+          </div>
+
           <div class="delete-account">
             <h5 class="mt-5 mb-4">Delete your account</h5>
             <small class="form-text text-muted mb-4">
               This will deactivate your account. Your profile, your matches and your applications will be deleted permanently. We will inform the recruiters who have opened your applications and contacted you.
-              <br/>
-              If you just want to change your email address and/or password, you don't need to deactivate your account — edit it in your <%= link_to "settings",edit_developer_registration_path(current_developer) %>.
             </small>
             <%= link_to "Delete account", developer_path(current_developer), data: { confirm: "Are you sure? This step is permanent." }, method: :delete, class: "btn-orange" %>
           </div>

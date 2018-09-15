@@ -30,6 +30,12 @@ class DevelopersController < ApplicationController
     end
   end
 
+  def update_notifications
+    @developer = current_developer
+    @developer.update_attribute(:notifications, developer_params[:notifications])
+    redirect_to dashboard_developers_path
+  end
+
   def destroy
     @developer = current_developer
     @developer_id = current_developer.id
@@ -77,7 +83,7 @@ class DevelopersController < ApplicationController
   private
 
   def developer_params
-    params.require(:developer).permit(:email, :password, :password_confirmation, :first_name, :last_name, :avatar, :min_salary, :need_us_permit, :city, :zip_code, :mobility, :state, :country, :linkedin_url, :github_url, :full_mobility, remote:[], resumes: [])
+    params.require(:developer).permit(:email, :password, :password_confirmation, :notifications, :first_name, :last_name, :avatar, :min_salary, :need_us_permit, :city, :zip_code, :mobility, :state, :country, :linkedin_url, :github_url, :full_mobility, remote:[], resumes: [])
   end
 
   def lookup_country
