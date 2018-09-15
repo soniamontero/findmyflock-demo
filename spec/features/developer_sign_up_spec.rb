@@ -12,12 +12,12 @@ feature 'Developer sign up' do
     visit root_path
     click_on 'Join'
     expect(page).to have_content 'Create your job seeker account'
-    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
     fill_in 'Password confirmation', with: 'Password1'
     click_on 'Sign up'
 
-    open_email('mary@exmaple.com')
+    open_email('mary@example.com')
     current_email.click_link 'CLICK HERE'
   end
 
@@ -108,7 +108,7 @@ feature 'Developer sign up' do
     visit root_path
     click_on 'Join'
     expect(page).to have_content 'Create your job seeker account'
-    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
     fill_in 'Password confirmation', with: 'Password1'
     click_on 'Sign up'
@@ -116,10 +116,10 @@ feature 'Developer sign up' do
     click_on 'Logout'
     click_on 'Login'
     click_on 'Forgot your password?'
-    fill_in 'Email', with: 'mary@exmaple.com'
+    fill_in 'Email', with: 'mary@example.com'
     click_on 'Send me'
 
-    open_email('mary@exmaple.com')
+    open_email('mary@example.com')
     current_email.click_link 'Change my password'
 
     expect(page).to have_content "Change your password"
