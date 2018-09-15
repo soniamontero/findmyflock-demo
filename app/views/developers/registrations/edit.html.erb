@@ -27,7 +27,7 @@
           <div class="delete-account">
             <h5 class="mt-5 mb-4">Email Notifications</h5>
               <small class="form-text text-muted mb-4">
-                You can activate or deactivate your email notifications for new job matches. But be careful, you may miss the next opportunity that may be your dream job etc etc
+                We send you an email every time a new job matching your profile is posted on Find My Flock. You can deactivate or reactivate your email notifications but be careful, by doing so, you may miss your next dream job!
               </small>
             <%= simple_form_for @developer, url: update_notifications_developers_path(@developer), method: :update_notifications do |f| %>
               <%= f.input :notifications, label: 'I want to receive an email when I have a new job match'%>

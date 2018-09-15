@@ -121,7 +121,7 @@ class Developer < ApplicationRecord
           jobs_array << job
         end
       end
-      if new_matches.positive?
+      if new_matches.positive? && developer.notifications
         DeveloperMailer.new_match_advise(developer, jobs_array.uniq).deliver
       end
     end
