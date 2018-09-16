@@ -28,11 +28,7 @@
             <li>
               <p>
                 <b>Email notifications:</b>
-                <% if @developer.notifications %>
-                  Enabled
-                <% elsif !@developer.notifications %>
-                  Disabled
-                <% end %>
+                <%= @developer.notifications ? 'Enabled' : 'Disabled' %>
               </p>
             </li>
 
