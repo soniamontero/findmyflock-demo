@@ -26,7 +26,7 @@
       <th>Developer</th>
       <th>Has applied?</th>
       <th>Application status</th>
-      <th>Status</th>
+      <th>Internal Status</th>
       <th>Date Changed</th>
     </tr>
   </thead>
@@ -38,11 +38,7 @@
         <td><%= link_to match.company_name, match.company_url, target: "_blank" %></td>
         <td><%= link_to match.full_name, admin_developer_path(match.developer) %></td>
         <td><%= match.application.nil? ? 'No' : 'Yes' %></td>
-        <% if match.application.nil? %>
-          <td></td>
-        <% else %>
-        <td><%= match.application_status.to_s.humanize %><td>
-        <% end %>
+        <td><%= match.application_status.to_s.humanize %></td>
         <td>
           <%= simple_form_for match, url: admin_match_path(match), action: :update do |f| %>
             <div class="field">
