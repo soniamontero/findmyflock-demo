@@ -5,9 +5,12 @@ feature 'Developer applications' do
 
   let(:company) { create :company, vetted: true }
   let!(:recruiter) { create :recruiter, company: company }
-  let!(:active_job) { create :job, :remote, company: company }
-  let!(:another_job) { create :job, :remote, company: company }
-  let!(:non_matching_job) { create :job, :office, company: company }
+  let!(:active_job) { create :job, :remote, title: 'Active Job',
+                      company: company }
+  let!(:another_job) { create :job, :remote,  title: 'Another Job',
+                       company: company }
+  let!(:non_matching_job) { create :job, :office, title: 'Non-matching Job',
+                            company: company }
 
   before do
     sign_in developer
