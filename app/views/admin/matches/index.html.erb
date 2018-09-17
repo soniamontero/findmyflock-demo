@@ -3,12 +3,29 @@
 </div>
 
 <br/>
+  <p>
+    Possible application status:
+  </p>
+  <small>
+    <p>
+      <b>Pending:</b> The application hasn't been opened by the company yet.
+      <br/>
+      <b>Opened:</b> The application has been opened and read by the company.
+      <br/>
+      <b>Contacted:</b> The company has contacted the developer by email.
+      <br/>
+      <b>Rejected:</b> The company has rejected the developer's application.
+    </p>
+  </small>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Job</th>
+      <th>Company</th>
       <th>Developer</th>
+      <th>Has applied?</th>
+      <th>Application status</th>
       <th>Status</th>
       <th>Date Changed</th>
     </tr>
@@ -17,8 +34,15 @@
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= link_to match.job.title, admin_job_path(match.job) %></td>
-        <td><%= link_to match.developer.full_name, admin_developer_path(match.developer) %></td>
+        <td><%= link_to match.title, admin_job_path(match.job) %></td>
+        <td><%= link_to match.company_name, match.company_url, target: "_blank" %></td>
+        <td><%= link_to match.full_name, admin_developer_path(match.developer) %></td>
+        <td><%= match.application.nil? ? 'No' : 'Yes' %></td>
+        <% if match.application.nil? %>
+          <td></td>
+        <% else %>
+        <td><%= match.application_status.to_s.humanize %><td>
+        <% end %>
         <td>
           <%= simple_form_for match, url: admin_match_path(match), action: :update do |f| %>
             <div class="field">

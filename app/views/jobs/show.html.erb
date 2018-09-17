@@ -20,7 +20,7 @@
         <% end %>
       </p>
     </div>
-      <p class="job-description"><%= raw @job.description %></p>
+      <p class="job-description"><%= sanitize @job.description %></p>
 
       <div class="row centered justify-content-center pt-4 pb-4">
         <div class="col-xs-12 col-sm-12 col-md-12 job-show-skills">

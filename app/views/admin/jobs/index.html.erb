@@ -18,7 +18,7 @@
     <% @jobs.sort_by(&:created_at).reverse.each do |job| %>
       <tr class="<%= "table-success" if job.vetted? %>">
         <td><%= link_to job.title, admin_job_path(job) %></td>
-        <td><%= job.company.name %></td>
+        <td><%= link_to job.company_name, job.company_url, target: "_blank" %></td>
         <td><%= render 'admin/shared/skills_list', skills: job.skills_array %></td>
         <td><%= link_to 'Edit', edit_admin_job_path(job) %></td>
         <td><%= link_to "See Matches(#{job.matches.count})", admin_match_path(job) %></td>
