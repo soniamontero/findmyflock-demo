@@ -6,7 +6,8 @@ class ApplicationsController < ApplicationController
   before_action :set_match, only: [:new, :create]
 
   def show
-    DeveloperMailer.application_opened(@application).deliver if @application.pending?
+    application_id = @application.id
+    DeveloperMailer.application_opened(application_id).deliver if @application.pending?
     set_opened(@application)
   end
 
@@ -24,6 +25,9 @@ class ApplicationsController < ApplicationController
     @developer = @match.developer
     @developer.update(developer_params) if developer_params.try(:[], :resumes)
     @company = @match.job.company
+    developer_id = @match.developer.id
+    match_id = @match.id
+    company_id = @company.id
     @mail_addresses = @company.recruiters_mail.join(',')
 
     if !@developer.resumes.attached?
@@ -34,7 +38,7 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       if @application.save
         format.html { redirect_to new_job_application_path(@match.job) }
-        CompanyMailer.new_application_advise(@mail_addresses, @match, @developer).deliver
+        CompanyMailer.new_application_advise(company_id, match_id, developer_id).deliver
       else
         format.html do
           render :new, alert: 'Something went wrong please try again.'
@@ -54,9 +58,11 @@ class ApplicationsController < ApplicationController
 
   def contact
     message = params[:private_message]
+    job_id = @job.id
+    developer_id = @developer.id
     if !message.empty?
-      @mail_address = current_recruiter.email
-      CompanyMailer.contact_developer(message, @application, @job, @developer, @mail_address).deliver
+      recruiter_id = current_recruiter.id
+      CompanyMailer.contact_developer(message, job_id, developer_id, recruiter_id).deliver
       @application.contacted!
       redirect_to job_application_path(@job), notice: "We've sent an email to the candidate."
     end
@@ -64,7 +70,8 @@ class ApplicationsController < ApplicationController
 
   def reject
     @application.rejected!
-    DeveloperMailer.application_rejected(@application).deliver if @application.rejected?
+    application_id = @application.id
+    DeveloperMailer.application_rejected(application_id).deliver if @application.rejected?
     redirect_to dashboard_companies_path, notice: "We've sent an email to the candidate."
   end
 
