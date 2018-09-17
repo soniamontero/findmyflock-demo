@@ -16,6 +16,7 @@ class Developer < ApplicationRecord
   validates :remote, inclusion: { in: [['remote'], ['office'], ['remote', 'office']] }, on: :update
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
+  after_save :subscribe_developer_to_mailing_list
 
   scope :all_remote, -> { where("'remote' = ANY (remote)") }
   scope :all_office, -> { where("'office' = ANY (remote)") }
@@ -125,6 +126,16 @@ class Developer < ApplicationRecord
         developer_id = developer.id
         DeveloperMailer.new_match_advise(developer_id, jobs_array.uniq).deliver
       end
+    end
+  end
+
+  private
+
+  def subscribe_developer_to_mailing_list
+    significant_attrs = ["email", "first_name", "last_name"]
+    significant_changes = saved_changes.keys & significant_attrs
+    if significant_changes.present? && gets_mail?
+      SubscribeDeveloperToMailingListJob.perform_later(self)
     end
   end
 end
