@@ -39,7 +39,7 @@
     <% @company.jobs.each do |job| %>
       <tr>
         <td><%= job.title %></td>
-        <td><%= job.active %></td>
+        <td><%= job.active? ? 'Yes' : 'No' %></td>
         <td><%= link_to "See job", admin_job_path(job) %></td>
       </tr>
     <% end %>
