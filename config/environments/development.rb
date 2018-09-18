@@ -68,4 +68,14 @@ Rails.application.configure do
   if File.file?('/.dockerenv')
     config.web_console.whitelisted_ips << '172.18.0.0/16'
   end
+
+  # https://github.com/flyerhzm/bullet#configuration
+  config.after_initialize do
+    Bullet.enable = true
+    # Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+  end
 end
