@@ -2,7 +2,7 @@ class Admin::CompaniesController < Admin::BaseController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
 
   def index
-    @companies = Company.all.order(name: :asc)
+    @companies = Company.all.order(name: :asc).includes(:subscriber)
   end
 
   def show

@@ -4,7 +4,7 @@ class Admin::JobsController < Admin::BaseController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   def index
-    @jobs = Job.all.order(created_at: :desc)
+    @jobs = Job.all.order(created_at: :desc).includes(:company)
   end
 
   def show

@@ -1,11 +1,11 @@
 class Admin::MatchesController < Admin::BaseController
   def index
-    @matches = Match.all
+    @matches = Match.all.includes(:application, :developer, job: :company)
   end
 
   def show
     @job_title = Job.find(params[:id]).title
-    @matches = Match.where(job_id: params[:id])
+    @matches = Match.where(job_id: params[:id]).includes(:developer)
   end
 
   def update
