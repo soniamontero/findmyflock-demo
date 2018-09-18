@@ -94,6 +94,14 @@
   <% end %>
 </p>
 
+<% if @developer.resumes.attached? %>
+  <h5>
+    <%= link_to "Download Resume", rails_blob_path(@developer.resumes.last,
+        disposition: "attachment"),
+        class: "btn btn-primary" %>
+  </h5>
+<% end %>
+
 <h5>Skills</h5>
 <%= render 'admin/shared/skills_list', skills: @developer.skills_array %>
 <%= render 'admin/developers/matches' %>
