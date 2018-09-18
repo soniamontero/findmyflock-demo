@@ -46,17 +46,13 @@ describe Developer do
     let!(:remote_job) { create :job, :remote }
     let!(:other_skills_job) { create :job, :remote, skills_array: ["android/5"] }
 
-    it 'does not send email when notifications off' do
-      expect(off_dev.notifications).to be false
-      expect(DeveloperMailer).to_not receive(:new_match_advise).with(off_dev, [remote_job]).and_call_original
-    end
-
-    it 'does send email when notifications on but not return jobs from other devs' do
+    it 'does not return jobs from other devs' do
       expect(remote_dev.notifications).to be true
+      expect(off_dev.notifications).to be false
       expect(DeveloperMailer).to receive(:new_match_advise).with(us_dev, [local_job, remote_job]).and_call_original
       expect(DeveloperMailer).to receive(:new_match_advise).with(remote_dev, [remote_job]).and_call_original
-      expect{Developer.check_for_new_matches}.to change{Match.count}.by(4)
-      Developer.check_for_new_matches
+      expect(DeveloperMailer).to_not receive(:new_match_advise).with(off_dev, [remote_job]).and_call_original
+      expect{Developer.check_for_new_matches}.to change{Match.count}.by(3)
     end
   end
 end
