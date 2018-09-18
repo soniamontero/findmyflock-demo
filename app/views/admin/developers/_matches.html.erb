@@ -4,14 +4,18 @@
     <thead>
       <tr>
         <th>Job</th>
+        <th>Company</th>
+        <th>Vetted?</th>
         <th>Actions</th>
       </tr>
     </thead>
 
     <tbody>
       <% @job_matches.each do |job| %>
-        <tr>
+        <tr class="<%= "table-success" if job.company.vetted? %>">
           <td><%= job.title %></td>
+          <td><%= job.company_name %></td>
+          <td><%= job.company.vetted %></td>
           <td><%= link_to "See job", admin_job_path(job) %></td>
         </tr>
       <% end %>
