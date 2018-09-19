@@ -27,7 +27,16 @@ WebMock.disable_net_connect!(allow_localhost: true)
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
 RSpec.configure do |config|
+  config.before(:each) do
+    # clear emails
+    ActionMailer::Base.deliveries.clear
+
+    # Prevent external Mailchimp interactions
+    stub_request(:put, /api.mailchimp.com/).
+      to_return(status: 200, body: "stubbed response", headers: {})
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

@@ -2,12 +2,21 @@ require 'rails_helper'
 
 feature "Matching Jobs" do
   context "with all types of jobs in db" do
-    let!(:remote_job) { create :job, :remote }
-    let!(:remote_job_can_sponsor) { create :job, :remote, can_sponsor: true }
-    let!(:far_away_job) { create :job, :office, latitude: 42, longitude: -78 }
-    let!(:far_away_job_can_sponsor) { create :job, :office, latitude: 42, longitude: -78, can_sponsor: true }
-    let!(:local_job) { create :job, :office, latitude: 40, longitude: -105 }
-    let!(:local_job_can_sponsor) { create :job, :office, latitude: 40, longitude: -105, can_sponsor: true }
+    let!(:remote_job) { create :job, :remote, title: 'Remote Job' }
+    let!(:remote_job_can_sponsor) { create :job, :remote,
+                                    title: 'Remote Can Sponsor Job',
+                                    can_sponsor: true }
+    let!(:far_away_job) { create :job, :office, title: 'Far Away Job',
+                          latitude: 42, longitude: -78 }
+    let!(:far_away_job_can_sponsor) { create :job, :office,
+                                      title: 'Far Away Can Sponsor Job',
+                                      latitude: 42, longitude: -78,
+                                      can_sponsor: true }
+    let!(:local_job) { create :job, :office, title: 'Local Job', latitude: 40,
+                       longitude: -105 }
+    let!(:local_job_can_sponsor) { create :job, :office,
+                                   title: 'Local Can Sponsor Job', latitude: 40,
+                                   longitude: -105, can_sponsor: true }
     let!(:unmatched_skills_job) {
       create :job, :remote_and_office,
       latitude: 40, longitude: -105,
