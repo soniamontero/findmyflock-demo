@@ -31,8 +31,8 @@
 
                   <div class="col-xs-12 col-sm-12 col-md-4 matched-job-title matched-job-skills matched-job-separator">
                     <h5 class="row matched-job-skills-title">Matched job</h5>
-                    <h4><%= application.match.job.title %></h4>
-                    <h5 class="text-muted"><%= application.match.job.company.name  %></h5>
+                    <h4><%= application.match.title %></h4>
+                    <h5 class="text-muted"><%= application.match.company_name  %></h5>
                     <p class="text-muted">
                       <%= application.match.job.city %>
                       <% if application.match.job.remote == ["remote"] %>

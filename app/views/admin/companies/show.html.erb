@@ -14,7 +14,7 @@
   <p>Stripe Subscription ID: <a target="_blank" href="https://dashboard.stripe.com/subscriptions/<%= @company.subscriber.stripe_subscription_id %>"><%= @company.subscriber.stripe_subscription_id %></a></p>
   <p>Subscribed at: <%= @company.subscriber.created_at.to_time.strftime('%B %e at %l:%M %p') %></p>
 
-  <% if !@company.subscriber.subscription_expires_at.nil? %>
+  <% if @company.subscription_expires_at %>
     <p>Next billing expected: <%= @company.subscriber.subscription_expires_at.to_time.strftime('%B %e at %l:%M %p') %></p>
   <% end %>
 <% end %>
