@@ -6,7 +6,7 @@
 
 <hr>
 <h5 class="mb-3">Membership details:</h5>
-<p>Vetted: <%= @company.vetted %></p>
+<p>Vetted: <%= @company.vetted? ? 'Yes' : 'No' %></p>
 <% if @company.subscriber.present?  %>
   <p>Plan: <%= @company.subscriber.plan.name %></p>
   <p>Current status: <b><%= @company.subscriber.status %></b></p>

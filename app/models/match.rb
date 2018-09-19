@@ -15,7 +15,8 @@ class Match < ApplicationRecord
 
   delegate :status, to: :application, prefix: true, allow_nil: true
   delegate :full_name, to: :developer
-  delegate :company_name, :company_url, :company_vetted, :title, to: :job
+  delegate :company_name, :company_url, :company_vetted, to: :job
+  delegate :title, to: :job, prefix: true
 
   def match_is_valid?
     if !developer.matched_job.include?(job)
