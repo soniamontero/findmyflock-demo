@@ -1,6 +1,6 @@
 class Admin::MatchesController < Admin::BaseController
   def index
-    @matches = Match.all.includes(:application, :developer, job: :company)
+    @matches = Match.includes(:application, :developer, job: :company)
   end
 
   def show
