@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 2018_09_13_223529) do
     t.bigint "developer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status"
+    t.integer "status", default: 0
     t.index ["developer_id"], name: "index_matches_on_developer_id"
     t.index ["job_id"], name: "index_matches_on_job_id"
   end
