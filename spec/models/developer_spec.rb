@@ -52,7 +52,7 @@ describe Developer do
       expect(DeveloperMailer).to receive(:new_match_advise).with(us_dev, [local_job, remote_job]).and_call_original
       expect(DeveloperMailer).to receive(:new_match_advise).with(remote_dev, [remote_job]).and_call_original
       expect(DeveloperMailer).to_not receive(:new_match_advise).with(off_dev, [remote_job]).and_call_original
-      expect{Developer.check_for_new_matches}.to change{Match.count}.by(3)
+      expect{Developer.check_for_new_matches}.to change{Match.count}.by(4)
     end
   end
 end

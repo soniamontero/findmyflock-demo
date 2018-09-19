@@ -112,19 +112,17 @@ class Developer < ApplicationRecord
 
   def self.check_for_new_matches
     all.each do |developer|
-      if developer.notifications
-        jobs_array = []
-        new_matches = 0
-        developer.matched_job.each do |job|
-          match = Match.new(developer_id: developer.id, job_id: job.id)
-          if match.save
-            new_matches += 1
-            jobs_array << job
-          end
+      jobs_array = []
+      new_matches = 0
+      developer.matched_job.each do |job|
+        match = Match.new(developer_id: developer.id, job_id: job.id)
+        if match.save
+          new_matches += 1
+          jobs_array << job
         end
-        if new_matches.positive?
-          DeveloperMailer.new_match_advise(developer, jobs_array.uniq).deliver
-        end
+      end
+      if new_matches.positive? && developer.notifications
+        DeveloperMailer.new_match_advise(developer, jobs_array.uniq).deliver
       end
     end
   end
