@@ -41,6 +41,22 @@
                 <%= link_to 'Cancel my subscription', subscriber_path(@company.subscriber), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-warning" %>
               </div>
             <% end %>
+          <% else %>
+            <div class="row centered">
+              <div class="col-md-6 col-xs-12">
+                <h6>Current Plan:</h6>
+                <p>No plan active</p>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <h6>Status:</h6>
+                <h5><span class="badge badge-pill badge-danger">Not subscribed</span></h5>
+              </div>
+            </div>
+            <div class="my-4 centered">
+              <h6>Uh oh! Your subscription has ended so your job ads are no longer live.</h6>
+              <p class="text-muted">But don’t worry, you can still resubscribe and show all of your jobs to our diverse and talented network!</p>
+              <%= link_to 'See subscription plans', new_subscriber_path, class: "btn btn-outline-warning", style: "font-weight: bold" %>
+            </div>
           <% end %>
         </div>
       </div>
