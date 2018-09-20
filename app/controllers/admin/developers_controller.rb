@@ -11,7 +11,6 @@ class Admin::DevelopersController < Admin::BaseController
   # GET /admin/developers/1.json
   def show
     @job_matches = @developer.matched_job
-    CustomMailer.admin_jobs_contact(@developer.id).deliver
   end
 
   # GET /admin/developers/new

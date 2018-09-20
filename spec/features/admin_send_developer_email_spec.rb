@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Admin send a developer emails', focus: true do
+feature 'Admin send a developer emails' do
   let!(:admin) { create :admin }
 
   let!(:job) { create :job, :remote, skills_array: ["ruby/4"] }
@@ -14,12 +14,14 @@ feature 'Admin send a developer emails', focus: true do
 
   scenario 'Can send a custom email' do
     click_on 'Developers'
-
-    expect(CustomMailer).to receive(:admin_jobs_contact).with(developer.id).and_call_original
     click_on developer.full_name
 
-    expect(page).to have_content developer.first_name
-    expect(page).to have_content job.title
-    expect(page).to have_content other_job.title
+    custom_text = 'Hello! We think you would be a great match for these jobs.'
+    expect(CustomMailer).to receive(:admin_jobs_contact).with(developer.id.to_s, custom_text).and_call_original
+
+    click_on 'Email this user'
+    fill_in :description, with: custom_text
+    click_on 'Send Email'
+    expect(page).to have_content 'Your email has been sent'
   end
 end

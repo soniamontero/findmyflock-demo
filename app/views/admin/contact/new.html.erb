@@ -1,0 +1,7 @@
+<%= render 'admin/shared/sub_header', title: "Email a user" %>
+
+<%= form_tag admin_developer_contact_index_path(@developer) do %>
+  <label for="description">Lookup</label>
+  <%= text_area_tag :description %>
+  <%= submit_tag "Send Email", class: "btn btn-primary btn-lg" %>
+<% end %>
