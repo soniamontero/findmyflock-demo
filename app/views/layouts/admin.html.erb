@@ -19,10 +19,7 @@
         <%= render "admin/shared/sidebar" %>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <% if notice || alert %>
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-          <% end %>
+          <%= render 'shared/flash' %>
           <%= yield %>
         </main>
       </div>
