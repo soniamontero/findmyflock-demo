@@ -36,11 +36,11 @@ describe Developer do
 
   context "#check_for_new_matches" do
     let!(:remote_dev) { create :developer, :remote,
-                    skills_array: ["apache/1", "android/3"],
-                    notifications: true }
+                        skills_array: ["apache/1", "android/3"],
+                        notifications: true }
     let!(:off_dev) { create :developer, :remote,
-                  skills_array: ["apache/1", "android/3"],
-                  notifications: false }
+                     skills_array: ["apache/1", "android/3"],
+                     notifications: false }
 
     let!(:local_job) { create :job, :office, latitude: 42, longitude: -78 }
     let!(:remote_job) { create :job, :remote }
