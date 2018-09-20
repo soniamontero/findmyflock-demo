@@ -8,29 +8,29 @@ describe Developer do
                     need_us_permit: true,
                     skills_array: ["apache/1", "android/3"] }
 
-  context "#matched_job with sponsoring companies" do
+  context "#matched_jobs with sponsoring companies" do
     let!(:local_job) { create :job, :office, latitude: 42, longitude: -78,
                        can_sponsor: true }
     let!(:remote_job) { create :job, :remote, can_sponsor: true }
 
     it 'shows both jobs for both devs' do
-      expect(us_dev.matched_job).to include local_job
-      expect(us_dev.matched_job).to include remote_job
-      expect(intl_dev.matched_job).to include local_job
-      expect(intl_dev.matched_job).to include remote_job
+      expect(us_dev.matched_jobs).to include local_job
+      expect(us_dev.matched_jobs).to include remote_job
+      expect(intl_dev.matched_jobs).to include local_job
+      expect(intl_dev.matched_jobs).to include remote_job
     end
   end
 
-  context "#matched_job with no sponsoring companies" do
+  context "#matched_jobs with no sponsoring companies" do
     let!(:local_job) { create :job, :office, latitude: 42, longitude: -78,
                        can_sponsor: false }
     let!(:remote_job) { create :job, :remote, can_sponsor: false }
 
     it 'shows both jobs for US dev, neither for intl dev' do
-      expect(us_dev.matched_job).to include local_job
-      expect(us_dev.matched_job).to include remote_job
-      expect(intl_dev.matched_job).not_to include local_job
-      expect(intl_dev.matched_job).not_to include remote_job
+      expect(us_dev.matched_jobs).to include local_job
+      expect(us_dev.matched_jobs).to include remote_job
+      expect(intl_dev.matched_jobs).not_to include local_job
+      expect(intl_dev.matched_jobs).not_to include remote_job
     end
   end
 

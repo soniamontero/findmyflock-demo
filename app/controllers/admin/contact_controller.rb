@@ -1,6 +1,6 @@
 class Admin::ContactController < Admin::BaseController
   def new
-    @developer = params[:developer_id]
+    @developer = Developer.find params[:developer_id]
   end
 
   def create

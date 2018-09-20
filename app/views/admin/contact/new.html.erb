@@ -1,7 +1,19 @@
-<%= render 'admin/shared/sub_header', title: "Email a user" %>
+<%= render 'admin/shared/sub_header', title: "Email #{@developer.full_name}" %>
 
 <%= form_tag admin_developer_contact_index_path(@developer) do %>
-  <label for="description">Lookup</label>
-  <%= text_area_tag :description %>
+  <p>Enter the text you would like to be included in this email.<p>
+  <%= text_area_tag :description, nil, size: "50x10" %>
+  <p>The other content of this email will be as follows:<p>
+  <blockquote class="email">
+    <p>Hello <%= @developer.full_name %>,</p>
+    <p><i><strong>Your text will go here</strong></i></p>
+    <ul>
+      <% @developer.matched_jobs.each do |job| %>
+        <li><%= job.title %></li>
+      <% end %>
+    </ul>
+    <p>With Best Regards,</p>
+    <p>The Find My Flock Team</p>
+  </blockquote>
   <%= submit_tag "Send Email", class: "btn btn-primary btn-lg" %>
 <% end %>
