@@ -1,15 +1,13 @@
 class ApplicationsController < ApplicationController
   before_action :authenticate_developer!, only: [:new, :create]
   before_action :authenticate_recruiter!, only: [:show, :contact, :reject]
-  before_action :set_application, only: [:contact]
+  before_action :set_application, only: [:show, :contact]
   before_action :set_job, only: [:new, :create, :reject]
   before_action :set_match, only: [:new, :create]
 
   def show
-    @application = Application.find params[:id]
-    @developer = @application.developer
-    @job = @application.job
-    DeveloperMailer.application_opened(@application.id).deliver if @application.pending?
+    application_id = @application.id
+    DeveloperMailer.application_opened(application_id).deliver if @application.pending?
     set_opened(@application)
   end
 
