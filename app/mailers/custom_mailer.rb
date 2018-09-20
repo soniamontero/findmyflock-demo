@@ -7,10 +7,12 @@ class CustomMailer < ActionMailer::Base
     job_matches = developer.matched_job
 
     mail = Mail.new
+    custom_text = "Here are your jobs"
     personalization = Personalization.new
     personalization.add_to(Email.new(email: developer.email))
     personalization.add_dynamic_template_data({
-      "jobs" => "These are the jobs!",
+      "custom_text" => custom_text,
+      "jobs" => job_matches,
       "name" => developer.full_name
     })
     mail.template_id = 'd-5955a1e9fd2d4821a78079a1f41f3f49' # a non-legacy template id
