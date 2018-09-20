@@ -47,8 +47,8 @@ describe Developer do
     let!(:other_skills_job) { create :job, :remote, skills_array: ["android/5"] }
 
     it 'does not return jobs from other devs' do
-      expect(remote_dev.notifications).to be true
-      expect(off_dev.notifications).to be false
+      expect(remote_dev.notifications?).to be true
+      expect(off_dev.notifications?).to be false
       expect(DeveloperMailer).to receive(:new_match_advise).with(us_dev, [local_job, remote_job]).and_call_original
       expect(DeveloperMailer).to receive(:new_match_advise).with(remote_dev, [remote_job]).and_call_original
       expect(DeveloperMailer).to_not receive(:new_match_advise).with(off_dev, [remote_job]).and_call_original

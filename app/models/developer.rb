@@ -49,6 +49,10 @@ class Developer < ApplicationRecord
     [city, zip_code, state, country].compact.join(', ')
   end
 
+  def notifications?
+    self.notifications
+  end
+
   def wants_office
     remote != ['remote']
   end
@@ -121,7 +125,7 @@ class Developer < ApplicationRecord
           jobs_array << job
         end
       end
-      if new_matches.positive? && developer.notifications
+      if new_matches.positive? && developer.notifications?
         DeveloperMailer.new_match_advise(developer, jobs_array.uniq).deliver
       end
     end
