@@ -33,9 +33,11 @@ RSpec.configure do |config|
     # clear emails
     ActionMailer::Base.deliveries.clear
 
-    # Prevent external Mailchimp interactions
+    # Prevent external API interactions
     stub_request(:put, /api.mailchimp.com/).
       to_return(status: 200, body: "stubbed response", headers: {})
+    stub_request(:post, /api.sendgrid.com/).
+       to_return(status: 200, body: "", headers: {})
   end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
