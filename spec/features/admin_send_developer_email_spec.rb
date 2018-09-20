@@ -17,7 +17,7 @@ feature 'Admin send a developer emails' do
     click_on developer.full_name
 
     custom_text = 'Hello! We think you would be a great match for these jobs.'
-    expect(CustomMailer).to receive(:admin_jobs_contact).with(developer.id.to_s, custom_text).and_call_original
+    expect(CustomMailer).to receive(:admin_contact_developer).with(developer.id.to_s, custom_text).and_call_original
 
     click_on 'Email this user'
     fill_in :description, with: custom_text

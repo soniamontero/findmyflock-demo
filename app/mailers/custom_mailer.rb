@@ -2,7 +2,7 @@
 class CustomMailer < ActionMailer::Base
   include SendGrid
 
-  def admin_jobs_contact(developer_id, custom_text)
+  def admin_contact_developer(developer_id, custom_text)
     developer = Developer.find(developer_id)
     job_matches = developer.matched_jobs
 

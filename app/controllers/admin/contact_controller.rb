@@ -5,7 +5,7 @@ class Admin::ContactController < Admin::BaseController
 
   def create
     developer_id = params[:developer_id]
-    CustomMailer.admin_jobs_contact(developer_id, params[:description]).deliver
+    CustomMailer.admin_contact_developer(developer_id, params[:description]).deliver
     flash_message = 'Your email has been sent. Check Sendgrid for more details.'
     redirect_to admin_developer_path(developer_id), notice: flash_message
   end
