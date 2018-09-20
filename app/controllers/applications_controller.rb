@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
   before_action :set_match, only: [:new, :create]
 
   def show
+    CustomMailer.dynamic_template_data_hello_world.deliver
     DeveloperMailer.application_opened(@application).deliver if @application.pending?
     set_opened(@application)
   end

@@ -1,6 +1,4 @@
 class CompanyMailer < ApplicationMailer
-  default from: 'info@findmyflock.com'
-
   def welcome_company(company)
     @company = company
     mail(
