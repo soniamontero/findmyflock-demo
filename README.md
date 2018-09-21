@@ -1,5 +1,6 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dd729657fc0cfa274775/test_coverage)](https://codeclimate.com/repos/5b58d33d81fbe302860021d1/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/dd729657fc0cfa274775/maintainability)](https://codeclimate.com/repos/5b58d33d81fbe302860021d1/maintainability)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/c685465758cc95a6c59524b70c4fe5d3.svg?columns=all)](https://waffle.io/findmyflock/www)
 
 # Find My Flock
 
