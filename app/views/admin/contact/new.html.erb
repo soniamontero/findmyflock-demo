@@ -1,8 +1,8 @@
 <%= render 'admin/shared/sub_header', title: "Email #{@developer.full_name}" %>
 
 <%= form_tag admin_developer_contact_index_path(@developer) do %>
-  <p>Enter the text you would like to be included in this email. Note: Paragraph breaks will not be saved.<p>
-  <%= text_area_tag :description, nil, size: "50x3" %>
+  <p>Enter the text you would like to be included in this email. Note: To add new lines for paragraphs you MUST use &lt;br/&gt;.<p>
+  <%= text_area_tag :description, nil, size: "50x10" %>
   <p>The other content of this email will be as follows:<p>
   <blockquote class="email">
     <p>Hello <%= @developer.full_name %>,</p>
