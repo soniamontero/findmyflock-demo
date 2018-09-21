@@ -16,7 +16,8 @@ class CompaniesController < ApplicationController
 
     respond_to do |format|
       if @company.save
-        CompanyMailer.welcome_company(@company).deliver
+        company_id = @company.id
+        CompanyMailer.welcome_company(company_id).deliver
         if @company.is_member?
           format.html { redirect_to dashboard_companies_path, notice: 'Welcome on board, add your first job!' }
         else
