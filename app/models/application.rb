@@ -12,4 +12,13 @@ class Application < ApplicationRecord
   delegate :job, :developer, to: :match, allow_nil: true
   delegate :company, to: :job, allow_nil: true
   delegate :recruiters_mail, to: :company, allow_nil: true
+
+  def self.reminder
+    all.where(status: ["pending", "opened"]).each do |app|
+      if ((app.updated_at - app.created_at) / 1.day) >= 7
+        application_id = app.id
+        CompanyMailer.application_reminder(application_id).deliver
+      end
+    end
+  end
 end

@@ -42,4 +42,16 @@ class CompanyMailer < ApplicationMailer
       subject: 'A Message From Your Recruiter'
     )
   end
+
+  def application_reminder(application_id)
+    @application = Application.find(application_id)
+    @developer = @application.developer
+    @job = @application.job
+    @addresses = @application.recruiters_mail.join('')
+    mail(
+      from: 'info@findmyflock.com',
+      to: addresses,
+      subject: 'An application is still awaiting for your review!'
+    )
+  end
 end
