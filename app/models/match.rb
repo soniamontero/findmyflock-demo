@@ -23,5 +23,4 @@ class Match < ApplicationRecord
       errors.add :match, 'No match between developer requirement and job requirement. Impossible to save match'
     end
   end
-
 end
