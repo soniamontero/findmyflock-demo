@@ -42,6 +42,7 @@ group :development, :test do
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'guard-bundler'
+  gem 'bullet'
 end
 
 group :development do

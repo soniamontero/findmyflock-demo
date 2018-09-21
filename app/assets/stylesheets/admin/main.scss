@@ -119,3 +119,8 @@ body {
 .was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {
   border-color: #ced4da;
 }
+
+.btn-small {
+  @extend .btn-primary;
+  padding: 1px 7px 2px;
+}
