@@ -12,7 +12,7 @@ class CustomMailer < ActionMailer::Base
     personalization.add_dynamic_template_data({
       "custom_text" => custom_text,
       "jobs" => job_matches,
-      "name" => developer.full_name
+      "name" => developer.first_name
     })
     mail.template_id = 'd-5955a1e9fd2d4821a78079a1f41f3f49' # a non-legacy template id
     mail.add_personalization(personalization)
