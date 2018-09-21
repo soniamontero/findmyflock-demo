@@ -2,7 +2,7 @@ class Admin::ApplicationsController < Admin::BaseController
   before_action :set_application, only: [:show]
 
   def index
-    @applications = Application.all.order(created_at: :desc)
+    @applications = Application.order(created_at: :desc)
   end
 
   def show

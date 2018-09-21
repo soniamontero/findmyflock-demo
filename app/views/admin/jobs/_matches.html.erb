@@ -3,16 +3,23 @@
   <thead>
     <tr>
       <th>Developer</th>
+      <th>Internal Status</th>
+      <th>Date Changed</th>
       <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @developer_matches.each do |developer| %>
-      <tr>
-        <td><%= developer.full_name %></td>
-        <td><%= link_to "See developer", admin_developer_path(developer) %></td>
-      </tr>
+      <% match = developer.matches.find_by_job_id @job.id %>
+      <% if match %>
+        <tr>
+          <td><%= developer.full_name %></td>
+          <td><%= render 'admin/shared/status_dropdown', match: match %></td>
+          <td><%= match.updated_at.to_date %></td>
+          <td><%= link_to "See developer", admin_developer_path(developer) %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
