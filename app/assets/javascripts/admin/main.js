@@ -1,5 +1,5 @@
 jQuery(function($) {
-  $(".dropdown").change(function() {
-    $(this).closest('.dropdown').find('input[type=submit]').removeClass('hidden');
+  $(".edit_match").change(function() {
+    $(this).closest('.edit_match').find('input[type=submit]').removeClass('hidden');
   });
 });
