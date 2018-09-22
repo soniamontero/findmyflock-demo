@@ -2,7 +2,7 @@
 class CustomMailer < ActionMailer::Base
   include SendGrid
 
-  def admin_contact_developer(developer_id, custom_text)
+  def admin_contact_developer(developer_id, custom_text, custom_text_2)
     developer = Developer.find(developer_id)
     job_matches = developer.matched_jobs
 
@@ -11,10 +11,12 @@ class CustomMailer < ActionMailer::Base
     personalization.add_to(Email.new(email: developer.email))
     personalization.add_dynamic_template_data({
       "custom_text" => custom_text,
+      "custom_text_2" => custom_text_2,
       "jobs" => job_matches,
       "name" => developer.first_name
     })
-    mail.template_id = 'd-5955a1e9fd2d4821a78079a1f41f3f49' # a non-legacy template id
+
+    mail.template_id = ENV['SENDGRID_TEMPLATE']
     mail.add_personalization(personalization)
     mail.from = Email.new(email: 'info@findmyflock.com')
 

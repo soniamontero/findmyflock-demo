@@ -1,20 +1,32 @@
 <%= render 'admin/shared/sub_header', title: "Email #{@developer.full_name}" %>
 
 <%= form_tag admin_developer_contact_index_path(@developer) do %>
-  <p>Enter the text you would like to be included in this email. Note: To add new lines for paragraphs you MUST use &lt;br/&gt;.<p>
-  <%= text_area_tag :description, nil, size: "50x10" %>
-  <p>The other content of this email will be as follows:<p>
+  <p>
+    Enter the text you would like to be included in this email.
+    <strong>Note: To add new lines for paragraphs you MUST use &lt;br/&gt;.</strong>
+  </p>
+
+  <p>Enter the text you would like to be included <i>before</i> the jobs list</p>
+  <%= text_area_tag :custom_text, nil, size: "50x10" %>
+
+  <p>Enter the text you would like to be included <i>after</i> the jobs list</p>
+  <%= text_area_tag :custom_text_2, nil, size: "50x10" %>
+
+  <p>The other content of this email will be as follows:</p>
+
   <blockquote class="email">
-    <p>Hello <%= @developer.full_name %>,</p>
-    <p><i><strong>Your text will go here</strong></i></p>
+    <p>Hey <%= @developer.first_name %>,</p>
+    <p><i><strong>Your text from the first input will go here</strong></i></p>
     <ul>
       <% @developer.matched_jobs.each do |job| %>
         <li><%= job.title %></li>
       <% end %>
     </ul>
-    <p>With Best Regards,</p>
+    <p><i><strong>Your text from the second input will go here</strong></i></p>
+    <p>Thrilled for you!</p>
     <p>The Find My Flock Team</p>
   </blockquote>
+
   <%= submit_tag "Send Email",
       class: "btn btn-primary btn-lg",
       data: { confirm: "Are you sure you want to send this email?" } %>
