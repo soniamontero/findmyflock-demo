@@ -19,12 +19,14 @@
   <br>
   <%= form.file_field :images, multiple: true, direct_upload: true, label:false, accept: "image/x-png,image/jpeg"  %>
   <br /><br />
-  <div class="row">
-    <div class="col-12">
-      <p>You can view the pictures already uploaded:</p>
-      <%= render "utils/carousel", images: @company.images %>
+  <% if @company.images.present? %>
+    <div class="row">
+      <div class="col-12">
+        <p>You can view the pictures already uploaded:</p>
+        <%= render "utils/carousel", images: @company.images %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="text-center mt-3">
     <%= form.submit "Confirm", class: "btn btn-application"  %>
