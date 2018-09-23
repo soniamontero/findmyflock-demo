@@ -1,9 +1,11 @@
 <div id="demo" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <% images.each_with_index do |image, index| %>
-      <div class="carousel-item <%= 'active' if index == 0 %>">
-        <%= image_tag image.variant(resize: "600x300^"), class: "d-block w-100" %>
-      </div>
+      <% if image.variable? %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <%= image_tag image.variant(resize: "600x300^"), class: "d-block w-100" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <a class="carousel-control-prev" href="#demo" data-slide="prev">
