@@ -22,6 +22,7 @@ gem 'country_select'
 gem 'mini_magick'
 gem 'aws-sdk-s3', require: false
 gem 'turbolinks', '~> 5.2'
+# go back to versions once sendgrid-ruby is above 5.2.0
 gem 'sendgrid-ruby', :git => 'https://github.com/sendgrid/sendgrid-ruby', :ref => 'a93d7120'
 
 gem 'tinymce-rails'
