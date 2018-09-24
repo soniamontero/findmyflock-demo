@@ -41,6 +41,7 @@
                 <%= link_to 'Cancel my subscription', subscriber_path(@company.subscriber), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-warning" %>
               </div>
             <% end %>
+          <% elsif @company.vetted? %>
           <% else %>
             <div class="row centered">
               <div class="col-md-6 col-xs-12">
