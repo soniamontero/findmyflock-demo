@@ -18,7 +18,7 @@ class CustomMailer < ActionMailer::Base
 
     mail.template_id = ENV['SENDGRID_TEMPLATE']
     mail.add_personalization(personalization)
-    mail.from = Email.new(email: 'info@findmyflock.com')
+    mail.from = Email.new(email: 'dreamjobs@findmyflock.com')
 
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'] || '')
     response = sg.client.mail._('send').post(request_body: mail.to_json)
