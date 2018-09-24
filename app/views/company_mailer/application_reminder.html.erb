@@ -25,7 +25,7 @@
 
   <% @applications_array.each do |app| %>
     <p><%= app.developer.full_name %> for <%= app.job.title %> with the following message:</p>
-    <p><%= app.message %></p>
+    <p>"<%= app.message %>"</p>
     <p>Go ahead and <%= link_to "CLICK HERE", job_application_url(app.job.id, app.id) %> to log in and review their resume and cover letter directly from our platform. It’s as easy as that!</p>
   <% end %>
 

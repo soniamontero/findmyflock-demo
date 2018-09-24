@@ -38,7 +38,7 @@ class ApplicationsController < ApplicationController
       if application.save
         format.html { redirect_to new_job_application_path(@match.job) }
         CompanyMailer.new_application_advise(company_id, match_id, developer_id).deliver
-        @application.update_attribute(:last_mail_sent, Time.now)
+        application.update_attribute(:last_mail_sent, Time.now)
       else
         format.html do
           render :new, alert: 'Something went wrong please try again.'
