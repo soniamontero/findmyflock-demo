@@ -49,10 +49,6 @@ class Developer < ApplicationRecord
     [city, zip_code, state, country].compact.join(', ')
   end
 
-  def notifications?
-    self.notifications
-  end
-
   def wants_office
     remote != ['remote']
   end
