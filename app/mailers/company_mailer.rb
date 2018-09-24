@@ -1,27 +1,30 @@
 class CompanyMailer < ApplicationMailer
   default from: 'info@findmyflock.com'
 
-  def welcome_company(company)
-    @company = company
+  def welcome_company(company_id)
+    @company = Company.find(company_id)
+    @address = @company.recruiters.first.email
     mail(
       from: 'info@findmyflock.com',
-      to: company.recruiters.first.email,
+      to: @address,
       subject: 'New Company Added'
     )
   end
 
-  def new_application_advise(addresses, match, developer)
-    @developer = developer
-    @job = match.job
-    @application = match.application
+  def new_application_advise(company_id, match_id, developer_id)
+    @developer = Developer.find(developer_id)
+    @match = Match.find(match_id)
+    @job = @match.job
+    @application = @match.application
+    @mail_addresses = Company.find(company_id).recruiters_mail.join('')
     mail(
-      to: addresses,
+      to: @mail_addresses,
       subject: 'New Application Received'
     )
   end
 
-  def cancelled_application_advise(address, developer_id, job_id)
-    @address = address
+  def cancelled_application_advise(application_id, developer_id, job_id)
+    address = Application.find(application_id).recruiters_mail.join('')
     @developer = Developer.find(developer_id)
     @job = Job.find(job_id)
     mail(
@@ -31,13 +34,13 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def contact_developer(message, application, job, developer, address)
+  def contact_developer(message, job_id, developer_id, recruiter_id)
     @message = message
-    @developer = developer
-    @job = job
-    @application = application
+    @developer = Developer.find(developer_id)
+    @job = Job.find(job_id)
+    @mail_address = Recruiter.find(recruiter_id).email
     mail(
-      from: address,
+      from: @mail_address,
       to: @developer.email,
       subject: 'A Message From Your Recruiter'
     )

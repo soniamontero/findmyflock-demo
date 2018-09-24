@@ -17,7 +17,7 @@ feature 'See Developers that Match Jobs' do
   scenario 'Can see developers that match the job' do
     click_on 'Jobs'
     within 'tr', text: ruby_job.title do
-      click_on 'See Matches'
+      click_on 'See 1 Match'
     end
 
     expect(page).to have_content ruby_developer.first_name
