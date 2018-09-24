@@ -33,8 +33,8 @@
 
   <tbody>
     <% @matches.each do |match| %>
-      <tr>
-        <td><%= link_to match.title, admin_job_path(match.job) %></td>
+      <tr class="<%= "table-success" if match.company_vetted? %>">
+        <td><%= link_to match.job_title, admin_job_path(match.job) %></td>
         <td><%= link_to match.company_name, match.company_url, target: "_blank" %></td>
         <td><%= link_to match.full_name, admin_developer_path(match.developer) %></td>
         <td><%= match.application.nil? ? 'No' : 'Yes' %></td>

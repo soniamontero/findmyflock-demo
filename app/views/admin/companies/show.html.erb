@@ -1,28 +1,47 @@
-  <h3><%= @company.name %></h3>
-  <p><%= @company.industry %></p>
-  <% if @company.url %>
-    <a target="_blank" href="<%= @company.url %>"><%= @company.url %></a>
+<h3><%= @company.name %></h3>
+<p><%= @company.industry %></p>
+<% if @company.url %>
+  <a target="_blank" href="<%= @company.url %>"><%= @company.url %></a>
+<% end %>
+
+<hr>
+<h5 class="mb-3">Membership details:</h5>
+<p>Vetted: <%= @company.vetted? ? 'Yes' : 'No' %></p>
+<% if @company.subscriber.present?  %>
+  <p>Plan: <%= @company.subscriber.plan.name %></p>
+  <p>Current status: <b><%= @company.subscriber.status %></b></p>
+  <p>Stripe client ID: <a target="_blank" href="https://dashboard.stripe.com/customers/<%= @company.subscriber.stripe_customer_id %>"><%= @company.subscriber.stripe_customer_id %></a></p>
+  <p>Stripe Subscription ID: <a target="_blank" href="https://dashboard.stripe.com/subscriptions/<%= @company.subscriber.stripe_subscription_id %>"><%= @company.subscriber.stripe_subscription_id %></a></p>
+  <p>Subscribed at: <%= l @company.subscriber.created_at, format: :long %></p>
+
+  <% if @company.subscription_expires_at %>
+    <p>Next billing expected: <%= l @company.subscriber.subscription_expires_at, format: :long %></p>
   <% end %>
-
-  <hr>
-  <h5 class="mb-3">Membership details:</h5>
-  <% if !@company.subscriber.nil?  %>
-    <p>Plan: <%= @company.subscriber.plan.name %></p>
-    <p>Current status: <b><%= @company.subscriber.status %></b></p>
-    <p>Stripe client ID: <a target="_blank" href="https://dashboard.stripe.com/customers/<%= @company.subscriber.stripe_customer_id %>"><%= @company.subscriber.stripe_customer_id %></a></p>
-    <p>Stripe Subscription ID: <a target="_blank" href="https://dashboard.stripe.com/subscriptions/<%= @company.subscriber.stripe_subscription_id %>"><%= @company.subscriber.stripe_subscription_id %></a></p>
-    <p>Subscribed at: <%= @company.subscriber.created_at.to_time.strftime('%B %e at %l:%M %p') %></p>
-
-    <% if !@company.subscriber.subscription_expires_at.nil? %>
-      <p>Next billing expected: <%= @company.subscriber.subscription_expires_at.to_time.strftime('%B %e at %l:%M %p') %></p>
-    <% end %>
-  <% end %>
-
-
-  <br>
-  <br>
-
-
+<% end %>
 
 <%= link_to 'Edit', edit_admin_company_path(@company) %> |
 <%= link_to 'Back', admin_companies_path %>
+
+<br/>
+<br/>
+
+<h3>Jobs</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Job</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @company.jobs.each do |job| %>
+      <tr>
+        <td><%= job.title %></td>
+        <td><%= job.active? ? 'Yes' : 'No' %></td>
+        <td><%= link_to "See job", admin_job_path(job) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
