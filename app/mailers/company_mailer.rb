@@ -47,7 +47,7 @@ class CompanyMailer < ApplicationMailer
     @application = Application.find(application_id)
     @developer = @application.developer
     @job = @application.job
-    @addresses = @application.recruiters_mail.join('')
+    addresses = @application.recruiters_mail.join('')
     mail(
       from: 'info@findmyflock.com',
       to: addresses,

@@ -35,6 +35,7 @@ class ApplicationsController < ApplicationController
       if @application.save
         format.html { redirect_to new_job_application_path(@match.job) }
         CompanyMailer.new_application_advise(@mail_addresses, @match, @developer).deliver
+        @application.update_attribute(:last_mail_sent, Time.now)
       else
         format.html do
           render :new, alert: 'Something went wrong please try again.'
@@ -110,7 +111,7 @@ class ApplicationsController < ApplicationController
   end
 
   def application_params
-    params.require(:application).permit(:message)
+    params.require(:application).permit(:message, :last_mail_sent)
   end
 
   def developer_params
