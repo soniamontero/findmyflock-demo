@@ -25,21 +25,21 @@
               <% @company.applications.open.each_with_index do |application, index| %>
                 <div class="row centered matched-job">
                   <div class="col-xs-12 col-sm-12 col-md-2">
-                    <%= image_tag application.match.developer.avatar, class: "job-avatar" if !application.match.developer.avatar.attachment.nil? %>
-                    <p class="pt-2" style="margin-bottom:0;"><%= application.match.developer.first_name %> <%= application.match.developer.last_name %></p>
+                    <%= image_tag application.developer.avatar, class: "job-avatar" if !application.developer.avatar.attachment.nil? %>
+                    <p class="pt-2" style="margin-bottom:0;"><%= application.developer_full_name %></p>
                   </div>
 
                   <div class="col-xs-12 col-sm-12 col-md-4 matched-job-title matched-job-skills matched-job-separator">
                     <h5 class="row matched-job-skills-title">Matched job</h5>
-                    <h4><%= application.match.job_title %></h4>
-                    <h5 class="text-muted"><%= application.match.company_name  %></h5>
+                    <h4><%= application.job_title %></h4>
+                    <h5 class="text-muted"><%= application.company_name  %></h5>
                     <p class="text-muted">
-                      <%= application.match.job.city %>
-                      <% if application.match.job.remote == ["remote"] %>
+                      <%= application.job.city %>
+                      <% if application.job.remote == ["remote"] %>
                       - Remote
-                      <% elsif application.match.job.remote == ["office"] %>
+                      <% elsif application.job.remote == ["office"] %>
                       - Office
-                      <% elsif application.match.job.remote == ["remote", "office"]%>
+                      <% elsif application.job.remote == ["remote", "office"]%>
                       - Office & Remote
                       <% end %>
                     </p>
@@ -50,7 +50,7 @@
                     <div class="row">
                       <table class="table">
                         <tbody>
-                          <% application.match.job.skills.each do |skill| %>
+                          <% application.job.skills.each do |skill| %>
                           <tr>
                             <td><i class="devicon-<%= skill.name %>-plain colored"></i></td>
                             <td><%= skill.name %></td>
@@ -74,7 +74,7 @@
                       <% else %>
                       <div class="badge btn-pending">New</div>
                       <% end %>
-                      <%= link_to "View", job_application_path(application.match.job, application), class:"btn-apply" %>
+                      <%= link_to "View", job_application_path(application.job, application), class:"btn-apply" %>
                     </div>
                   </div>
                 </div>
