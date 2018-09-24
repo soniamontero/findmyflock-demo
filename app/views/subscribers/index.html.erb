@@ -16,12 +16,12 @@
               </div>
               <div class="col-6 col-md-3">
                 <h6>Subscribed On:</h6>
-                <p><%= @company.subscriber.created_at.to_time.strftime('%B %e %Y') %></p>
+                <p><%= l @company.subscriber.created_at, format: :date %></p>
               </div>
               <% if @company.subscription_expires_at.present? %>
                 <div class="col-6 col-md-3">
                   <h6><%= @company.canceled? ? 'Active Until' : 'Next Bill On' %>:</h6>
-                  <p><%= @company.subscription_expires_at.to_time.strftime('%B %-d %Y') %></p>
+                  <p><%= l @company.subscription_expires_at, format: :date %></p>
                 </div>
               <% end %>
             </div>

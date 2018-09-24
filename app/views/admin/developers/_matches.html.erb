@@ -4,6 +4,8 @@
     <thead>
       <tr>
         <th>Job</th>
+        <th>Company</th>
+        <th>Vetted?</th>
         <th>Internal Status</th>
         <th>Date Changed</th>
         <th>Actions</th>
@@ -14,8 +16,10 @@
       <% @job_matches.each do |job| %>
         <% match = job.matches.find_by_developer_id @developer.id %>
         <% if match %>
-          <tr>
+          <tr class="<%= "table-success" if job.company.vetted? %>">
             <td><%= job.title %></td>
+            <td><%= job.company_name %></td>
+            <td><%= job.company_vetted? ? 'Yes' : 'No' %></td>
             <td><%= render 'admin/shared/status_dropdown', match: match %></td>
             <td><%= match.updated_at.to_date %></td>
             <td><%= link_to "See job", admin_job_path(job) %></td>
