@@ -1,17 +1,35 @@
-<p>Hi!</p>
+<% if @applications_array.count >= 2 %>
+  <p>Hi!</p>
 
-<p>Friendly reminder that you have dream job seekers waiting on your reply through the platform!
-</p>
+  <p>Friendly reminder that you have dream job seekers waiting on your reply through the platform!</p>
 
-<p>Please either contact or reject these folks. We know you remember how hard your last job search was, and we're sure you wouldn't want to keep them waiting.</p>
+  <p>Please either contact or reject these folks. We know you remember how hard your last job search was, and we're sure you wouldn't want to keep them waiting.</p>
 
-<p>Your candidates include:</p>
+  <p>Your candidates include:</p>
 
-<% @applications_array.each do |app| %>
- <p> <%= app.developer.full_name %></p>
-  <p><%= app.job.title %></p>
-  <p><%= app.message %></p>
+  <% @applications_array.each do |app| %>
+    <p>- <%= app.developer.full_name %> for <%= app.job.title %> with the following message:</p>
+    <p>"<%= app.message %>"</p>
+    <%= link_to "See the full application", job_application_url(app.job.id, app.id) %>
+  <% end %>
+
+  <p>Thank you for working with Find My Flock!</p>
+
+<% else %>
+
+  <p>Hi!</p>
+
+  <p>Friendly reminder that you have a dream job seeker waiting on your reply through the platform!</p>
+
+  <p>Please either contact or reject their application. We know you remember how hard your last job search was, and we're sure you wouldn't want to keep them waiting.</p>
+
+  <% @applications_array.each do |app| %>
+    <p><%= app.developer.full_name %> for <%= app.job.title %> with the following message:</p>
+    <p><%= app.message %></p>
+    <p>Go ahead and <%= link_to "CLICK HERE", job_application_url(app.job.id, app.id) %> to log in and review their resume and cover letter directly from our platform. It’s as easy as that!</p>
+  <% end %>
+
+  <p>
+    Thank you for working with Find My Flock!
+  </p>
 <% end %>
-
-<p>Thank you for working with Find My Flock!
-</p>

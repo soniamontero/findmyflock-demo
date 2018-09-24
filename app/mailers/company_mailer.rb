@@ -43,10 +43,12 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def application_reminder(applications_array)
-    @applications_array = applications_array
+  def application_reminder(application_ids_array)
+    @applications_array = []
     addresses = []
-    @applications_array.each do |app|
+    application_ids_array.each do |id|
+      app = Application.find(id)
+      @applications_array << app
       addresses << app.recruiters_mail
     end
     addresses = addresses.uniq.join(',')
