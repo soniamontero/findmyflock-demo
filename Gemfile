@@ -9,7 +9,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'figaro'
-gem 'devise'
+gem 'devise', '~> 4.5'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'coffee-rails', '~> 4.2'
@@ -21,12 +21,13 @@ gem 'active_link_to'
 gem 'country_select'
 gem 'mini_magick'
 gem 'aws-sdk-s3', require: false
-gem 'turbolinks'
+gem 'turbolinks', '~> 5.2'
 gem 'sendgrid-ruby'
 gem 'tinymce-rails'
-gem 'stripe'
+gem 'stripe', '~> 3.22'
 gem 'rollbar'
 gem 'rubocop', '~> 0.58.2', require: false
+gem 'gibbon'
 gem 'sanitize'
 
 group :development, :test do
@@ -35,12 +36,13 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'factory_bot'
-  gem 'factory_bot_rails'
+  gem 'factory_bot', '~> 4.10.0'
+  gem 'factory_bot_rails', '~> 4.10.0'
   gem 'guard'
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'guard-bundler'
+  gem 'bullet'
 end
 
 group :development do
@@ -49,10 +51,11 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+  gem 'dotenv-rails'
 end
 
 group :test do
-  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'capybara', '~> 3.6'
   gem 'capybara-email'
   gem 'selenium-webdriver'
   gem 'launchy'

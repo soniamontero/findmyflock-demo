@@ -3,20 +3,20 @@
 </div>
 
 <br/>
+<p>
+  Possible application statuses:
+</p>
+<small>
   <p>
-    Possible application status:
+    <b>Pending:</b> The application hasn't been opened by the company yet.
+    <br/>
+    <b>Opened:</b> The application has been opened and read by the company.
+    <br/>
+    <b>Contacted:</b> The company has contacted the developer by email.
+    <br/>
+    <b>Rejected:</b> The company has rejected the developer's application.
   </p>
-  <small>
-    <p>
-      <b>Pending:</b> The application hasn't been opened by the company yet.
-      <br/>
-      <b>Opened:</b> The application has been opened and read by the company.
-      <br/>
-      <b>Contacted:</b> The company has contacted the developer by email.
-      <br/>
-      <b>Rejected:</b> The company has rejected the developer's application.
-    </p>
-  </small>
+</small>
 
 <table class="table table-striped">
   <thead>
@@ -26,6 +26,8 @@
       <th>Developer</th>
       <th>Has applied?</th>
       <th>Application status</th>
+      <th>Internal Status</th>
+      <th>Date Changed</th>
     </tr>
   </thead>
 
@@ -36,11 +38,9 @@
         <td><%= link_to match.company_name, match.company_url, target: "_blank" %></td>
         <td><%= link_to match.full_name, admin_developer_path(match.developer) %></td>
         <td><%= match.application.nil? ? 'No' : 'Yes' %></td>
-        <% if match.application.nil? %>
-          <td></td>
-        <% else %>
-        <td><%= match.application_status.to_s.humanize %><td>
-        <% end %>
+        <td><%= match.application_status.to_s.humanize %></td>
+        <td><%= render 'admin/shared/status_dropdown', match: match %></td>
+        <td><%= match.updated_at.to_date %></td>
       </tr>
     <% end %>
   </tbody>
