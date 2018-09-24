@@ -10,7 +10,7 @@ class Admin::DevelopersController < Admin::BaseController
   # GET /admin/developers/1
   # GET /admin/developers/1.json
   def show
-    @job_matches = @developer.matched_job
+    @job_matches = @developer.matched_jobs
   end
 
   # GET /admin/developers/new
@@ -61,7 +61,6 @@ class Admin::DevelopersController < Admin::BaseController
     def set_developer
       @developer = Developer.find(params[:id])
     end
-
 
     def developer_params
       params.require(:developer).permit(:email, :password, :password_confirmation, :first_name, :last_name, :avatar, :min_salary, :need_us_permit, :city, :zip_code, :country, :linkedin_url, :github_url, remote:[])

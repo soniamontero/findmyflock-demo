@@ -102,6 +102,8 @@
   </h5>
 <% end %>
 
+<%= link_to 'Email this user about their matches', new_admin_developer_contact_path(@developer), class: "btn btn-outline-primary" %>
+
 <h5>Skills</h5>
 <%= render 'admin/shared/skills_list', skills: @developer.skills_array %>
 <%= render 'admin/developers/matches' %>
