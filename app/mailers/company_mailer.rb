@@ -1,6 +1,4 @@
 class CompanyMailer < ApplicationMailer
-  default from: 'info@findmyflock.com'
-
   def welcome_company(company_id)
     @company = Company.find(company_id)
     @address = @company.recruiters.first.email

@@ -57,15 +57,15 @@
                 <div class="row centered">
 
                   <div class="col-xs-11 col-sm-11 col-md-5">
-                    <h4><%= application.match.job.title %></h4>
-                    <h5 class="text-muted"><%= application.match.job.company.name %></h5>
+                    <h4><%= application.job_title %></h4>
+                    <h5 class="text-muted"><%= application.company_name %></h5>
                     <p class="text-muted">
-                      <%= application.match.job.city %>
-                      <% if application.match.job.remote == ["remote"] %>
+                      <%= application.job.city %>
+                      <% if application.job.remote == ["remote"] %>
                         - Remote
-                      <% elsif application.match.job.remote == ["office"] %>
+                      <% elsif application.job.remote == ["office"] %>
                         - Office
-                      <% elsif application.match.job.remote == ["remote", "office"] %>
+                      <% elsif application.job.remote == ["remote", "office"] %>
                         - Office & Remote
                       <% end %>
                     </p>
@@ -76,7 +76,7 @@
                     <div class="row">
                       <table class="table">
                         <tbody>
-                          <% application.match.job.skills.each do |skill| %>
+                          <% application.job.skills.each do |skill| %>
                             <tr>
                               <td><i class="devicon-<%= skill.name %>-plain colored"></i></td>
                               <td><%= skill.name %></td>
@@ -100,7 +100,7 @@
                       <% else %>
                         <span class="badge btn-pending">Pending</span>
                       <% end %>
-                      <%= link_to "Show", new_job_application_path(application.match.job), class:"btn-apply"  %>
+                      <%= link_to "Show", new_job_application_path(application.job), class:"btn-apply"  %>
                     </div>
                   </div>
                 </div>
