@@ -12,4 +12,5 @@ class Application < ApplicationRecord
   delegate :job, :developer, to: :match, allow_nil: true
   delegate :company, to: :job, allow_nil: true
   delegate :recruiters_mail, to: :company, allow_nil: true
+  delegate :name, to: :company, prefix: true, allow_nil: true
 end
