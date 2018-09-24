@@ -43,11 +43,13 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def application_reminder(application_id)
-    @application = Application.find(application_id)
-    @developer = @application.developer
-    @job = @application.job
-    addresses = @application.recruiters_mail.join('')
+  def application_reminder(applications_array)
+    @applications_array = applications_array
+    addresses = []
+    @applications_array.each do |app|
+      addresses << app.recruiters_mail
+    end
+    addresses = addresses.uniq.join(',')
     mail(
       from: 'info@findmyflock.com',
       to: addresses,

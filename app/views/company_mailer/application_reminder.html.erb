@@ -7,9 +7,11 @@
 
 <p>Your candidates include:</p>
 
-[insert name, photo, job they applied to, and the message they wrote.]
-[insert name, photo, job they applied to, and the message they wrote.]
-[insert name, photo, job they applied to, and the message they wrote.]
+<% @applications_array.each do |app| %>
+ <p> <%= app.developer.full_name %></p>
+  <p><%= app.job.title %></p>
+  <p><%= app.message %></p>
+<% end %>
 
 <p>Thank you for working with Find My Flock!
 </p>
