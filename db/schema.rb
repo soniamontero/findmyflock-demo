@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_13_223529) do
+ActiveRecord::Schema.define(version: 2018_09_21_081335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2018_09_13_223529) do
     t.bigint "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_mail_sent"
     t.index ["match_id"], name: "index_applications_on_match_id"
   end
 
@@ -125,6 +126,7 @@ ActiveRecord::Schema.define(version: 2018_09_13_223529) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "gets_mail"
+    t.boolean "notifications", default: true
     t.index ["email"], name: "index_developers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_developers_on_reset_password_token", unique: true
   end
@@ -158,7 +160,7 @@ ActiveRecord::Schema.define(version: 2018_09_13_223529) do
     t.bigint "developer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0
+    t.integer "status"
     t.index ["developer_id"], name: "index_matches_on_developer_id"
     t.index ["job_id"], name: "index_matches_on_job_id"
   end
