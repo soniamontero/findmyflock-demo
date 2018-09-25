@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_081335) do
+ActiveRecord::Schema.define(version: 2018_09_25_020010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2018_09_21_081335) do
     t.bigint "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "last_mail_sent"
+    t.datetime "last_mail_sent", default: -> { "CURRENT_TIMESTAMP" }
     t.index ["match_id"], name: "index_applications_on_match_id"
   end
 

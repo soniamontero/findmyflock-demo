@@ -58,7 +58,7 @@ class CompanyMailer < ApplicationMailer
     mail(
       from: 'info@findmyflock.com',
       to: addresses,
-      subject: 'An application is still awaiting for your review!'
+      subject: 'An application is still waiting for your review!'
     )
   end
 end
