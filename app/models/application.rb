@@ -25,8 +25,9 @@ class Application < ApplicationRecord
       end
       if emails_to_send.positive?
         CompanyMailer.application_reminder(@application_ids_array).deliver
-        @applications_array.each do |app|
-          app.update_attribute(:last_mail_sent, Time.now)
+        @application_ids_array.each do |id|
+          application = Application.find(id)
+          application.update_attribute(:last_mail_sent, Time.now)
         end
       end
     end
