@@ -48,10 +48,12 @@ class ApplicationsController < ApplicationController
 
   def destroy
     application = Application.find params[:id]
-    if application.destroy
-      redirect_to dashboard_developers_path, notice: 'Application was successfully deleted.'
-    else
-      redirect_to dashboard_developers_path, notice: 'There was an error deleting your application'
+    if application.status != "rejected"
+      if application.destroy
+        redirect_to dashboard_developers_path, notice: 'Application was successfully deleted.'
+      else
+        redirect_to dashboard_developers_path, notice: 'There was an error deleting your application'
+      end
     end
   end
 
