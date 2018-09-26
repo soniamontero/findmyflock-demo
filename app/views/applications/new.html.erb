@@ -46,13 +46,35 @@
         <div class="job-show-titles">
           <h4 class="row justify-content-center underlined">Application sent</h4>
         </div>
+
         <div class="applied-message">
-          <h5 class="h6 centered">Congratulations!</h5>
-          <p>Your application has been sent and will be reviewed by the recruiters at <%= @job.company.name %>.</p>
-          <p>You can view the message you sent to the recruiter below.</p>
-          <p>You can check your application status on your dashboard under the “Applications” tab. We will send you an email when your app is opened, and if the recruiter wants to chat or decides they don't.</p>
-          <p>Thanks for choosing to use a site that reinvests in the tech community! Tell your friends!</p>
+          <% case @application.status %>
+          <% when 'pending' %>
+            <h5 class="h6 centered">Congratulations!</h5>
+            <p>Your application has been sent and will be reviewed by the recruiters at <%= @job.company.name %>.</p>
+            <p>You can view the message you sent to the recruiter below.</p>
+            <p>We will send you an email when your app is opened, and if the recruiter wants to chat or decides they don't.</p>
+            <p>Thanks for choosing to use a site that reinvests in the tech community! Tell your friends!</p>
+          <% when 'opened' %>
+            <h5 class="h6 centered">Congratulations!</h5>
+            <p>Your application has been opened and will be reviewed by the recruiters at <%= @job.company.name %>.</p>
+            <p>You can view the message you sent to the recruiter below.</p>
+            <p>We will send you an email if the recruiter wants to chat or decides they don't.</p>
+            <p>Thanks for choosing to use a site that reinvests in the tech community! Tell your friends!</p>
+          <% when 'contacted' %>
+            <h5 class="h6 centered">Congratulations!</h5>
+            <p>The recruiters at <%= @job.company.name %> have reached out to you.</p>
+            <p>Check your inbox to see the message the recruiter sent you and answer by replying directly to the email you received.</p>
+            <p>Thanks for choosing to use a site that reinvests in the tech community! Tell your friends!</p>
+          <% when 'rejected' %>
+            <h5 class="h6 centered">Darn it!</h5>
+            <p>Your application has been reviewed by <%= @job.company.name %> and unfortunately rejected.</p>
+            <p>We feel your pain. We thought that was a good fit, too.</p>
+            <p>We know the job search is tough, but keep at it! You can <%= link_to "click here", dashboard_developers_url %> to view the status of your other applications or apply to new roles. More are being added every day.</p>
+            <p>Thanks for choosing to use a site that reinvests in the tech community! We are committed to finding your flock and helping you fly higher!</p>
+          <% end %>
         </div>
+
         <div class="applied-message">
           <h5 class="h6 centered">Message sent:</h5>
           <p style="text-align: justify"><%=  @application.message %></p>
