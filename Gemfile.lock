@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/sendgrid/sendgrid-ruby
+  revision: a93d71200a255c08819e71a07b878671506098aa
+  ref: a93d7120
+  specs:
+    sendgrid-ruby (5.2.0)
+      ruby_http_client (~> 3.3.0)
+      sinatra (>= 1.4.7, < 3)
+
+GIT
   remote: https://github.com/stympy/faker.git
   revision: 6fabcbb20a536ba23782069a3dd651279935469d
   branch: master
@@ -215,7 +224,7 @@ GEM
     msgpack (1.2.4)
     multi_json (1.13.1)
     multipart-post (2.0.0)
-    mustermann (1.0.2)
+    mustermann (1.0.3)
     nenv (0.3.0)
     nio4r (2.3.1)
     nokogiri (1.8.4)
@@ -243,7 +252,7 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
-    rack-protection (2.0.3)
+    rack-protection (2.0.4)
       rack
     rack-proxy (0.6.4)
       rack
@@ -335,9 +344,6 @@ GEM
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    sendgrid-ruby (5.2.0)
-      ruby_http_client (~> 3.2)
-      sinatra (>= 1.4.7, < 3)
     shellany (0.0.1)
     simple_form (4.0.1)
       actionpack (>= 5.0)
@@ -351,10 +357,10 @@ GEM
       hirb
       simplecov
     simplecov-html (0.10.2)
-    sinatra (2.0.3)
+    sinatra (2.0.4)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.3)
+      rack-protection (= 2.0.4)
       tilt (~> 2.0)
     sixarm_ruby_unaccent (1.2.0)
     sort_alphabetical (1.1.0)
@@ -456,7 +462,7 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 5.0)
   selenium-webdriver
-  sendgrid-ruby
+  sendgrid-ruby!
   simple_form
   simplecov
   simplecov-console

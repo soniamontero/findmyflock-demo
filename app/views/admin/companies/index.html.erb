@@ -18,7 +18,6 @@
   <tbody>
     <% @companies.each do |company| %>
       <tr class="<%= "table-success" if company.vetted? %>">
-
         <td><%= company.name %></td>
         <td><span class="badge badge-pill <%=  (!company.subscriber.nil? && company.subscriber.active?) ? "badge-success" : "badge-warning" %>"><%= company.subscriber.status if !company.subscriber.nil? %></span></td>
         <td><%= company.jobs.active.count %></td>
