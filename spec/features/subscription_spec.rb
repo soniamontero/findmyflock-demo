@@ -60,7 +60,6 @@ feature 'Subscriptions' do
     open_email new_recruiter.email
     expect(current_email).to have_content "Congratulations on adding #{new_recruiter.company.name}"
     current_email.click_link 'CLICK HERE'
-    sign_in recruiter
     expect(page).to have_content 'Create your job'
   end
 
