@@ -12,7 +12,7 @@
     <p>Hey <%= @developer.first_name %>,</p>
     <%= text_area_tag :custom_text, nil, size: "50x8" %>
     <ul>
-      <% @developer.matched_jobs.each do |job| %>
+      <% @developer.active_matched_jobs.each do |job| %>
         <li><%= job.title %></li>
       <% end %>
     </ul>

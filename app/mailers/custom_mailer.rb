@@ -4,7 +4,7 @@ class CustomMailer < ActionMailer::Base
 
   def admin_contact_developer(developer_id, custom_text, custom_text_2)
     developer = Developer.find(developer_id)
-    job_matches = developer.matched_jobs
+    job_matches = developer.active_matched_jobs
 
     mail = Mail.new
     personalization = Personalization.new
