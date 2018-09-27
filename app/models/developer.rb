@@ -88,7 +88,7 @@ class Developer < ApplicationRecord
     remote.size == 2
   end
 
-  def matched_job
+  def matched_jobs
     jobs = Job.active
 
     if office_and_remote? && !full_mobility
@@ -106,7 +106,7 @@ class Developer < ApplicationRecord
   end
 
   def check_for_first_matches
-    matched_job.each do |job|
+    matched_jobs.each do |job|
       Match.create(developer_id: id, job_id: job.id)
     end
   end
@@ -115,7 +115,7 @@ class Developer < ApplicationRecord
     all.each do |developer|
       jobs_array = []
       new_matches = 0
-      developer.matched_job.each do |job|
+      developer.matched_jobs.each do |job|
         match = Match.new(developer_id: developer.id, job_id: job.id)
         if match.save
           new_matches += 1
@@ -131,9 +131,9 @@ class Developer < ApplicationRecord
   private
 
   def subscribe_developer_to_mailing_list
-    significant_attrs = ["email", "first_name", "last_name"]
+    significant_attrs = ["email", "first_name", "last_name", "confirmed_at"]
     significant_changes = saved_changes.keys & significant_attrs
-    if significant_changes.present? && gets_mail?
+    if significant_changes.present? && confirmed? && gets_mail?
       SubscribeDeveloperToMailingListJob.perform_later(self)
     end
   end

@@ -54,7 +54,9 @@ Rails.application.routes.draw do
       resources :recruiters
       resources :jobs
       resources :matches
-      resources :developers
+      resources :developers do
+        resources :contact, only: [:new, :create]
+      end
       resources :applications, only: [:index, :show]
     end
   end

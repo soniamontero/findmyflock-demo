@@ -11,6 +11,8 @@ Capybara.javascript_driver = :selenium_chrome_headless
 
 Capybara.configure do |config|
   config.default_max_wait_time = 10 # seconds
+  config.server_port = 3001
+  config.app_host = 'http://localhost:3001'
 end
 # Add additional requires below this line. Rails is not loaded until this point!
 

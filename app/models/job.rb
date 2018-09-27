@@ -22,7 +22,7 @@ class Job < ApplicationRecord
   before_validation :sanitize_benefits_cultures
   before_validation :sanitize_description
 
-  delegate :name, :url, to: :company, prefix: true
+  delegate :name, :url, :vetted?, to: :company, prefix: true
 
   scope :active, -> { where(active: true, company: Company.active) }
   scope :remote_and_local_jobs, ->(miles, lat, long) {

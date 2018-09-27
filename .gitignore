@@ -39,3 +39,4 @@ latest.dump
 # Ignore OS crap
 .DS_Store
 .env*
+sendgrid.env
