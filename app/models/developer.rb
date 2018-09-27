@@ -132,7 +132,7 @@ class Developer < ApplicationRecord
   private
 
   def subscribe_developer_to_mailing_list
-    significant_attrs = ["email", "first_name", "last_name"]
+    significant_attrs = ["email", "first_name", "last_name", "confirmed_at"]
     significant_changes = saved_changes.keys & significant_attrs
     if significant_changes.present? && confirmed? && gets_mail?
       SubscribeDeveloperToMailingListJob.perform_later(self)
