@@ -9,6 +9,7 @@ feature 'Developer sign up' do
   end
 
   scenario 'a new developer can sign up' do
+    clear_emails
     visit root_path
     click_on 'Join'
     expect(page).to have_content 'Create your job seeker account'
@@ -21,9 +22,10 @@ feature 'Developer sign up' do
     current_email.click_link 'CLICK HERE'
   end
 
-  scenario 'a new developer can sign up and join the mailing list' do
+  scenario 'a new developer joins the mailing list w/ confirmed email' do
     ActiveJob::Base.queue_adapter = :test
 
+    clear_emails
     visit root_path
     click_on 'Join'
     expect(page).to have_content 'Create your job seeker account'
@@ -32,11 +34,17 @@ feature 'Developer sign up' do
     fill_in 'Password confirmation', with: 'Password1'
     expect {
       click_on 'Sign up'
+      expect(page).to have_content 'Please complete your profile'
+    }.to_not have_enqueued_job(SubscribeDeveloperToMailingListJob)
+
+    expect(emails_sent_to('mary@example.com').count).to eq 1
+    open_email('mary@example.com')
+    expect {
+      current_email.click_link 'CLICK HERE'
+      expect(page).to have_content 'confirmed'
     }.to have_enqueued_job(SubscribeDeveloperToMailingListJob).with { |dev|
       expect(dev.email).to eq 'mary@example.com'
     }
-
-    expect(emails_sent_to('mary@example.com').count).to eq 1
   end
 
   scenario 'a new developer can sign up and opt out of the mailing list' do
