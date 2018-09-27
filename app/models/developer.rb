@@ -123,8 +123,7 @@ class Developer < ApplicationRecord
         end
       end
       if new_matches.positive? && developer.notifications?
-        developer_id = developer.id
-        DeveloperMailer.new_match_advise(developer_id, jobs_array.uniq).deliver
+        DeveloperMailer.new_match_advise(developer.id, jobs_array.uniq).deliver
       end
     end
   end
