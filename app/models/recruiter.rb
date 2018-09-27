@@ -5,7 +5,7 @@ class Recruiter < ApplicationRecord
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validate :password_complexity
   belongs_to :company, optional: true
-  delegate :name, to: :company, prefix: true
+  delegate :name, to: :company, prefix: true, allow_nil: true
 
   def email_downcase
     email&.strip&.downcase
