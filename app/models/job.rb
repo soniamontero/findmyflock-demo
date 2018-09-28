@@ -25,6 +25,7 @@ class Job < ApplicationRecord
   delegate :name, :url, :vetted?, to: :company, prefix: true
 
   scope :active, -> { where(active: true, company: Company.active) }
+
   scope :remote_and_local_jobs, ->(miles, lat, long) {
     where(id: (Job.all_remote.pluck(:id) +
                Job.check_location(miles, lat, long).pluck(:id)).uniq)

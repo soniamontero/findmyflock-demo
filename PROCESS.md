@@ -1,6 +1,6 @@
 # Process
 
-1. Pick a story from Trello and start it.
+1. Pick a story from Waffle and start it.
 
     Example:
 
