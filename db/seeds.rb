@@ -1143,7 +1143,7 @@ when "development"
 
   p "Create matches"
   Developer.all.each do |developer|
-    developer.matched_jobs.each do |job|
+    developer.active_matched_jobs.each do |job|
       Match.create(developer_id: developer.id, job_id: job.id)
     end
   end
