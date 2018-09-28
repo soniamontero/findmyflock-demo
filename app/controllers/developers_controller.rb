@@ -45,7 +45,7 @@ class DevelopersController < ApplicationController
 
   def dashboard
     @developer = current_developer
-    @jobs = @developer.matched_jobs
+    @jobs = @developer.active_matched_jobs
     @developer.check_for_first_matches
     @skills = @developer.skills
     @benefits = @jobs.pluck(:benefits).flatten.uniq.compact
