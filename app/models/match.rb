@@ -19,7 +19,7 @@ class Match < ApplicationRecord
   delegate :title, to: :job, prefix: true
 
   def match_is_valid?
-    if !developer.matched_jobs.include?(job)
+    if !developer.active_matched_jobs.include?(job)
       errors.add :match, 'No match between developer requirement and job requirement. Impossible to save match'
     end
   end

@@ -88,9 +88,17 @@ class Developer < ApplicationRecord
     remote.size == 2
   end
 
-  def matched_jobs
-    jobs = Job.active
+  def all_matched_jobs
+    jobs = Job.all
+    filter_jobs(jobs)
+  end
 
+  def active_matched_jobs
+    jobs = Job.active
+    filter_jobs(jobs)
+  end
+
+  def filter_jobs(jobs)
     if office_and_remote? && !full_mobility
       jobs = jobs.remote_and_local_jobs(mobility, latitude, longitude)
     else
@@ -106,7 +114,7 @@ class Developer < ApplicationRecord
   end
 
   def check_for_first_matches
-    matched_jobs.each do |job|
+    active_matched_jobs.each do |job|
       Match.create(developer_id: id, job_id: job.id)
     end
   end
@@ -115,7 +123,7 @@ class Developer < ApplicationRecord
     all.each do |developer|
       jobs_array = []
       new_matches = 0
-      developer.matched_jobs.each do |job|
+      developer.active_matched_jobs.each do |job|
         match = Match.new(developer_id: developer.id, job_id: job.id)
         if match.save
           new_matches += 1

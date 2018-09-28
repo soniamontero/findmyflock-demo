@@ -62,8 +62,8 @@
 
 .avatar {
   img {
-    height: 90px;
-    width: 90px;
+    height: 90px !important;
+    width: 90px !important;
     border-radius: 50%;
     overflow: hidden;
     object-fit: cover;
