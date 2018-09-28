@@ -26,7 +26,6 @@ feature "Recruiter applications" do
       expect(current_email).to have_content 'You have just received an application'
 
       current_email.click_link 'CLICK HERE'
-      sign_in recruiter
 
       expect(page).to have_content developer.full_name
       expect(page).to have_content developer_message
