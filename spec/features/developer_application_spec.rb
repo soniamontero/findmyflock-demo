@@ -137,4 +137,31 @@ feature 'Developer applications' do
       expect(emails_sent_to(developer.email)).to be_empty
     end
   end
+
+  context 'with a rejected application' do
+    before do
+      within('.matched-job', text: active_job.title) { click_on 'Details' }
+      fill_in 'application_message', with: 'Please hire me'
+      click_on 'Send application'
+      clear_emails
+
+      sign_in recruiter
+      within('.matched-job', text: developer.full_name) { click_on 'View' }
+      click_on 'Reject application'
+      clear_emails
+    end
+
+    scenario 'cannot withdraw the application' do
+      click_on "Logout"
+      sign_in developer
+      click_on 'Dashboard'
+      click_on 'Applications'
+
+      within('#nav-profile .matched-job', text: active_job.title) do
+        click_on 'Show'
+      end
+
+      expect(page).to_not have_content 'Withdraw application'
+    end
+  end
 end
