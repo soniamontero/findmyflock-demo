@@ -2,7 +2,6 @@
 
 .btn-orange {
   padding: 10px 10px;
-  height: 45px;
   // width: 140px;
   margin: 1vh;
   border: 1px solid #ffa67b;
@@ -18,6 +17,11 @@
   border-radius: 0.25rem;
   text-align: center;
   text-transform: uppercase;
+}
+
+.remove-submit-btn-style {
+  background: none;
+  border: none;
 }
 
 .button-sample {
