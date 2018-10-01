@@ -16,8 +16,8 @@ class Application < ApplicationRecord
   delegate :name, to: :company, prefix: true, allow_nil: true
   delegate :full_name, to: :developer, prefix: true, allow_nil: true
 
-  def self.reminder
-    Company.all.each do |company|
+  def self.remind_companies_to_review
+    Company.find_each do |company|
       @application_ids_array = []
       emails_to_send = 0
       company.applications.where(status: ["pending", "opened"]).each do |app|
@@ -27,7 +27,7 @@ class Application < ApplicationRecord
         end
       end
       if emails_to_send.positive?
-        CompanyMailer.application_reminder(@application_ids_array).deliver
+        CompanyMailer.application_review_reminder(@application_ids_array).deliver
         @application_ids_array.each do |id|
           application = Application.find(id)
           application.update_attribute(:last_mail_sent, Time.now)

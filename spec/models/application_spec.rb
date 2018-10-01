@@ -23,11 +23,10 @@ describe Application do
                                }
 
       it 'sends a reminder to the recruiter' do
-        expect(CompanyMailer).to receive(:application_reminder)
+        expect(CompanyMailer).to receive(:application_review_reminder)
                              .with([pending_application.id, opened_application.id])
                              .and_call_original
-        expect(Application.reminder).to include company
-        Application.reminder
+        Application.remind_companies_to_review
       end
     end
 
@@ -46,11 +45,10 @@ describe Application do
                                  }
 
       it 'does not send a reminder to the recruiter' do
-        expect(CompanyMailer).to_not receive(:application_reminder)
+        expect(CompanyMailer).to_not receive(:application_review_reminder)
                              .with([contacted_application.id, rejected_application.id])
                              .and_call_original
-        expect(Application.reminder).to include company
-        Application.reminder
+        Application.remind_companies_to_review
       end
     end
   end
@@ -71,11 +69,10 @@ describe Application do
                                  }
 
       it 'does not send a reminder to the recruiter' do
-        expect(CompanyMailer).to_not receive(:application_reminder)
+        expect(CompanyMailer).to_not receive(:application_review_reminder)
                              .with([contacted_application.id, rejected_application.id])
                              .and_call_original
-        expect(Application.reminder).to include company
-        Application.reminder
+        Application.remind_companies_to_review
       end
     end
 
@@ -93,11 +90,10 @@ describe Application do
                                }
 
       it 'does not send a reminder to the recruiter' do
-        expect(CompanyMailer).to_not receive(:application_reminder)
+        expect(CompanyMailer).to_not receive(:application_review_reminder)
                              .with([pending_application.id, opened_application.id])
                              .and_call_original
-        expect(Application.reminder).to include company
-        Application.reminder
+        Application.remind_companies_to_review
       end
     end
   end

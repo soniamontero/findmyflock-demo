@@ -44,7 +44,7 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def application_reminder(application_ids_array)
+  def application_review_reminder(application_ids_array)
     @applications_array = []
     addresses = []
     application_ids_array.each do |id|
