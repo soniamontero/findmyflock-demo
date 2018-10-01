@@ -24,6 +24,6 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:gets_mail])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:subscribed_to_newsletter])
   end
 end
