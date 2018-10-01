@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   before_action :authenticate_recruiter!, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_job, only: [:show, :edit, :update, :destroy, :skills, :benefits]
-  before_action :authorize_action, only: [:edit, :update, :skills, :benefits]
+  before_action :authorize_action, only: [:edit, :update, :destroy, :skills, :benefits]
 
   def new
     redirect_to new_subscriber_path unless current_recruiter.company.can_add_job?
