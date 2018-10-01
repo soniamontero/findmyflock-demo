@@ -13,17 +13,13 @@ describe Application do
                                   create :application,
                                   match: match,
                                   status: 'pending',
-                                  last_mail_sent: 10.days.ago,
-                                  created_at: 20.days.ago,
-                                  updated_at: 12.days.ago
+                                  last_mail_sent: 10.days.ago
                                 }
       let(:opened_application) {
                                  create :application,
                                  match: match,
                                  status: 'opened',
-                                 last_mail_sent: 10.days.ago,
-                                 created_at: 20.days.ago,
-                                 updated_at: 12.days.ago
+                                 last_mail_sent: 10.days.ago
                                }
 
       it 'sends a reminder to the recruiter' do
@@ -40,17 +36,13 @@ describe Application do
                                     create :application,
                                     match: match,
                                     status: 'contacted',
-                                    last_mail_sent: 10.days.ago,
-                                    created_at: 20.days.ago,
-                                    updated_at: 12.days.ago
+                                    last_mail_sent: 10.days.ago
                                   }
       let(:rejected_application) {
                                    create :application,
                                    match: match,
                                    status: 'rejected',
-                                   last_mail_sent: 10.days.ago,
-                                   created_at: 20.days.ago,
-                                   updated_at: 12.days.ago
+                                   last_mail_sent: 10.days.ago
                                  }
 
       it 'does not send a reminder to the recruiter' do
@@ -69,17 +61,13 @@ describe Application do
                                     create :application,
                                     match: match,
                                     status: 'contacted',
-                                    last_mail_sent: 2.days.ago,
-                                    created_at: 5.days.ago,
-                                    updated_at: 4.days.ago
+                                    last_mail_sent: 2.days.ago
                                   }
       let(:rejected_application) {
                                    create :application,
                                    match: match,
                                    status: 'rejected',
-                                   last_mail_sent: 2.days.ago,
-                                   created_at: 5.days.ago,
-                                   updated_at: 4.days.ago
+                                   last_mail_sent: 2.days.ago
                                  }
 
       it 'does not send a reminder to the recruiter' do
@@ -95,17 +83,13 @@ describe Application do
       let(:pending_application) { create :application,
                                   match: match,
                                   status: 'pending',
-                                  last_mail_sent: 2.days.ago,
-                                  created_at: 5.days.ago,
-                                  updated_at: 4.days.ago
+                                  last_mail_sent: 2.days.ago
                                 }
       let(:opened_application) {
                                  create :application,
                                  match: match,
                                  status: 'pending',
-                                 last_mail_sent: 2.days.ago,
-                                 created_at: 5.days.ago,
-                                 updated_at: 4.days.ago
+                                 last_mail_sent: 2.days.ago
                                }
 
       it 'does not send a reminder to the recruiter' do
