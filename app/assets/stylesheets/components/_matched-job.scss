@@ -118,6 +118,14 @@
   }
 }
 
+.btn-delete-job {
+  position: absolute;
+  top: -18px;
+  text-decoration: none;
+  right: -64px;
+  color: #d1d1d1;
+}
+
 @media (min-width: 768px) {
  .matched-job-separator {
   border-right: 1px #d0d0d0 solid;
@@ -138,6 +146,10 @@
     padding-top: 20px;
   }
 
+  .btn-delete-job {
+    top: -213px;
+    right: -4px;
+  }
 }
 
 .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
