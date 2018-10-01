@@ -124,6 +124,10 @@
   text-decoration: none;
   right: -64px;
   color: #d1d1d1;
+  transition: all 0.6s ease-out 0s;
+  &:hover {
+    color: #ec6868;
+  }
 }
 
 @media (min-width: 768px) {
