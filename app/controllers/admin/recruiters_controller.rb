@@ -37,7 +37,9 @@ class Admin::RecruitersController < Admin::BaseController
   # PATCH/PUT /recruiter/1.json
   def update
     respond_to do |format|
-      if @recruiter.update(recruiter_params)
+      if recruiter_params[:company_id].blank?
+        format.html { redirect_to edit_admin_recruiter_path(@recruiter), alert: 'Please select a company.' }
+      elsif @recruiter.update(recruiter_params)
         format.html { redirect_to admin_recruiter_path(@recruiter), notice: 'Recruiter was successfully updated.' }
       else
         format.html { render :edit }
