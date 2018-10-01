@@ -12,7 +12,7 @@
     </button>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
       <h6 class="dropdown-header"><%= current_recruiter.email %></h6>
-      <%= active_link_to "My Subscription", subscribers_path, class: "dropdown-item" if current_recruiter.company.present? && !current_recruiter.company.vetted %>
+      <%= active_link_to "My Subscription", subscribers_path, class: "dropdown-item" if current_recruiter.company.present? && !current_recruiter.company.vetted? %>
       <%= active_link_to "Edit Company", edit_company_path(current_recruiter.company), class: "dropdown-item" if current_recruiter.company.present? %>
       <%= active_link_to "Account settings", edit_recruiter_registration_path, class: "dropdown-item" %>
       <div class="dropdown-divider"></div>
