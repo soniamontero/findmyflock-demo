@@ -142,7 +142,7 @@
       }
       #templateHeader{
         background-color:#F7F7F7;
-        background-image: <%= image_url('FMF-Email-Header.png') %>;
+        background-image: url(<%= image_url('FMF-Email-Header.png') %>);
         background-repeat:no-repeat;
         background-position:center;
         background-size:cover;
@@ -195,6 +195,7 @@
         border-bottom:0;
         padding-top:0;
         padding-bottom:0;
+        font-family:Helvetica;
       }
       .bodyContainer .mcnTextContent,.bodyContainer .mcnTextContent p{
         color:#808080;
