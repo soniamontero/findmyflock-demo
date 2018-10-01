@@ -130,7 +130,7 @@ class Developer < ApplicationRecord
           jobs_array << job
         end
       end
-      if new_matches.positive? && developer.notifications?
+      if new_matches.positive? && developer.receives_matches_notifications?
         DeveloperMailer.new_match_advise(developer.id, jobs_array.uniq).deliver
       end
     end
@@ -141,7 +141,7 @@ class Developer < ApplicationRecord
   def subscribe_developer_to_mailing_list
     significant_attrs = ["email", "first_name", "last_name", "confirmed_at"]
     significant_changes = saved_changes.keys & significant_attrs
-    if significant_changes.present? && confirmed? && gets_mail?
+    if significant_changes.present? && confirmed? && subscribed_to_newsletter?
       SubscribeDeveloperToMailingListJob.perform_later(self)
     end
   end

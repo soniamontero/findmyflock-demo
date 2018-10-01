@@ -163,14 +163,14 @@ feature "Matching Jobs" do
     end
 
     scenario 'developer has turned off email notifications' do
-      uncheck 'developer_notifications'
+      uncheck 'developer_receives_matches_notifications'
       click_on 'Save'
       visit developer_path(developer)
       expect(page).to have_content "Email notifications: Disabled"
     end
 
     scenario 'developer has turned on email notifications' do
-      check 'developer_notifications'
+      check 'developer_receives_matches_notifications'
       click_on 'Save'
       visit developer_path(developer)
       expect(page).to have_content "Email notifications: Enabled"

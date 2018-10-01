@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(version: 2018_09_15_042926) do
     t.boolean "first_login", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "notifications", default: true
-    t.boolean "gets_mail"
+    t.boolean "subscribed_to_newsletter"
+    t.boolean "receives_matches_notifications", default: true
     t.index ["email"], name: "index_developers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_developers_on_reset_password_token", unique: true
   end

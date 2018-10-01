@@ -30,9 +30,9 @@ class DevelopersController < ApplicationController
     end
   end
 
-  def update_notifications
+  def update_matches_notifications
     @developer = current_developer
-    @developer.update_attribute(:notifications, developer_params[:notifications])
+    @developer.update_attribute(:receives_matches_notifications, developer_params[:receives_matches_notifications])
     redirect_to dashboard_developers_path
   end
 
@@ -87,7 +87,8 @@ class DevelopersController < ApplicationController
       :email,
       :password,
       :password_confirmation,
-      :notifications,
+      :receives_matches_notifications,
+      :subscribed_to_newsletter,
       :first_name,
       :last_name,
       :avatar,

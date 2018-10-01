@@ -29,8 +29,8 @@
               <small class="form-text text-muted mb-4">
                 We send you an email every time a new job matching your profile is posted on Find My Flock. You can deactivate or reactivate your email notifications but be careful, by doing so, you may miss your next dream job!
               </small>
-            <%= simple_form_for @developer, url: update_notifications_developers_path(@developer), method: :update_notifications do |f| %>
-              <%= f.input :notifications, label: 'I want to receive an email when I have a new job match'%>
+            <%= simple_form_for @developer, url: update_matches_notifications_developers_path(@developer), method: :update_matches_notifications do |f| %>
+              <%= f.input :receives_matches_notifications, label: 'I want to receive an email when I have a new job match'%>
               <%= f.button :submit, "Save", class: "btn-orange" %>
             <% end %>
           </div>

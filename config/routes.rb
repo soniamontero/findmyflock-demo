@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get 'add_skills'
       get 'edit_profile'
       get 'dashboard'
-      post 'update_notifications'
+      post 'update_matches_notifications'
     end
   end
   match 'developers/dashboard' => 'developers#dashboard', as: 'developer_root', via: :get
