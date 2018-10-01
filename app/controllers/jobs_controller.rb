@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
-  before_action :authenticate_recruiter!, only: [:new, :edit, :create, :update]
-  before_action :set_job, only: [:show, :edit, :update, :skills, :benefits]
+  before_action :authenticate_recruiter!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :skills, :benefits]
   before_action :authorize_action, only: [:edit, :update, :skills, :benefits]
 
   def new
@@ -53,6 +53,14 @@ class JobsController < ApplicationController
           format.html { render :benefits, notice: "Please select at least one value." }
         end
       end
+    end
+  end
+
+  def destroy
+    if @job.destroy
+      redirect_to recruiter_root_path, notice: 'Your job was successfully deleted.'
+    else
+      redirect_to recruiter_root_path, notice: 'There was an error deleting your job.'
     end
   end
 
