@@ -25,16 +25,7 @@
 
     Make sure your changes don't break anything else. Fix anything broken.
 
-5. Commit your branch to GitHub.
-
-    Example:
-
-        $ git add <files you want to commit>  
-                        # make sure you only add what should be added
-                        # add things to .gitignore if needed
-        $ git diff      # sanity check changes
-        $ git commit -m 'users can find jobs in multiple cities at once'
-        $ git push
+5. Commit your branch to GitHub using a graphical git utility such as GitX, Tower, or Github Desktop.
 
 6. Create a pull request using the template.
 
