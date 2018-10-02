@@ -56,7 +56,7 @@ feature 'Developer sign up' do
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
     fill_in 'Password confirmation', with: 'Password1'
-    uncheck 'developer[gets_mail]'
+    uncheck 'developer[subscribed_to_newsletter]'
     expect {
       click_on 'Sign up'
     }.to_not have_enqueued_job(SubscribeDeveloperToMailingListJob)

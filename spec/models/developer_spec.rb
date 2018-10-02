@@ -36,16 +36,23 @@ describe Developer do
 
   context "#check_for_new_matches" do
     let!(:remote_dev) { create :developer, :remote,
-                    skills_array: ["apache/1", "android/3"] }
+                        skills_array: ["apache/1", "android/3"],
+                        receives_matches_notifications: true }
+    let!(:off_dev) { create :developer, :remote,
+                     skills_array: ["apache/1", "android/3"],
+                     receives_matches_notifications: false }
 
     let!(:local_job) { create :job, :office, latitude: 42, longitude: -78 }
     let!(:remote_job) { create :job, :remote }
     let!(:other_skills_job) { create :job, :remote, skills_array: ["android/5"] }
 
     it 'does not return jobs from other devs' do
+      expect(remote_dev.receives_matches_notifications?).to be true
+      expect(off_dev.receives_matches_notifications?).to be false
       expect(DeveloperMailer).to receive(:new_match_advise).with(us_dev.id, [local_job, remote_job]).and_call_original
       expect(DeveloperMailer).to receive(:new_match_advise).with(remote_dev.id, [remote_job]).and_call_original
-      Developer.check_for_new_matches
+      expect(DeveloperMailer).to_not receive(:new_match_advise).with(off_dev.id, [remote_job]).and_call_original
+      expect{Developer.check_for_new_matches}.to change{Match.count}.by(4)
     end
   end
 end
