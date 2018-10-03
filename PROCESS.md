@@ -25,7 +25,7 @@
 
     Make sure your changes don't break anything else. Fix anything broken.
 
-5. Commit your branch to GitHub using a graphical git utility such as GitX, Tower, or Github Desktop.
+5. Commit and push your branch to GitHub using a graphical git utility such as GitX, Tower, or Github Desktop.
 
 6. Create a pull request using the template.
 
