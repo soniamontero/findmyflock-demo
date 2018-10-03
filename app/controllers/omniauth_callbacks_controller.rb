@@ -1,4 +1,4 @@
-class Developers::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     # You need to implement the method below in your model (e.g. app/models/developer.rb)
     @developer = Developer.from_omniauth(request.env['omniauth.auth'])

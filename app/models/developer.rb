@@ -145,6 +145,7 @@ class Developer < ApplicationRecord
       developer.expires = auth.credentials.expires
       developer.expires_at = auth.credentials.expires_at
       developer.refresh_token = auth.credentials.refresh_token
+      byebug
     end
   end
 
