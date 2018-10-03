@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
 
   devise_for :admins, skip: [:registrations], path: 'admins'
-  devise_for :developers, path: 'developers', controllers: { registrations: :registrations, confirmations: :confirmations }
+  devise_for :developers, path: 'developers',
+             controllers: {
+                            registrations: :registrations,
+                            confirmations: :confirmations,
+                            :omniauth_callbacks => "developers/omniauth_callbacks"
+                          }
   devise_for :recruiters, path: 'recruiters'
 
   root 'pages#home'

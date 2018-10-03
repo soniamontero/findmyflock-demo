@@ -4,8 +4,6 @@ class Developer < ApplicationRecord
   has_many :applications, through: :matches
   has_one_attached :avatar
   has_many_attached :resumes
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
   geocoded_by :developer_location
   before_validation :email_downcase
   after_validation :geocode, on: :update
@@ -17,6 +15,10 @@ class Developer < ApplicationRecord
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
   after_save :subscribe_developer_to_mailing_list
+
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable, :confirmable, :omniauthable,
+         :omniauth_providers => [:google_oauth2]
 
   scope :all_remote, -> { where("'remote' = ANY (remote)") }
   scope :all_office, -> { where("'office' = ANY (remote)") }
@@ -135,6 +137,17 @@ class Developer < ApplicationRecord
       end
     end
   end
+
+  def self.from_omniauth(auth)
+    # Either create a Developer record or update it based on the provider (Google) and the UID
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |developer|
+      developer.token = auth.credentials.token
+      developer.expires = auth.credentials.expires
+      developer.expires_at = auth.credentials.expires_at
+      developer.refresh_token = auth.credentials.refresh_token
+    end
+  end
+
 
   private
 

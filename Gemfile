@@ -31,6 +31,7 @@ gem 'rollbar'
 gem 'rubocop', '~> 0.58.2', require: false
 gem 'gibbon'
 gem 'sanitize'
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

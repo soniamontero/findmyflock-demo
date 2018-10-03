@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_15_042926) do
+ActiveRecord::Schema.define(version: 2018_10_02_040135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2018_09_15_042926) do
     t.bigint "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_mail_sent", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["match_id"], name: "index_applications_on_match_id"
   end
 
@@ -124,8 +125,14 @@ ActiveRecord::Schema.define(version: 2018_09_15_042926) do
     t.boolean "first_login", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "subscribed_to_newsletter"
+    t.boolean "gets_mail"
     t.boolean "receives_matches_notifications", default: true
+    t.string "provider"
+    t.string "uid"
+    t.string "token"
+    t.integer "expires_at"
+    t.boolean "expires"
+    t.string "refresh_token"
     t.index ["email"], name: "index_developers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_developers_on_reset_password_token", unique: true
   end
