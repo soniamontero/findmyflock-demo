@@ -77,7 +77,8 @@ describe Application do
     end
 
     context 'application is pending or opened' do
-      let(:pending_application) { create :application,
+      let(:pending_application) {
+                                  create :application,
                                   match: match,
                                   status: 'pending',
                                   last_mail_sent: 2.days.ago
