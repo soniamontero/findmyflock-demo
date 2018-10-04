@@ -267,9 +267,7 @@ Devise.setup do |config|
   linkedin_client_id = Rails.application.credentials.dig(:linkedin, :linkedin_client_id)
   linkedin_client_secret = Rails.application.credentials.dig(:linkedin, :linkedin_secret)
 
-  config.omniauth :linkedin, linkedin_client_id, linkedin_client_secret, {
-    scope: "r_emailaddress, r_basicprofile"
-  }
+  config.omniauth :linkedin, linkedin_client_id, linkedin_client_secret
 
 
   # ==> Warden configuration
