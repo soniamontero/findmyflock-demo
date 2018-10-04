@@ -5,7 +5,7 @@ Rails.application.routes.draw do
              controllers: {
                             registrations: :registrations,
                             confirmations: :confirmations,
-                            :omniauth_callbacks => "omniauth_callbacks"
+                            omniauth_callbacks: "omniauth_callbacks"
                           }
   devise_for :recruiters, path: 'recruiters'
 
