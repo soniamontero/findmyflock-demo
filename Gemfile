@@ -33,6 +33,7 @@ gem 'gibbon'
 gem 'sanitize'
 
 gem 'omniauth-google-oauth2'
+gem 'omniauth-linkedin-oauth2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

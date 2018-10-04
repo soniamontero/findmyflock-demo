@@ -10,14 +10,6 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   config.secret_key = Rails.application.credentials.secret_key_base
 
-  # Add the credentials from your Google application to your secrets
-  client_id = Rails.application.credentials.dig(:google, :google_client_id)
-  client_secret = Rails.application.credentials.dig(:google, :google_secret)
-  # Configure Google omniauth with proper scope
-  config.omniauth :google_oauth2, client_id, client_secret, {
-    scope: "contacts.readonly,userinfo.email"
-  }
-
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -264,9 +256,21 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :google_oauth2, client_id, client_secret, {
+  # Add the credentials from your Google application.
+  google_client_id = Rails.application.credentials.dig(:google, :google_client_id)
+  google_client_secret = Rails.application.credentials.dig(:google, :google_secret)
+
+  config.omniauth :google_oauth2, google_client_id, google_client_secret, {
     scope: "contacts.readonly,userinfo.email"
   }
+
+  linkedin_client_id = Rails.application.credentials.dig(:linkedin, :linkedin_client_id)
+  linkedin_client_secret = Rails.application.credentials.dig(:linkedin, :linkedin_secret)
+
+  config.omniauth :linkedin, linkedin_client_id, linkedin_client_secret, {
+    scope: "r_emailaddress, r_basicprofile"
+  }
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

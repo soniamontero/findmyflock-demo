@@ -18,7 +18,7 @@ class Developer < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :confirmable, :omniauthable,
-         :omniauth_providers => [:google_oauth2]
+         omniauth_providers: [:google_oauth2, :linkedin]
 
   scope :all_remote, -> { where("'remote' = ANY (remote)") }
   scope :all_office, -> { where("'office' = ANY (remote)") }
