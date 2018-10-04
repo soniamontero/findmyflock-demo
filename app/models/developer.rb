@@ -141,11 +141,15 @@ class Developer < ApplicationRecord
   def self.from_omniauth(auth)
     # Either create a Developer record or update it based on the provider (Google) and the UID
     where(provider: auth.provider, uid: auth.uid).first_or_create do |developer|
+      developer.email = auth.info.email
+      developer.password = Devise.friendly_token[0,20]
+      developer.first_name = auth.info.first_name
+      developer.last_name = auth.info.last_name
       developer.token = auth.credentials.token
       developer.expires = auth.credentials.expires
       developer.expires_at = auth.credentials.expires_at
       developer.refresh_token = auth.credentials.refresh_token
-      byebug
+      developer.subscribed_to_newsletter = true
     end
   end
 

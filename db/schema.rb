@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 2018_10_02_040135) do
     t.bigint "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "last_mail_sent", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["match_id"], name: "index_applications_on_match_id"
   end
 
@@ -125,7 +124,7 @@ ActiveRecord::Schema.define(version: 2018_10_02_040135) do
     t.boolean "first_login", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "gets_mail"
+    t.boolean "subscribed_to_newsletter"
     t.boolean "receives_matches_notifications", default: true
     t.string "provider"
     t.string "uid"
