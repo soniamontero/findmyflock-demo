@@ -28,7 +28,7 @@
                 or
               </p>
               <%- resource_class.omniauth_providers.each do |provider| %>
-                <%= link_to omniauth_authorize_path(resource_name, provider) do %>
+                <%= link_to omniauth_authorize_path(resource_name, provider), id: "omniauth-btn" do %>
                   <% if provider.to_s == 'linkedin' %>
                     <%= image_tag("btn_linkedin_signin.png", alt: "Sign in with LinkedIn", class: "signin-btn" ) %>
                   <% else %>

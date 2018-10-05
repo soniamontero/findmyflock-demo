@@ -15,7 +15,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Password confirmation', with: 'Password1'
+    fill_in 'Repeat password', with: 'Password1'
     click_on 'Sign up'
 
     open_email('mary@example.com')
@@ -31,7 +31,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Password confirmation', with: 'Password1'
+    fill_in 'Repeat password', with: 'Password1'
     expect {
       click_on 'Sign up'
       expect(page).to have_content 'Please complete your profile'
@@ -55,7 +55,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Password confirmation', with: 'Password1'
+    fill_in 'Repeat password', with: 'Password1'
     uncheck 'developer[subscribed_to_newsletter]'
     expect {
       click_on 'Sign up'
@@ -153,7 +153,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Password confirmation', with: 'Password1'
+    fill_in 'Repeat password', with: 'Password1'
     click_on 'Sign up'
 
     click_on 'Logout'
@@ -170,5 +170,20 @@ feature 'Developer sign up' do
     fill_in 'Confirm your new password', with: 'Password2'
     expect(page).to have_content "Change your password"
     expect(page).to have_content "confirm your email"
+  end
+
+  context 'a new developer can sign up via omniauth' do
+    before do
+      Capybara.current_driver = :selenium
+      visit developer_google_oauth2_omniauth_authorize_path(:google_oauth2)
+    end
+    scenario 'with google' do
+      visit root_path
+      click_on 'Join'
+      expect(page).to have_content 'Create your job seeker account'
+      mock_auth_hash
+      click_link('omniauth-btn', match: :first)
+      expect(page).to have_content("mockuser")
+    end
   end
 end
