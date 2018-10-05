@@ -256,13 +256,10 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # Add the credentials from your Google application.
   google_client_id = Rails.application.credentials.dig(:google, :google_client_id)
   google_client_secret = Rails.application.credentials.dig(:google, :google_secret)
 
-  config.omniauth :google_oauth2, google_client_id, google_client_secret, {
-    scope: "contacts.readonly,userinfo.email"
-  }
+  config.omniauth :google_oauth2, google_client_id, google_client_secret
 
   linkedin_client_id = Rails.application.credentials.dig(:linkedin, :linkedin_client_id)
   linkedin_client_secret = Rails.application.credentials.dig(:linkedin, :linkedin_secret)
