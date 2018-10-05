@@ -1,6 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
-    @developer = Developer.from_omniauth(request.env['omniauth.auth'])
+    @developer = Identity.find_for_oauth(request.env["omniauth.auth"])
 
     if @developer.persisted?
       sign_in @developer, :event => :authentication
@@ -13,7 +13,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def linkedin
-    @developer = Developer.from_omniauth(request.env['omniauth.auth'])
+    @developer = Identity.find_for_oauth(request.env["omniauth.auth"])
 
     if @developer.persisted?
       sign_in @developer, :event => :authentication
