@@ -16,19 +16,20 @@ module FeatureHelpers
   end
 end
 
-def mock_auth_hash
-  # The mock_auth configuration allows you to set per-provider (or default)
-  # authentication hashes to return during integration testing.
+def google_mock_auth_hash
+  OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-    'provider' => 'google_oauth2',
-    'uid' => '123545',
     'info' => {
-      'first_name' => 'mockuser',
-      'last_name' => 'useruser'
-    },
-    'credentials' => {
-      'token' => 'mock_token',
-      'secret' => 'mock_secret'
+      'email' => 'mockuser@gmail.com'
+    }
+  })
+end
+
+def linkedin_mock_auth_hash
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:linkedin] = OmniAuth::AuthHash.new({
+    'info' => {
+      'email' => 'mockuser@gmail.com'
     }
   })
 end

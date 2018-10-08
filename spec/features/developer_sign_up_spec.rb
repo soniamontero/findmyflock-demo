@@ -172,18 +172,23 @@ feature 'Developer sign up' do
     expect(page).to have_content "confirm your email"
   end
 
-  context 'a new developer can sign up via omniauth' do
-    before do
-      Capybara.current_driver = :selenium
-      visit developer_google_oauth2_omniauth_authorize_path(:google_oauth2)
-    end
+  context 'a new developer can sign up via omniauth', js: true do
     scenario 'with google' do
       visit root_path
       click_on 'Join'
-      expect(page).to have_content 'Create your job seeker account'
-      mock_auth_hash
+      expect(page).to have_content 'CREATE YOUR JOB SEEKER ACCOUNT'
+      google_mock_auth_hash
       click_link('omniauth-btn', match: :first)
-      expect(page).to have_content("mockuser")
+      expect(page).to have_content("Successfully authenticated from Google account")
+    end
+
+    scenario 'with linkedin' do
+      visit root_path
+      click_on 'Join'
+      expect(page).to have_content 'CREATE YOUR JOB SEEKER ACCOUNT'
+      linkedin_mock_auth_hash
+      all('#omniauth-btn')[1].click
+      expect(page).to have_content("Successfully authenticated from LinkedIn account")
     end
   end
 end
