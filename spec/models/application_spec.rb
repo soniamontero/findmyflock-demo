@@ -61,8 +61,6 @@ describe Application do
 
       it 'does not send a reminder to the recruiter' do
         expect(CompanyMailer).to_not receive(:application_review_reminder)
-                             .with([contacted_application.id, rejected_application.id])
-                             .and_call_original
         Application.remind_companies_to_review
       end
     end
@@ -85,8 +83,6 @@ describe Application do
 
       it 'does not send a reminder to the recruiter' do
         expect(CompanyMailer).to_not receive(:application_review_reminder)
-                             .with([contacted_application.id, rejected_application.id])
-                             .and_call_original
         Application.remind_companies_to_review
       end
     end
@@ -107,8 +103,6 @@ describe Application do
 
       it 'does not send a reminder to the recruiter' do
         expect(CompanyMailer).to_not receive(:application_review_reminder)
-                             .with([pending_application.id, opened_application.id])
-                             .and_call_original
         Application.remind_companies_to_review
       end
     end
