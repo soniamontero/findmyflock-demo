@@ -15,7 +15,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Repeat password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
     click_on 'Sign up'
 
     open_email('mary@example.com')
@@ -31,7 +31,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Repeat password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
     expect {
       click_on 'Sign up'
       expect(page).to have_content 'Please complete your profile'
@@ -55,7 +55,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Repeat password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
     uncheck 'developer[subscribed_to_newsletter]'
     expect {
       click_on 'Sign up'
@@ -153,7 +153,7 @@ feature 'Developer sign up' do
     expect(page).to have_content 'Create your job seeker account'
     fill_in 'Email', with: 'mary@example.com'
     fill_in 'Password', with: 'Password1'
-    fill_in 'Repeat password', with: 'Password1'
+    fill_in 'Password confirmation', with: 'Password1'
     click_on 'Sign up'
 
     click_on 'Logout'
