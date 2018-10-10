@@ -21,12 +21,12 @@
             </div>
           <% end %>
 
-          <%- if devise_mapping.omniauthable? %>
+          <% if devise_mapping.omniauthable? %>
             <div class="centered pb-3 pt-2">
               <p style="font-size: 13px" class="divider">
                 or
               </p>
-              <%- resource_class.omniauth_providers.each do |provider| %>
+              <% resource_class.omniauth_providers.each do |provider| %>
                 <%= link_to omniauth_authorize_path(resource_name, provider) do %>
                   <% if provider.to_s == 'linkedin' %>
                     <%= image_tag("btn_linkedin_signin.png", alt: "Sign in with LinkedIn", class: "signin-btn" ) %>
@@ -34,9 +34,9 @@
                     <%= image_tag("btn_google_signin.png", alt: "Sign in with Google", class: "signin-btn" ) %>
                   <% end %>
                 <% end %>
-              <% end -%>
+              <% end %>
             </div>
-          <% end -%>
+          <% end %>
         </div>
         <div class="login-form-bottom">
           <div>
