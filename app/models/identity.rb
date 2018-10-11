@@ -16,14 +16,22 @@ class Identity < ApplicationRecord
         developer_provider = Identity.create!(
           provider:auth.provider,
           uid:auth.uid,
-          developer_id: developer.id
+          developer_id: developer.id,
+          token: auth.credentials.token,
+          expires: auth.credentials.expires,
+          expires_at: auth.credentials.expires_at,
+          refresh_token: auth.credentials.refresh_token,
             )
         developer
       else
         Identity.create!(
           provider: auth.provider,
           uid: auth.uid,
-          developer_id: registered_developer.id
+          developer_id: registered_developer.id,
+          token: auth.credentials.token,
+          expires: auth.credentials.expires,
+          expires_at: auth.credentials.expires_at,
+          refresh_token: auth.credentials.refresh_token,
           )
         registered_developer
       end

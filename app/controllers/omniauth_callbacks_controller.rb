@@ -9,7 +9,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def generic_callback(provider_name)
-    if provider_name == "google_auth2"
+    if provider_name == "google_oauth2"
       provider = "Google"
     elsif provider_name == "linkedin"
       provider = "LinkedIn"
