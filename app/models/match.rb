@@ -17,6 +17,7 @@ class Match < ApplicationRecord
   delegate :full_name, to: :developer
   delegate :company_name, :company_url, :company_vetted?, to: :job
   delegate :title, to: :job, prefix: true
+  delegate :developer_location, to: :developer
 
   def match_is_valid?
     if !developer.active_matched_jobs.include?(job)
