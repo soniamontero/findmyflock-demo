@@ -2,9 +2,9 @@ class Identity < ApplicationRecord
   belongs_to :developer
 
   def self.find_for_oauth(auth)
-    identity = Identity.where(:provider => auth.provider, :uid => auth.uid).first
+    identity = Identity.where(provider: auth.provider, uid: auth.uid).first
     if identity.nil?
-      registered_developer = Developer.where(:email => auth.info.email).first
+      registered_developer = Developer.where(email: auth.info.email).first
       if registered_developer.nil?
         developer = Developer.create!(
           email: auth.info.email,
