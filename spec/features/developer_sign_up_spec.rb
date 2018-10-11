@@ -187,7 +187,7 @@ feature 'Developer sign up' do
       click_on 'Join'
       expect(page).to have_content 'CREATE YOUR JOB SEEKER ACCOUNT'
       linkedin_mock_auth_hash
-      all('#omniauth-btn')[1].click
+      find('a[href$="linkedin"]').click
       expect(page).to have_content("Successfully authenticated from LinkedIn account")
     end
   end
