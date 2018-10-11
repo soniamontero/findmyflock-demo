@@ -7,7 +7,7 @@
           <h4 class="centered mt-5 mb-4">Create your <strong>job seeker</strong> account</h4>
           <p class="mb-4">
             Are you a <strong>recruiter</strong>?
-            <%= link_to new_recruiter_session_path do %>
+            <%= link_to new_recruiter_registration_path do %>
               <strong>Sign up here</strong>
             <% end %>
           </p>
@@ -22,12 +22,12 @@
             </div>
           <% end %>
 
-          <%- if devise_mapping.omniauthable? %>
+          <% if devise_mapping.omniauthable? %>
             <div class="centered pb-3 pt-2">
               <p style="font-size: 13px" class="divider">
                 or
               </p>
-              <%- resource_class.omniauth_providers.each do |provider| %>
+              <% resource_class.omniauth_providers.each do |provider| %>
                 <%= link_to omniauth_authorize_path(resource_name, provider), id: "omniauth-btn" do %>
                   <% if provider.to_s == 'linkedin' %>
                     <%= image_tag("btn_linkedin_signin.png", alt: "Sign in with LinkedIn", class: "signin-btn" ) %>
