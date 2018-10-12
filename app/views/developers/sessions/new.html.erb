@@ -7,9 +7,9 @@
           <h4 class="centered mt-5 mb-4">Log in to your <strong>job seeker</strong> account</h4>
           <p class="mb-4">
             Are you a <strong>recruiter</strong>?
-            <%= link_to new_recruiter_session_path do %>
-              <strong>Log in here</strong>
-            <% end %>
+            <strong>
+              <%= link_to "Log in here", new_recruiter_session_path %>
+            </strong>
           </p>
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <%= f.input :email, required: false, autofocus: true, placeholder: 'Email', label: false %>

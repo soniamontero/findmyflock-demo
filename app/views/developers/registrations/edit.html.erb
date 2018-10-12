@@ -13,15 +13,15 @@
               <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
             <% end %>
 
-          <h5 class="mt-5 mb-4">Edit your password</h5>
-          <%= f.input :password, autocomplete: "off", hint: "Leave it blank if you don't want to change it", required: false, label: "New password" %>
-          <%= f.input :password_confirmation, required: false, label: "New password confirmation" %>
-          <br><hr/>
-          <%= f.input :current_password, hint: "We need your current password to confirm your changes", required: true%>
+            <h5 class="mt-5 mb-4">Edit your password</h5>
+            <%= f.input :password, autocomplete: "off", hint: "Leave it blank if you don't want to change it", required: false, label: "New password" %>
+            <%= f.input :password_confirmation, required: false, label: "New password confirmation" %>
+            <br><hr/>
+            <%= f.input :current_password, hint: "We need your current password to confirm your changes", required: true %>
 
-          <div class="text-center">
-            <%= f.button :submit, "Update", class: "btn-orange" %><br>
-          </div>
+            <div class="text-center">
+              <%= f.button :submit, "Update", class: "btn-orange" %><br>
+            </div>
           <% end %>
 
           <div class="delete-account">

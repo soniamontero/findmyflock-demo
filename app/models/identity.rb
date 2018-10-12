@@ -21,7 +21,7 @@ class Identity < ApplicationRecord
           expires: auth.credentials.expires,
           expires_at: auth.credentials.expires_at,
           refresh_token: auth.credentials.refresh_token,
-            )
+        )
         developer
       else
         Identity.create!(
@@ -32,7 +32,7 @@ class Identity < ApplicationRecord
           expires: auth.credentials.expires,
           expires_at: auth.credentials.expires_at,
           refresh_token: auth.credentials.refresh_token,
-          )
+        )
         registered_developer
       end
     else

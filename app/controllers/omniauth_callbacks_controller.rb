@@ -1,20 +1,13 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   def google_oauth2
-    generic_callback('google_oauth2')
+    authenticate_developer_with('Google')
   end
 
   def linkedin
-    generic_callback('linkedin')
+    authenticate_developer_with('LinkedIn')
   end
 
-  def generic_callback(provider_name)
-    if provider_name == "google_oauth2"
-      provider = "Google"
-    elsif provider_name == "linkedin"
-      provider = "LinkedIn"
-    end
-
+  def authenticate_developer_with(provider)
     @developer = Identity.find_for_oauth(request.env["omniauth.auth"])
 
     if @developer.persisted?
