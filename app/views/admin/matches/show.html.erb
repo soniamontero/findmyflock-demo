@@ -1,11 +1,12 @@
 <table class="table table-striped">
   <h4>Matches for <%= @job_title %> at <%= @job.company_name %></h4>
   <p>
-    <% if @job.remote == ["remote", "office"] %>
+    <% case @job.remote %>
+    <% when  ["remote", "office"]%>
       Remote and in-office job opportunity
-    <% elsif @job.remote == ["remote"] %>
+    <% when ["remote"] %>
       Remote job opportunity
-    <% elsif @job.remote == ["office"] %>
+    <% when ["office"] %>
       In-office job opportunity
     <% end %>
     located in <%= @job_location %>
@@ -30,11 +31,12 @@
         <td><%= match.developer_location %></td>
         <td><%= match.developer.distance_from(@job).round(0) %> miles</td>
         <td>
-          <% if match.developer.remote == ["remote", "office"] %>
+          <% case match.developer.remote %>
+          <% when ["remote", "office"] %>
             Remote and in-office jobs
-          <% elsif match.developer.remote == ["remote"] %>
+          <% when ["remote"] %>
             Remote jobs
-          <% elsif match.developer.remote == ["office"] %>
+          <% when ["office"] %>
             In-office jobs
           <% end %>
         </td>
