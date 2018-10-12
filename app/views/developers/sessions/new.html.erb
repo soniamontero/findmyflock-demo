@@ -15,28 +15,11 @@
             <%= f.input :email, required: false, autofocus: true, placeholder: 'Email', label: false %>
             <%= f.input :password, required: false, placeholder: 'Password', label: false %>
             <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-
             <div class="form-actions">
               <%= f.button :submit, "Log in", class: 'log-in-button' %>
             </div>
           <% end %>
-
-          <% if devise_mapping.omniauthable? %>
-            <div class="centered pb-3 pt-2">
-              <p style="font-size: 13px" class="divider">
-                or
-              </p>
-              <% resource_class.omniauth_providers.each do |provider| %>
-                <%= link_to omniauth_authorize_path(resource_name, provider) do %>
-                  <% if provider.to_s == 'linkedin' %>
-                    <%= image_tag("btn_linkedin_signin.png", alt: "Sign in with LinkedIn", class: "signin-btn" ) %>
-                  <% else %>
-                    <%= image_tag("btn_google_signin.png", alt: "Sign in with Google", class: "signin-btn" ) %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
+          <%= render "developers/shared/omniauth_buttons" %>
         </div>
         <div class="login-form-bottom">
           <div>
