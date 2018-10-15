@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class CustomMailer < ActionMailer::Base
   include SendGrid
-  include ActionView::Helpers::AssetUrlHelper
 
   def admin_contact_developer(developer_id, custom_text, custom_text_2)
     developer = Developer.find(developer_id)
@@ -10,14 +9,16 @@ class CustomMailer < ActionMailer::Base
     mail = Mail.new
     personalization = Personalization.new
     personalization.add_to(Email.new(email: developer.email))
+    # TODO: Delete this next line and the hash value below and instead do this:
+    # https://github.com/findmyflock/www/issues/215
+    header_image_url = ActionController::Base.helpers
+                       .image_url('FMF-Email-Header.png')
     personalization.add_dynamic_template_data({
       "custom_text" => custom_text,
       "custom_text_2" => custom_text_2,
       "jobs" => job_matches,
       "name" => developer.first_name,
-      # TODO: Delete this next line and instead do this:
-      # https://github.com/findmyflock/www/issues/215
-      "header_image_url" => image_url('FMF-Email-Header.png')
+      "header_image_url" => header_image_url
     })
 
     mail.template_id = ENV['SENDGRID_TEMPLATE']
