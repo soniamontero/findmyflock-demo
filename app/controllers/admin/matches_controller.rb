@@ -4,8 +4,11 @@ class Admin::MatchesController < Admin::BaseController
   end
 
   def show
-    @job_title = Job.find(params[:id]).title
-    @matches = Match.where(job_id: params[:id]).includes(:developer)
+    @job = Job.find(params[:id])
+    @job_title = @job.title
+    @job_location = "#{@job.city}, #{@job.state}, #{@job.country}"
+    matches_array = Match.where(job_id: params[:id]).includes(:developer)
+    @matches = matches_array.sort_by{|match| [ match.developer.distance_from(@job) ]}
   end
 
   def update

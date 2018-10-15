@@ -1,8 +1,23 @@
 <table class="table table-striped">
-  <h4>Matches for <%= @job_title %></h4>
+  <h4>Matches for <%= @job_title %> at <%= @job.company_name %></h4>
+  <p>
+    <% case @job.remote %>
+    <% when  ["remote", "office"]%>
+      Remote and in-office job opportunity
+    <% when ["remote"] %>
+      Remote job opportunity
+    <% when ["office"] %>
+      In-office job opportunity
+    <% end %>
+    located in <%= @job_location %>
+  </p>
   <thead>
     <tr>
       <th>Developer</th>
+      <th>Location</th>
+      <th>Distance</th>
+      <th>Interested in</th>
+      <th>Mobility</th>
       <th>Internal Status</th>
       <th>Date Changed</th>
       <th>Actions</th>
@@ -12,7 +27,26 @@
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= match.developer.full_name %></td>
+        <td><%= match.full_name %></td>
+        <td><%= match.developer_location %></td>
+        <td><%= match.developer.distance_from(@job).round(0) %> miles</td>
+        <td>
+          <% case match.developer.remote %>
+          <% when ["remote", "office"] %>
+            Remote and in-office jobs
+          <% when ["remote"] %>
+            Remote jobs
+          <% when ["office"] %>
+            In-office jobs
+          <% end %>
+        </td>
+        <td>
+          <% if match.developer.full_mobility? || match.developer.remote == ["remote"] %>
+              Full Mobility
+          <% else %>
+              <%= match.developer.mobility %> miles
+          <% end %>
+        </td>
         <td><%= render 'admin/shared/status_dropdown', match: match %></td>
         <td><%= match.updated_at.to_date %></td>
         <td><%= link_to "See developer", admin_developer_path(match.developer) %></td>
