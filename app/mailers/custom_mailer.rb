@@ -13,7 +13,10 @@ class CustomMailer < ActionMailer::Base
       "custom_text" => custom_text,
       "custom_text_2" => custom_text_2,
       "jobs" => job_matches,
-      "name" => developer.first_name
+      "name" => developer.first_name,
+      # TODO: Delete this next line and instead do this:
+      # https://github.com/findmyflock/www/issues/215
+      "header_image_url" => image_url('FMF-Email-Header.png')
     })
 
     mail.template_id = ENV['SENDGRID_TEMPLATE']
