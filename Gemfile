@@ -32,6 +32,9 @@ gem 'rubocop', '~> 0.58.2', require: false
 gem 'gibbon'
 gem 'sanitize'
 
+gem 'omniauth-google-oauth2'
+gem 'omniauth-linkedin-oauth2'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'

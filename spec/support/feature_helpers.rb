@@ -16,6 +16,30 @@ module FeatureHelpers
   end
 end
 
+def google_mock_auth_hash
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    info: {
+      email: 'mockuser@gmail.com'
+    },
+    credentials: {
+      token: 'abcdefg12345'
+    }
+  })
+end
+
+def linkedin_mock_auth_hash
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:linkedin] = OmniAuth::AuthHash.new({
+    info: {
+      email: 'mockuser@gmail.com'
+    },
+    credentials: {
+      token: 'abcdefg12345'
+    }
+  })
+end
+
 RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
 end

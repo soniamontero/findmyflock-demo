@@ -5,18 +5,21 @@
         <%= render "developers/shared/tab_nav" %>
         <div class="login-form">
           <h4 class="centered mt-5 mb-4">Log in to your <strong>job seeker</strong> account</h4>
-          <p class="mb-4">Are you a <strong>recruiter</strong>? <%= link_to "Log in here", new_recruiter_session_path %></p>
-
+          <p class="mb-4">
+            Are you a <strong>recruiter</strong>?
+            <strong>
+              <%= link_to "Log in here", new_recruiter_session_path %>
+            </strong>
+          </p>
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <%= f.input :email, required: false, autofocus: true, placeholder: 'Email', label: false %>
-          <%= f.input :password, required: false, placeholder: 'Password', label: false %>
-          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-
-          <div class="form-actions">
-            <%= f.button :submit, "Log in", class: 'log-in-button' %>
-          </div>
+            <%= f.input :email, required: false, autofocus: true, placeholder: 'Email', label: false %>
+            <%= f.input :password, required: false, placeholder: 'Password', label: false %>
+            <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+            <div class="form-actions">
+              <%= f.button :submit, "Log in", class: 'log-in-button' %>
+            </div>
           <% end %>
-
+          <%= render "developers/shared/omniauth_buttons" %>
         </div>
         <div class="login-form-bottom">
           <div>
