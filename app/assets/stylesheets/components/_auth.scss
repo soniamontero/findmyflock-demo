@@ -83,6 +83,25 @@
   padding-right: 15%;
 }
 
+.divider {
+  position: relative;
+}
+
+.divider:before, .divider:after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  border-top: 1px solid #e4e8eb;
+}
+
+.divider:before {
+  left: 0px;
+}
+
+.divider:after {
+  right: 0px;
+}
 
 @media (max-width: 800px) {
   .inside-login-form {
@@ -93,8 +112,8 @@
 
 .log-in-button {
   @extend .btn-orange;
-  margin-bottom: 3vh;
-  margin-top: 3vh;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
 }
 
 .submit-privacy {

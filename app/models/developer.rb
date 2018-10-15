@@ -2,10 +2,9 @@ class Developer < ApplicationRecord
   has_many :matches, dependent: :destroy
   has_many :skills, as: :skillable, dependent: :destroy
   has_many :applications, through: :matches
+  has_many :identities, dependent: :destroy
   has_one_attached :avatar
   has_many_attached :resumes
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
   geocoded_by :developer_location
   before_validation :email_downcase
   after_validation :geocode, on: :update
@@ -17,6 +16,10 @@ class Developer < ApplicationRecord
   before_update :check_coordinates, if: :city_changed?
   before_update :set_mobility
   after_save :subscribe_developer_to_mailing_list
+
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable, :confirmable, :omniauthable,
+         omniauth_providers: [:google_oauth2, :linkedin]
 
   scope :all_remote, -> { where("'remote' = ANY (remote)") }
   scope :all_office, -> { where("'office' = ANY (remote)") }

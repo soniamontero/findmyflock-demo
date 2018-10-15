@@ -171,4 +171,24 @@ feature 'Developer sign up' do
     expect(page).to have_content "Change your password"
     expect(page).to have_content "confirm your email"
   end
+
+  context 'a new developer can sign up via omniauth' do
+    scenario 'with google' do
+      visit root_path
+      click_on 'Join'
+      expect(page).to have_content 'Create your job seeker account'
+      google_mock_auth_hash
+      find('a[href$="google_oauth2"]').click
+      expect(page).to have_content("Successfully authenticated from Google account")
+    end
+
+    scenario 'with linkedin' do
+      visit root_path
+      click_on 'Join'
+      expect(page).to have_content 'Create your job seeker account'
+      linkedin_mock_auth_hash
+      find('a[href$="linkedin"]').click
+      expect(page).to have_content("Successfully authenticated from LinkedIn account")
+    end
+  end
 end

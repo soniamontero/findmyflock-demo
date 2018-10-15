@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_151544) do
+ActiveRecord::Schema.define(version: 2018_10_11_022105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -129,6 +129,19 @@ ActiveRecord::Schema.define(version: 2018_10_05_151544) do
     t.boolean "receives_matches_notifications", default: true
     t.index ["email"], name: "index_developers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_developers_on_reset_password_token", unique: true
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.bigint "developer_id"
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "token"
+    t.integer "expires_at"
+    t.boolean "expires"
+    t.string "refresh_token"
+    t.index ["developer_id"], name: "index_identities_on_developer_id"
   end
 
   create_table "jobs", force: :cascade do |t|
