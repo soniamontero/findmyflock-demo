@@ -9,16 +9,11 @@ class CustomMailer < ActionMailer::Base
     mail = Mail.new
     personalization = Personalization.new
     personalization.add_to(Email.new(email: developer.email))
-    # TODO: Delete this next line and the hash value below and instead do this:
-    # https://github.com/findmyflock/www/issues/215
-    header_image_url = ActionController::Base.helpers
-                       .image_url('FMF-Email-Header.png')
     personalization.add_dynamic_template_data({
       "custom_text" => custom_text,
       "custom_text_2" => custom_text_2,
       "jobs" => job_matches,
-      "name" => developer.first_name,
-      "header_image_url" => header_image_url
+      "name" => developer.first_name
     })
 
     mail.template_id = ENV['SENDGRID_TEMPLATE']
