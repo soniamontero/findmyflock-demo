@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class CustomMailer < ActionMailer::Base
   include SendGrid
+  include ActionView::Helpers::AssetUrlHelper
 
   def admin_contact_developer(developer_id, custom_text, custom_text_2)
     developer = Developer.find(developer_id)
