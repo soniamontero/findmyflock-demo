@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.6.5'
+ruby '~> 2.4.4'
 gem 'rails', '~> 5.2.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
@@ -60,7 +60,6 @@ group :development do
 end
 
 group :test do
-  gem 'factory_bot_rails', '~> 4.10.0'
   gem 'capybara', '~> 3.6'
   gem 'capybara-email'
   gem 'selenium-webdriver'
