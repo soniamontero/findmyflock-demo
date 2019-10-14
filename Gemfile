@@ -60,6 +60,7 @@ group :development do
 end
 
 group :test do
+  gem 'factory_bot_rails', '~> 4.10.0'
   gem 'capybara', '~> 3.6'
   gem 'capybara-email'
   gem 'selenium-webdriver'
