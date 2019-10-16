@@ -1026,14 +1026,16 @@ when "development"
     r = Recruiter.new(
       email: Faker::Internet.email,
       password: "password",
+      password_confirmation: "password",
       company: Company.all.sample,
       confirmed_at: Time.now.utc
     )
     r.save validate: false
   end
   r = Recruiter.new(
-    email: 'recruiter@example.com',
+    email: 'recruiter@recruiter.com',
     password: "password",
+    password_confirmation: "password",
     company: Company.all.sample,
     confirmed_at: Time.now.utc
   )
@@ -1120,7 +1122,7 @@ when "development"
   end
 
   dev = Developer.new(
-    email: "dev@example.com",
+    email: "developer@developer.com",
     password: "password",
     password_confirmation: 'password',
     first_name: Faker::Name.first_name,
