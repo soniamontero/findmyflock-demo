@@ -1152,7 +1152,7 @@ when "development"
 
   Admin.create!(
     email: "admin@findmyflock.com",
-    password: 'password'
+    password: 'password',
     password_confirmation: 'password'
   )
 
