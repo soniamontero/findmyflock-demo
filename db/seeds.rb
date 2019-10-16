@@ -1068,7 +1068,7 @@ when "development"
       i = rand(0..3)
       job = Job.new(
         title: Faker::Company.profession,
-        description: Faker::Lorem.paragraph(2, false, 4),
+        description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
         remote: remote.sample,
         city: PLACES[i][:city],
         state: PLACES[i][:state],
@@ -1078,7 +1078,7 @@ when "development"
         longitude: nil,
         benefits: benefits,
         cultures: cultures,
-        can_sponsor: Faker::Boolean.boolean(0.2),
+        can_sponsor: Faker::Boolean.boolean(true_ratio: 0.2),
         company: company
       )
       if job.save
@@ -1100,7 +1100,7 @@ when "development"
       city: 'Los Angeles',
       state: 'CA',
       country: 'United States',
-      need_us_permit: Faker::Boolean.boolean(0.2),
+      need_us_permit: Faker::Boolean.boolean(true_ratio: 0.2),
       min_salary: salary = [10_000, 20_000, 30_000].sample,
       remote: [['remote'], ['office'], %w[remote office]].sample,
     )
@@ -1153,8 +1153,10 @@ when "development"
   Admin.create!(
     email: "admin@findmyflock.com",
     password: 'password'
+    password_confirmation: 'password'
   )
 
+p Rails.application.credentials.admin_password
 when 'production'
   Admin.create!(
     email: "info@findmyflock.com",
