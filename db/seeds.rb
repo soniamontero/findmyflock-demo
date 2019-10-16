@@ -1013,150 +1013,12 @@ p "Created #{Culture.all.count} cultures"
 
 case Rails.env
 when "development"
-  5.times do
-    company = Company.create(
-      url: Faker::Internet.url,
-      name: Faker::Company.name,
-      industry: Faker::Company.industry
-    )
-    puts "created company #{company.name}"
-  end
-
-  5.times do
-    r = Recruiter.new(
-      email: Faker::Internet.email,
-      password: "password",
-      password_confirmation: "password",
-      company: Company.all.sample,
-      confirmed_at: Time.now.utc
-    )
-    r.save validate: false
-  end
-  r = Recruiter.new(
-    email: 'recruiter@recruiter.com',
-    password: "password",
-    password_confirmation: "password",
-    company: Company.all.sample,
-    confirmed_at: Time.now.utc
-  )
-  r.save validate: false
-
-  PLACES = [
-    {city: "Los Angeles", state: "CA", country: "United States"},
-    {city: "Chicago", state: "MI", country: "United States"},
-    {city: "New York", state: "NY", country: "United States"},
-    {city: "San Francisco", state: "CA", country: "United States"}
-  ]
-
-  Company.all.each do |company|
-    # FactoryBot.create :subscriber, company: company
-    15.times do
-      cultures = []
-      benefits = []
-      skills = []
-      remote = [['remote'], ['office'], %w[remote office]]
-      salary = [10_000, 20_000, 30_000, 40_000, 50_000, 60_000]
-
-      rand(2..5).times do
-        cultures << Culture.find(rand(1..Culture.count)).value
-      end
-      rand(2..5).times do
-        benefits << Benefit.find(rand(1..Benefit.count)).value
-      end
-
-      i = rand(0..3)
-      job = Job.new(
-        title: Faker::Company.profession,
-        description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
-        remote: remote.sample,
-        city: PLACES[i][:city],
-        state: PLACES[i][:state],
-        country: PLACES[i][:country],
-        employment_type: EMPLOYMENT_TYPE.sample,
-        latitude: nil,
-        longitude: nil,
-        benefits: benefits,
-        cultures: cultures,
-        can_sponsor: Faker::Boolean.boolean(true_ratio: 0.2),
-        company: company
-      )
-      if job.save
-        puts "created job #{job.title}"
-        job.skills.new(name: Competence.all.sample.value, level: rand(1..4)).save
-      end
-    end
-
-  end
-
-  p "Creating Developers"
-
-  5.times do
-    dev = Developer.new(
-      email: Faker::Internet.email,
-      password: 'password',
-      password_confirmation: 'password',
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      city: 'Los Angeles',
-      state: 'CA',
-      country: 'United States',
-      need_us_permit: Faker::Boolean.boolean(true_ratio: 0.2),
-      min_salary: salary = [10_000, 20_000, 30_000].sample,
-      remote: [['remote'], ['office'], %w[remote office]].sample,
-    )
-    dev.skip_confirmation!
-    dev.save validate: false
-    p "Developer created: #{dev.email}"
-    3.times do
-      skill = dev.skills.new(name: Competence.all.sample.value, level: rand(3..5))
-      skill.save
-    end
-    p "3 skills added"
-  end
-
-  5.times do
-    Application.create(
-      match: Match.all.sample,
-      message: Faker::Lorem.paragraph
-    )
-  end
-
-  dev = Developer.new(
-    email: "developer@developer.com",
-    password: "password",
-    password_confirmation: 'password',
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    city: 'New York',
-    state: 'NY',
-    country: 'United States',
-    need_us_permit: false,
-    min_salary: 10_000,
-    remote:  ["remote", "office"]
-  )
-  dev.skip_confirmation!
-  dev.save validate: false
-
-  p "adding 40 skills"
-  40.times do
-    dev = Developer.last.skills.new(name: Competence.all.sample.value, level: rand(3..5))
-    dev.save
-  end
-
-  p "Create matches"
-  Developer.all.each do |developer|
-    developer.active_matched_jobs.each do |job|
-      Match.create(developer_id: developer.id, job_id: job.id)
-    end
-  end
-
   Admin.create!(
     email: "admin@findmyflock.com",
     password: 'password',
     password_confirmation: 'password'
   )
 
-p Rails.application.credentials.admin_password
 when 'production'
   Admin.create!(
     email: "info@findmyflock.com",
@@ -1164,6 +1026,144 @@ when 'production'
     password_confirmation: Rails.application.credentials.admin_password
   )
 end
+
+5.times do
+  company = Company.create(
+    url: Faker::Internet.url,
+    name: Faker::Company.name,
+    industry: Faker::Company.industry
+  )
+  puts "created company #{company.name}"
+end
+
+5.times do
+  r = Recruiter.new(
+    email: Faker::Internet.email,
+    password: "password",
+    password_confirmation: "password",
+    company: Company.all.sample,
+    confirmed_at: Time.now.utc
+  )
+  r.save validate: false
+end
+r = Recruiter.new(
+  email: 'recruiter@recruiter.com',
+  password: "password",
+  password_confirmation: "password",
+  company: Company.all.sample,
+  confirmed_at: Time.now.utc
+)
+r.save validate: false
+
+PLACES = [
+  {city: "Los Angeles", state: "CA", country: "United States"},
+  {city: "Chicago", state: "MI", country: "United States"},
+  {city: "New York", state: "NY", country: "United States"},
+  {city: "San Francisco", state: "CA", country: "United States"}
+]
+
+Company.all.each do |company|
+  # FactoryBot.create :subscriber, company: company
+  15.times do
+    cultures = []
+    benefits = []
+    skills = []
+    remote = [['remote'], ['office'], %w[remote office]]
+    salary = [10_000, 20_000, 30_000, 40_000, 50_000, 60_000]
+
+    rand(2..5).times do
+      cultures << Culture.find(rand(1..Culture.count)).value
+    end
+    rand(2..5).times do
+      benefits << Benefit.find(rand(1..Benefit.count)).value
+    end
+
+    i = rand(0..3)
+    job = Job.new(
+      title: Faker::Company.profession,
+      description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
+      remote: remote.sample,
+      city: PLACES[i][:city],
+      state: PLACES[i][:state],
+      country: PLACES[i][:country],
+      employment_type: EMPLOYMENT_TYPE.sample,
+      latitude: nil,
+      longitude: nil,
+      benefits: benefits,
+      cultures: cultures,
+      can_sponsor: Faker::Boolean.boolean(true_ratio: 0.2),
+      company: company
+    )
+    if job.save
+      puts "created job #{job.title}"
+      job.skills.new(name: Competence.all.sample.value, level: rand(1..4)).save
+    end
+  end
+
+end
+
+p "Creating Developers"
+
+5.times do
+  dev = Developer.new(
+    email: Faker::Internet.email,
+    password: 'password',
+    password_confirmation: 'password',
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    city: 'Los Angeles',
+    state: 'CA',
+    country: 'United States',
+    need_us_permit: Faker::Boolean.boolean(true_ratio: 0.2),
+    min_salary: salary = [10_000, 20_000, 30_000].sample,
+    remote: [['remote'], ['office'], %w[remote office]].sample,
+  )
+  dev.skip_confirmation!
+  dev.save validate: false
+  p "Developer created: #{dev.email}"
+  3.times do
+    skill = dev.skills.new(name: Competence.all.sample.value, level: rand(3..5))
+    skill.save
+  end
+  p "3 skills added"
+end
+
+5.times do
+  Application.create(
+    match: Match.all.sample,
+    message: Faker::Lorem.paragraph
+  )
+end
+
+dev = Developer.new(
+  email: "developer@developer.com",
+  password: "password",
+  password_confirmation: 'password',
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  city: 'New York',
+  state: 'NY',
+  country: 'United States',
+  need_us_permit: false,
+  min_salary: 10_000,
+  remote:  ["remote", "office"]
+)
+dev.skip_confirmation!
+dev.save validate: false
+
+p "adding 40 skills"
+40.times do
+  dev = Developer.last.skills.new(name: Competence.all.sample.value, level: rand(3..5))
+  dev.save
+end
+
+p "Create matches"
+Developer.all.each do |developer|
+  developer.active_matched_jobs.each do |job|
+    Match.create(developer_id: developer.id, job_id: job.id)
+  end
+end
+
 
 Plan.create(name: "1 Job Posting", stripe_id: "1-job", display_price: (3999.to_f / 100))
 Plan.create(name: "3 Job Postings", stripe_id: "3-jobs", display_price: (9999.to_f / 100))
