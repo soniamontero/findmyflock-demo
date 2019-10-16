@@ -1050,7 +1050,6 @@ when "development"
 
   Company.all.each do |company|
     # FactoryBot.create :subscriber, company: company
-
     15.times do
       cultures = []
       benefits = []
