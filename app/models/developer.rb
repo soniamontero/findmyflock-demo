@@ -3,7 +3,10 @@ class Developer < ApplicationRecord
   has_many :skills, as: :skillable, dependent: :destroy
   has_many :applications, through: :matches
   has_many :identities, dependent: :destroy
-  has_one_attached :avatar
+
+  mount_uploader :photo, PhotoUploader
+
+  # has_one_attached :avatar
   has_many_attached :resumes
   geocoded_by :developer_location
   before_validation :email_downcase

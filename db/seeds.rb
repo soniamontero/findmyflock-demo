@@ -1,4 +1,4 @@
-require 'factory_bot_rails'
+# require 'factory_bot_rails'
 
 SKILLS = [
   'AR', 'VR', 'Cybersecurity', 'Management', 'Kubernetes', 'Docker', 'Architecture', 'Mentorship',
