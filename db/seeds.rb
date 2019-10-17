@@ -1015,8 +1015,8 @@ case Rails.env
 when "development"
   Admin.create!(
     email: "admin@findmyflock.com",
-    password: 'password',
-    password_confirmation: 'password'
+    password: Rails.application.credentials.admin_password,
+    password_confirmation: Rails.application.credentials.admin_password
   )
 
 when 'production'
@@ -1031,7 +1031,8 @@ end
   company = Company.create(
     url: Faker::Internet.url,
     name: Faker::Company.name,
-    industry: Faker::Company.industry
+    industry: Faker::Company.industry,
+    vetted: true
   )
   puts "created company #{company.name}"
 end
@@ -1039,17 +1040,18 @@ end
 5.times do
   r = Recruiter.new(
     email: Faker::Internet.email,
-    password: "password",
-    password_confirmation: "password",
+    password: Rails.application.credentials.recruiter_password,
+    password_confirmation: Rails.application.credentials.recruiter_password,
     company: Company.all.sample,
     confirmed_at: Time.now.utc
   )
   r.save validate: false
 end
+
 r = Recruiter.new(
   email: 'recruiter@recruiter.com',
-  password: "password",
-  password_confirmation: "password",
+  password: Rails.application.credentials.recruiter_password,
+  password_confirmation: Rails.application.credentials.recruiter_password,
   company: Company.all.sample,
   confirmed_at: Time.now.utc
 )
@@ -1062,7 +1064,44 @@ PLACES = [
   {city: "San Francisco", state: "CA", country: "United States"}
 ]
 
+Plan.create(name: "1 Job Posting", stripe_id: "1-job", display_price: (3999.to_f / 100))
+Plan.create(name: "3 Job Postings", stripe_id: "3-jobs", display_price: (9999.to_f / 100))
+
+begin
+  basic_plan = Stripe::Plan.create(
+    amount: 3999,
+    interval: "month",
+    product: {
+      name: "1 Job"
+    },
+    currency: "usd",
+    id: "1-job"
+  )
+  gold_plan = Stripe::Plan.create(
+    amount: 9999,
+    interval: "month",
+    product: {
+      name: "3 Jobs"
+    },
+    currency: "usd",
+    id: "3-jobs"
+  )
+rescue
+  puts 'Plans already exist on Stripe'
+end
+
 Company.all.each do |company|
+  number = 1
+  Subscriber.create!(
+    stripe_customer_id: number,
+    stripe_subscription_id: number,
+    subscribed_at: Date.today,
+    subscription_expires_at: Date.today + 36500,
+    plan_id: 2,
+    status: 'active',
+    company_id: company.id
+  )
+  number += 1
   # FactoryBot.create :subscriber, company: company
   15.times do
     cultures = []
@@ -1107,8 +1146,8 @@ p "Creating Developers"
 5.times do
   dev = Developer.new(
     email: Faker::Internet.email,
-    password: 'password',
-    password_confirmation: 'password',
+    password: Rails.application.credentials.developer_password,
+    password_confirmation: Rails.application.credentials.developer_password,
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     city: 'Los Angeles',
@@ -1137,8 +1176,8 @@ end
 
 dev = Developer.new(
   email: "developer@developer.com",
-  password: "password",
-  password_confirmation: 'password',
+  password: Rails.application.credentials.developer_password,
+  password_confirmation: Rails.application.credentials.developer_password,
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
   city: 'New York',
@@ -1165,28 +1204,3 @@ Developer.all.each do |developer|
 end
 
 
-Plan.create(name: "1 Job Posting", stripe_id: "1-job", display_price: (3999.to_f / 100))
-Plan.create(name: "3 Job Postings", stripe_id: "3-jobs", display_price: (9999.to_f / 100))
-
-begin
-  basic_plan = Stripe::Plan.create(
-    amount: 3999,
-    interval: "month",
-    product: {
-      name: "1 Job"
-    },
-    currency: "usd",
-    id: "1-job"
-  )
-  gold_plan = Stripe::Plan.create(
-    amount: 9999,
-    interval: "month",
-    product: {
-      name: "3 Jobs"
-    },
-    currency: "usd",
-    id: "3-jobs"
-  )
-rescue
-  puts 'Plans already exist on Stripe'
-end

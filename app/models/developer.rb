@@ -4,11 +4,11 @@ class Developer < ApplicationRecord
   has_many :applications, through: :matches
   has_many :identities, dependent: :destroy
 
-  # mount_uploader :photo, PhotoUploader
-
   has_one_attached :avatar
   has_many_attached :resumes
+
   geocoded_by :developer_location
+
   before_validation :email_downcase
   after_validation :geocode, on: :update
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
@@ -115,7 +115,6 @@ class Developer < ApplicationRecord
     end
 
     jobs = need_us_permit ? jobs.can_sponsor : jobs
-
     jobs.match_skills_type(skills_array)
   end
 

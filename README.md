@@ -51,7 +51,7 @@ Run the development server and test suite to verify successful deployment. [See 
 ### Development server
 - `bundle exec rails server`
 - View site at `http://localhost:3000/`
-- Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password`
+- Use test accounts: `dev@example.com`, `recruiter@example.com`, and `admin@findmyflock.com` with password `password` (to update).
 
 ### Testing
 - Install Chromedriver:
