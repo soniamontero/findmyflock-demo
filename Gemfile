@@ -23,7 +23,7 @@ gem 'mini_magick'
 gem 'aws-sdk-s3', require: false
 gem 'turbolinks', '~> 5.2'
 gem 'cloudinary', '~> 1.9.1'
-gem 'carrierwave', '~> 1.2'
+gem 'carrierwave', '~> 1.3'
 
 # go back to versions once sendgrid-ruby is above 5.2.0 and add_dynamic_template_data is included
 gem 'sendgrid-ruby', :git => 'https://github.com/sendgrid/sendgrid-ruby', :ref => 'a93d7120'
